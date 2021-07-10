@@ -10,6 +10,7 @@ Created on Thu Jul  8 18:11:05 2021
 from tkinter import font
 import tkinter as tk
 from ExampleGUI import MyApp
+import os
 # from subprocess import Popen
 # import os
 
@@ -94,15 +95,12 @@ def changeG():
 G_button = tk.Button(root,text='Change Constants',command=changeG)
 G_button.place(relx=0.75, rely=0.4, anchor="center")
 
+def runfile():
+    os.system('python TestExecutable.py')
+
+Executefile_btn = tk.Button(root, text="Run rando file", command=runfile)
+Executefile_btn.place(relx=0.5, rely=0.9)
+
 app = MyApp(root)
 
-
-
-
 root.mainloop()
-
-print("The Planets chosen are:", planets)
-
-print("G is: ", G)
-
-print(a)
