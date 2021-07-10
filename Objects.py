@@ -17,6 +17,8 @@ Created on Thu Dec 17 21:09:45 2020
 import numpy as np
 import time
 
+a = 1000
+
 class Objects():
 
     position = np.full((1, 3), 0)
