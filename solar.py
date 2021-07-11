@@ -1,23 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec 28 10:49:11 2020
-
-@author: harry
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 25 00:17:37 2020
-
-@author: harry
-"""
-
 from Objects import Objects
 import numpy as np
-from scipy.integrate import solve_ivp
 import scipy
+from scipy.integrate import solve_ivp
 from time import sleep
 
 G = scipy.constants.G

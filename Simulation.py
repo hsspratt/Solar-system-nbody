@@ -238,7 +238,9 @@ init_params=np.hstack((planets_pos, planets_vel))
 # %% Solve the equation for Gravity for the n body system
 
 # ## Run the solve_ivp solver
-three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N), max_step=max_steps)
+K1 = 1
+K2 = 1
+three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2), max_step=max_steps)
 iterations = len(three_body_sol['t']) # Find how many values of t were used
 
 

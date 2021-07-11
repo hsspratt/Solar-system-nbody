@@ -1,23 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec 28 10:45:45 2020
-
-@author: harry
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Dec 17 21:09:45 2020
-
-@author: harry
-"""
-
 import numpy as np
 import time
-
-a = 1000
 
 class Objects():
 

@@ -96,7 +96,7 @@ G_button = tk.Button(root,text='Change Constants',command=changeG)
 G_button.place(relx=0.75, rely=0.4, anchor="center")
 
 def runfile():
-    os.system('python TestExecutable.py')
+    os.system('python TestSimulation.py')
 
 Executefile_btn = tk.Button(root, text="Run rando file", command=runfile)
 Executefile_btn.place(relx=0.5, rely=0.9)

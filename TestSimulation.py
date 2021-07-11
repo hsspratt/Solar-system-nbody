@@ -11,37 +11,98 @@ import scipy as sci
 import time
 import matplotlib as mpl
 import random
-
-# import NGUI
-
 mpl.rcParams['animation.ffmpeg_path'] = r'/Users/harry/Desktop/Desktop – Harry’s MacBook Pro/Quick N-Body/ffmpeg'
 
 # %% Initialising all the planets, suns and objects that could be used in the simulation
 
 """ Using the objects class to input alol the initial variables and initiliase the planets """
 
-Star1 = Objects('Star1',
-                1.1,
-                np.array([-0.5,0,0]),
-                np.array([0.01,0.01,0]),
+au = 149597870.700e3
+v_factor = 1731460
+maxint = (4*au)**(1/2)
+
+Sun = Objects('Sun',
+              1988500e24,
+              np.array([-6.534087946884256E-03, 6.100454846284101E-03, 1.019968145073305E-04]),
+              np.array([-6.938967653087248E-06, -5.599052606952444E-06, 2.173251724105919E-07]),
+              np.array([0,0,0]))
+
+Earth = Objects('Earth',
+                5.97219e24,
+                np.array([1.103149414301009E-01, 9.834091037591375E-01, 5.617876135133732E-05]),
+                np.array([-1.737759726478284E-02, 1.972610167033268E-03, 8.664696160974217E-07]),
+                np.array([0,0,0]))
+
+Moon = Objects('Moon',
+                7.349e22,
+                np.array([1.102098327438270E-01, 9.809689058999859E-01, 2.529448125222282E-05]),
+                np.array([-1.675883798190850E-02, 1.924205370134019E-03, -5.631205054459148E-05]),
+                np.array([0,0,0]))
+
+Jupiter = Objects('Jupiter',
+                  1898.13e24,
+                  np.array([2.932487231769548E+00, -4.163444383137574E+00, -4.833604407653648E-02]),
+                  np.array([6.076788230491844E-03, 4.702729516645153E-03, -1.554436340872727E-04]),
+                  np.array([0,0,0]))
+
+Mars = Objects('Mars',
+               6.4171e23,
+               np.array([8.134621210079180E-01, 1.246863741423589E+00, 5.988005015395813E-03]),
+               np.array([-1.115056230684616E-02, 8.900864244780916E-03, 4.602296502333571E-04]),
+               np.array([0,0,0]))
+
+Venus = Objects('Venus',
+               48.685e23,
+               np.array([-6.617430552711726E-01, -2.949635370329196E-01, 3.377990088634703E-02]),
+               np.array([8.298887450533079E-03, -1.847842625652145E-02, -7.325856707752017E-04]),
+               np.array([0,0,0]))
+
+Mercury = Objects('Mercury',
+               3.302e23,
+               np.array([-1.327900416813791E-01, -4.423196833692000E-01, -2.495947572187113E-02]),
+               np.array([2.142560067381590E-02, -6.223078359939026E-03, -2.473884150860611E-03]),
+               np.array([0,0,0]))
+
+Saturn = Objects('Saturn',
+               5.6834e26,
+               np.array([5.409527551219896E+00, -8.387647661909122E+00, -6.952095229728303E-02]),
+               np.array([4.377905875627875E-03, 3.010222250503800E-03, -2.269189986953596E-04]),
+               np.array([0,0,0]))
+
+Neptune = Objects('Neptune',
+               5.6834e26,
+               np.array([5.409527551219896E+00, -8.387647661909122E+00, -6.952095229728303E-02]),
+               np.array([4.377905875627875E-03, 3.010222250503800E-03, -2.269189986953596E-04]),
+               np.array([0,0,0]))
+
+Uranus = Objects('Uranus',
+               86.813e24,
+               np.array([1.538595512099490E+01, 1.241875975077764E+01, -1.532033630108008E-01]),
+               np.array([-2.499218584280511E-03, 2.877287547390077E-03, 4.308752491196167E-05]),
+               np.array([0,0,0]))
+
+star1 = Objects('Star1',
+                (5/3)*5e28,
+                np.array([1.103149414301009E-01, 9.834091037591375E-01, 5.617876135133732E-05]),
+                np.array([-1.737759726478284E-02, 1.972610167033268E-03, 8.664696160974217E-07]),
                 np.array([0,0,0]))
 
 Star2 = Objects('Star2',
-               0.907,
-               np.array([0.5,0,0]),
-               np.array([-0.05,0,-0.1]),
+               (4/3)*5e27,
+               np.array([1.538595512099490E+01, 1.241875975077764E+01, -1.532033630108008E-01]),
+               np.array([-2.499218584280511E-03, 2.877287547390077E-03, 4.308752491196167E-05]),
                np.array([0,0,0]))
 
 Star3 = Objects('Star3',
-               1.0,
-               np.array([0,1,0]),
-               np.array([0,-0.01,0]),
+               (5/3)*5e27,
+               np.array([-6.617430552711726E-01, -2.949635370329196E-01, 3.377990088634703E-02]),
+               np.array([8.298887450533079E-03, -1.847842625652145E-02, -7.325856707752017E-04]),
                np.array([0,0,0]))
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
-objects = [Star1, Star2, Star3]
-solarsystem = TestSolarSystem(objects)
 
+objects = Planets# [Sun, Mars, Venus, Mercury, Earth] # [Sun, Earth, Mars, Venus, Mercury] # , Jupiter,Saturn,Neptune,Uranus]
+solarsystem = TestSolarSystem(objects)
 
 # %% Define constants
 start=time.time()
@@ -55,39 +116,16 @@ for the simulation which can be adjusted, and the number of iterations
 G = 6.67408e-11
 
 # Reference quantities
-# =============================================================================
-# au = 149597870.700e3
-# v_factor = 1731460
-# year_s = 31557600.e0
-# =============================================================================
+au = 149597870.700e3
+v_factor = 1731460
+year_s = 31557600.e0
 
-# =============================================================================
-# m_nd=1988500e24 #kg #mass of the sun
-# r_nd=au #m #distance between stars in Alpha Centauri
-# v_nd=30000 #m/s #relative velocity of earth around the sun
-# t_nd=1*365*24*3600 #s #orbital period of Alpha Centauri
-# =============================================================================
-
-m_nd=1.989e+30 #kg
-r_nd=5.326e+12 #m
-v_nd=30000 #m/s
-t_nd=79.91*365*24*3600*0.51 #s
-
-#Net constants
-K1=G*t_nd*m_nd/(r_nd**2*v_nd)
-K2=v_nd*t_nd/r_nd
-
-# =============================================================================
-# K1=G*t_nd*m_nd/(r_nd**2*v_nd)
-# K2=v_nd*t_nd/r_nd
-#
-# =============================================================================
 # Define times
 tStart = 0e0
-years = 20
-iterations = 35000
-t_End = years
-max_steps = t_End/(iterations)
+years = 350
+iterations = 31500
+t_End = years*year_s
+max_steps = t_End/iterations
 t=tStart
 domain = (t, t_End)
 
@@ -97,14 +135,14 @@ mass = np.full((1, 1), 0, dtype=float)
 
 N = len(objects) # Find the number of objects in the Solar list
 
-planets_initial_non = np.full([N, 6],0, dtype=float)
+planets_initial = np.full([N, 6],0, dtype=float)
 
 # Creates an array for all the particles used so that the initial positions and velocities are know
 for i in range(len(solarsystem.planets)):
-    planets_initial_non[i] = solarsystem.planets[i].init_non
+    planets_initial[i] = solarsystem.planets[i].init
 
-planets_pos = planets_initial_non[:,0:3]
-planets_vel = planets_initial_non[:,3:6]
+planets_pos = planets_initial[:,0:3]
+planets_vel = planets_initial[:,3:6]
 
 # Create an array with all the masses
 planets_mass = np.full((N, 1),0, dtype=float)
@@ -133,7 +171,7 @@ init_params=np.hstack((planets_pos, planets_vel))
 # %% Solve the equation for Gravity for the n body system
 
 # ## Run the solve_ivp solver
-three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2),max_step=max_steps)
+three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N), max_step=max_steps)
 iterations = len(three_body_sol['t']) # Find how many values of t were used
 
 
@@ -174,33 +212,31 @@ ax=fig.add_subplot(111,projection="3d")
 #to reduce the number of points in the animation if it becomes slow
 #Currently set to select every 4th point
 
-# =============================================================================
-# r1_sol=three_body_sol['y'][0:3,:] # r1_sol=three_body_sol[:,:3]
-# r2_sol=three_body_sol['y'][3:6,:] # r2_sol=three_body_sol[:,3:6]
-# r3_sol=three_body_sol['y'][6:9,:] # r3_sol=three_body_sol[:,6:9]
-# r4_sol=three_body_sol['y'][9:12,:] # r3_sol=three_body_sol[:,6:9]
-# r5_sol=three_body_sol['y'][12:15,:] # r3_sol=three_body_sol[:,6:9]
-# r6_sol=three_body_sol['y'][15:18,:] # r3_sol=three_body_sol[:,6:9]
-# r7_sol=three_body_sol['y'][18:21,:] # r3_sol=three_body_sol[:,6:9]
-# r8_sol=three_body_sol['y'][21:24,:] # r3_sol=three_body_sol[:,6:9]
-# r9_sol=three_body_sol['y'][24:27,:] # r3_sol=three_body_sol[:,6:9]
-#
-#
-# r1_sol = r1_sol.T
-# r2_sol = r2_sol.T
-# r3_sol = r3_sol.T
-# r4_sol = r4_sol.T
-# r5_sol = r5_sol.T
-# r6_sol = r6_sol.T
-# r7_sol = r7_sol.T
-# r8_sol = r8_sol.T
-# r9_sol = r9_sol.T
-#
-# for i in range(N):
-# #     r1_sol_anim=r1_sol[::200,:].copy()
-#     r2_sol_anim=r2_sol[::5,:].copy()
-#     r3_sol_anim=r3_sol[::5,:].copy()
-# =============================================================================
+r1_sol=three_body_sol['y'][0:3,:] # r1_sol=three_body_sol[:,:3]
+r2_sol=three_body_sol['y'][3:6,:] # r2_sol=three_body_sol[:,3:6]
+r3_sol=three_body_sol['y'][6:9,:] # r3_sol=three_body_sol[:,6:9]
+r4_sol=three_body_sol['y'][9:12,:] # r3_sol=three_body_sol[:,6:9]
+r5_sol=three_body_sol['y'][12:15,:] # r3_sol=three_body_sol[:,6:9]
+r6_sol=three_body_sol['y'][15:18,:] # r3_sol=three_body_sol[:,6:9]
+r7_sol=three_body_sol['y'][18:21,:] # r3_sol=three_body_sol[:,6:9]
+r8_sol=three_body_sol['y'][21:24,:] # r3_sol=three_body_sol[:,6:9]
+r9_sol=three_body_sol['y'][24:27,:] # r3_sol=three_body_sol[:,6:9]
+
+
+r1_sol = r1_sol.T
+r2_sol = r2_sol.T
+r3_sol = r3_sol.T
+r4_sol = r4_sol.T
+r5_sol = r5_sol.T
+r6_sol = r6_sol.T
+r7_sol = r7_sol.T
+r8_sol = r8_sol.T
+r9_sol = r9_sol.T
+
+for i in range(N):
+#     r1_sol_anim=r1_sol[::200,:].copy()
+    r2_sol_anim=r2_sol[::5,:].copy()
+    r3_sol_anim=r3_sol[::5,:].copy()
 
 end=time.time()
 print(end-start)
@@ -346,11 +382,10 @@ plot6.show()
 #
 # print("done writing")
 # =============================================================================
-# %%
 start=time.time()
 # #Animate
 #Make the figure
-fig=plt.figure(7, figsize=(10,7))
+fig=plt.figure(7, figsize=(11,8))
 ax=fig.add_subplot(111,projection="3d")
 
 #Create new arrays for animation, this gives you the flexibility
@@ -364,43 +399,103 @@ ax=fig.add_subplot(111,projection="3d")
 r1_sol_anim=r1_sol[::1,:].copy()
 r2_sol_anim=r2_sol[::1,:].copy()
 r3_sol_anim=r3_sol[::1,:].copy()
-
+r4_sol_anim=r4_sol[::1,:].copy()
+r5_sol_anim=r5_sol[::1,:].copy()
+r6_sol_anim=r6_sol[::1,:].copy()
+r7_sol_anim=r7_sol[::1,:].copy()
+r8_sol_anim=r8_sol[::1,:].copy()
+r9_sol_anim=r9_sol[::1,:].copy()
 
 #Set initial marker for planets, that is, blue,red and green circles at the initial positions
 head1=[ax.scatter(r1_sol_anim[0,0],r1_sol_anim[0,1],r1_sol_anim[0,2],color="darkblue",marker="o",s=100,label="Sun")]
 head2=[ax.scatter(r2_sol_anim[0,0],r2_sol_anim[0,1],r2_sol_anim[0,2],color="tab:red",marker="o",s=100,label="Earth")]
 head3=[ax.scatter(r3_sol_anim[0,0],r3_sol_anim[0,1],r3_sol_anim[0,2],color="tab:green",marker="o",s=100,label="Mars")]
+head4=[ax.scatter(r4_sol_anim[0,0],r4_sol_anim[0,1],r4_sol_anim[0,2],color="tab:brown",marker="o",s=100,label="Venus")]
+head5=[ax.scatter(r5_sol_anim[0,0],r5_sol_anim[0,1],r5_sol_anim[0,2],color="tab:orange",marker="o",s=100,label="Mercury")]
+# head6=[ax.scatter(r6_sol_anim[0,0],r6_sol_anim[0,1],r6_sol_anim[0,2],color="tab:gray",marker="o",s=100)]
+# head7=[ax.scatter(r7_sol_anim[0,0],r7_sol_anim[0,1],r7_sol_anim[0,2],color="tab:cyan",marker="o",s=100)]
+# head8=[ax.scatter(r8_sol_anim[0,0],r8_sol_anim[0,1],r8_sol_anim[0,2],color="tab:purple",marker="o",s=100)]
+# head9=[ax.scatter(r9_sol_anim[0,0],r9_sol_anim[0,1],r9_sol_anim[0,2],color="tab:olive",marker="o",s=100)]
 
 #Create a function Animate that changes plots every frame (here "i" is the frame number)
-def Animate(i,head1,head2,head3):
+def Animate(i,head1,head2,head3,head4,head5):
     #Remove old markers
     head1[0].remove()
     head2[0].remove()
     head3[0].remove()
-
+    head4[0].remove()
+    head5[0].remove()
+    # head6[0].remove()
+    # head7[0].remove()
+    # head8[0].remove()
+    # head9[0].remove()
 
     #Plot the orbits (every iteration we plot from initial position to the current position)
     trace1=ax.plot(r1_sol_anim[:i,0],r1_sol_anim[:i,1],r1_sol_anim[:i,2],color="darkblue",label="Sun")
     trace2=ax.plot(r2_sol_anim[:i,0],r2_sol_anim[:i,1],r2_sol_anim[:i,2],color="tab:red",label="Earth")
     trace3=ax.plot(r3_sol_anim[:i,0],r3_sol_anim[:i,1],r3_sol_anim[:i,2],color="tab:green",label="Mars")
+    trace4=ax.plot(r4_sol_anim[:i,0],r4_sol_anim[:i,1],r4_sol_anim[:i,2],color="tab:brown",label="Venus")
+    trace5=ax.plot(r5_sol_anim[:i,0],r5_sol_anim[:i,1],r5_sol_anim[:i,2],color="tab:orange",label="Mercury")
+    # trace6=ax.plot(r6_sol_anim[:i,0],r6_sol_anim[:i,1],r6_sol_anim[:i,2],color="tab:gray")
+    # trace7=ax.plot(r7_sol_anim[:i,0],r7_sol_anim[:i,1],r7_sol_anim[:i,2],color="tab:cyan")
+    # trace8=ax.plot(r8_sol_anim[:i,0],r8_sol_anim[:i,1],r8_sol_anim[:i,2],color="tab:purple")
+    # trace9=ax.plot(r9_sol_anim[:i,0],r9_sol_anim[:i,1],r9_sol_anim[:i,2],color="tab:olive")
 
 
     #Plot the current markers
     head1[0]=ax.scatter(r1_sol_anim[i-1,0],r1_sol_anim[i-1,1],r1_sol_anim[i-1,2],color="darkblue",marker="o",s=100,label="Sun")
     head2[0]=ax.scatter(r2_sol_anim[i-1,0],r2_sol_anim[i-1,1],r2_sol_anim[i-1,2],color="tab:red",marker="o",s=100,label="Earth")
     head3[0]=ax.scatter(r3_sol_anim[i-1,0],r3_sol_anim[i-1,1],r3_sol_anim[i-1,2],color="tab:green",marker="o",s=100,label="Mars")
+    head4[0]=ax.scatter(r4_sol_anim[i-1,0],r4_sol_anim[i-1,1],r4_sol_anim[i-1,2],color="tab:brown",marker="o",s=100,label="Venus")
+    head5[0]=ax.scatter(r5_sol_anim[i-1,0],r5_sol_anim[i-1,1],r5_sol_anim[i-1,2],color="tab:orange",marker="o",s=100,label="star")
+    # head6[0]=ax.scatter(r6_sol_anim[i-1,0],r6_sol_anim[i-1,1],r6_sol_anim[i-1,2],color="tab:gray",marker="o",s=100)
+    # head7[0]=ax.scatter(r7_sol_anim[i-1,0],r7_sol_anim[i-1,1],r7_sol_anim[i-1,2],color="tab:cyan",marker="o",s=100)
+    # head8[0]=ax.scatter(r8_sol_anim[i-1,0],r8_sol_anim[i-1,1],r8_sol_anim[i-1,2],color="tab:purple",marker="o",s=100)
+    # head9[0]=ax.scatter(r9_sol_anim[i-1,0],r9_sol_anim[i-1,1],r9_sol_anim[i-1,2],color="tab:olive",marker="o",s=100)
 
-    return trace1,trace2,trace3,head1,head2,head3
+    return trace1,trace2,trace3,trace4,trace5,head1,head2,head3,head4,head5
 
 #Add a few bells and whistles
 ax.set_xlabel("x-coordinate",fontsize=14)
 ax.set_ylabel("y-coordinate",fontsize=14)
 ax.set_zlabel("z-coordinate",fontsize=14)
+ax.set_xlim(-2.5e11, 2.5e11)
+ax.set_ylim(-2.5e11, 2.5e11)
+ax.set_zlim(-2.5e11, 2.5e11)
 ax.set_box_aspect([1,1,1])
 ax.set_title("Visualization of orbits of stars in a N-body system",fontsize=14)
 
-anim=animation.FuncAnimation(fig,Animate, save_count=2000, repeat=False,blit=False,fargs=(head1,head2,head3))
+anim=animation.FuncAnimation(fig,Animate, save_count=200, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5))
 
+
+#Use the FuncAnimation module to make the animation
+#If used in Jupyter Notebook, animation will not display only a static image will display with this command
+# =============================================================================
+# if N == 1:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1))
+# if N == 2:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2))
+# if N == 3:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3))
+# if N == 4:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3,head4))
+# if N == 5:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5))
+# if N == 6:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5,head6))
+# if N == 7:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5,head6,head7))
+# if N == 8:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5,head6,head7,head8))
+# if N == 9:
+#     anim=animation.FuncAnimation(fig,Animate,interval=60, frames=frames, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5,head6,head7,head8,head9))
+# =============================================================================
+
+# =============================================================================
+# #For Jupyter Notebook, enable to make a Javascript animation
+# matplotlib.rcParams['animation.embed_limit'] = 2**128 #Increase animation embed limit
+# HTML(anim.to_jshtml()) #Convert animation to jsanimation and display
+# =============================================================================
 
 #To save animation to disk, enable this command
 # anim.save("ThreeBodyProblem_test.mp4")
@@ -408,26 +503,11 @@ anim=animation.FuncAnimation(fig,Animate, save_count=2000, repeat=False,blit=Fal
 print("Writing now")
 
 #To save animation to disk, enable this command
-f = r"/Users/harry/Desktop/Desktop – Harry’s MacBook Pro/Quick N-Body/NBodyProblem_shortperiod.mp4"
-writermp4 = animation.FFMpegWriter(fps=60)
-anim.save(f, writer=writermp4, dpi=400)
+f = r"/Users/harry/Desktop/Correction time/NBodyProblem.mp4"
+writermp4 = animation.FFMpegWriter(fps=24)
+anim.save(f, writer=writermp4, dpi=450)
 end = time.time()
-print("done writing, time is : ", end-start)
+print("done writing, time is : ", start-end)
 
-# %%
-
-fig=plt.figure(figsize=(15,15))
-ax=fig.add_subplot(111,projection="3d")
-ax.plot(r1_sol[:,0],r1_sol[:,1],r1_sol[:,2],color="darkblue")
-ax.plot(r2_sol[:,0],r2_sol[:,1],r2_sol[:,2],color="tab:red")
-ax.plot(r3_sol[:,0],r3_sol[:,1],r3_sol[:,2],color="tab:green")
-ax.scatter(r1_sol[-1,0],r1_sol[-1,1],r1_sol[-1,2],color="darkblue",marker="o",s=100,label="Alpha Centauri A")
-ax.scatter(r2_sol[-1,0],r2_sol[-1,1],r2_sol[-1,2],color="tab:red",marker="o",s=100,label="Alpha Centauri B")
-ax.scatter(r3_sol[-1,0],r3_sol[-1,1],r3_sol[-1,2],color="tab:green",marker="o",s=100,label="Alpha Centauri B")
-ax.set_xlabel("\nx-coordinate",fontsize=14)
-ax.set_ylabel("\ny-coordinate",fontsize=14)
-ax.set_zlabel("\nz-coordinate",fontsize=14)
-ax.set_title("Visualization of orbits of stars in a two-body system from \n",fontsize=14)
-ax.legend(loc="upper left",fontsize=14)
 
 
