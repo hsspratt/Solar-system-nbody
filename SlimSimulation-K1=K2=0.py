@@ -371,4 +371,59 @@ ax.set_title("Visualization of orbits of stars in a N-body system",fontsize=14)
 for i in range(N):
     anim=animation.FuncAnimation(fig,Animate, save_count=200, repeat=False,blit=False,fargs=(head))
 
+# %%
+
+import numpy as np
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.animation as animation
+
+def Gen_RandPrtcls(n_particles, n_iterations):
+    x = np.random.normal(size=(n_particles, 3))*5
+
+    # Computing trajectory
+    data = [x]
+    for iteration in range(n_iterations):
+        # data.append(data[-1] + GravAccel(data[-1], m))
+        data.append(data[-1]*1.01)
+    return data
+
+data = Gen_RandPrtcls(n_particles=10, n_iterations=300)
+data = np.array(data)  # (n_iterations, n_particles, 3)
+
+fig = plt.figure()
+ax = p3.Axes3D(fig)
+
+# Plot the first position for all particles
+h = ax.plot(*data[0].T, marker='.', linestyle='None')[0]
+# Equivalent to
+# h = ax.plot(data[0, :, 0], data[0, :, 1], data[0, :, 2],
+#             marker='.', linestyle='None')[0]
+
+# Setting the axes properties
+ax.set_xlim3d([-100.0, 100.0])
+ax.set_xlabel('X')
+
+ax.set_ylim3d([-100.0, 100.0])
+ax.set_ylabel('Y')
+
+ax.set_zlim3d([-100.0, 100.0])
+ax.set_zlabel('Z')
+ax.set_title('3D Test')
+
+colormap = plt.cm.tab20c
+colors = [colormap(i) for i in np.linspace(0, 1, N)]
+h_particles = [ax.plot(*data[:1, i].T, marker='.', c=colors[i], ls='None')[0]
+               for i in range(N)]
+
+
+def update_particles(num):
+    for i, h in enumerate(h_particles):
+        h.set_xdata(data[:num, i, 0])
+        h.set_ydata(data[:num, i, 1])
+        h.set_3d_properties(data[:num, i, 2])
+    return h_particles
+
+prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=301,
+                                    interval=10)
 
