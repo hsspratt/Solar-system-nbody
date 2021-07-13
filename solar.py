@@ -15,10 +15,7 @@ class TestSolarSystem:
 
     def __init__(self, planets_to_add):
         self.planets = planets_to_add
-# =============================================================================
-#         print(self.planets)
-#         print(self.planets[0])
-# =============================================================================
+
     def numberofplanets(self):
         n = len(self.planets)
         return n

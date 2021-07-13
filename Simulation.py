@@ -459,32 +459,14 @@ ax=fig.add_subplot(111,projection="3d")
 
 #Create new arrays for animation, this gives you the flexibility
 #to reduce the number of points in the animation if it becomes slow
-#Currently set to select every 4th point
-
-# =============================================================================
-# for i in range(N):
-#     r_sol_anim = r_sol[::12,:].copy
-# =============================================================================
 r1_sol_anim=r1_sol[::1,:].copy()
 r2_sol_anim=r2_sol[::1,:].copy()
 r3_sol_anim=r3_sol[::1,:].copy()
-r4_sol_anim=r4_sol[::1,:].copy()
-r5_sol_anim=r5_sol[::1,:].copy()
-r6_sol_anim=r6_sol[::1,:].copy()
-r7_sol_anim=r7_sol[::1,:].copy()
-r8_sol_anim=r8_sol[::1,:].copy()
-r9_sol_anim=r9_sol[::1,:].copy()
 
 #Set initial marker for planets, that is, blue,red and green circles at the initial positions
 head1=[ax.scatter(r1_sol_anim[0,0],r1_sol_anim[0,1],r1_sol_anim[0,2],color="darkblue",marker="o",s=100,label="Sun")]
 head2=[ax.scatter(r2_sol_anim[0,0],r2_sol_anim[0,1],r2_sol_anim[0,2],color="tab:red",marker="o",s=100,label="Earth")]
 head3=[ax.scatter(r3_sol_anim[0,0],r3_sol_anim[0,1],r3_sol_anim[0,2],color="tab:green",marker="o",s=100,label="Mars")]
-head4=[ax.scatter(r4_sol_anim[0,0],r4_sol_anim[0,1],r4_sol_anim[0,2],color="tab:brown",marker="o",s=100,label="Venus")]
-head5=[ax.scatter(r5_sol_anim[0,0],r5_sol_anim[0,1],r5_sol_anim[0,2],color="tab:orange",marker="o",s=100,label="Mercury")]
-# head6=[ax.scatter(r6_sol_anim[0,0],r6_sol_anim[0,1],r6_sol_anim[0,2],color="tab:gray",marker="o",s=100)]
-# head7=[ax.scatter(r7_sol_anim[0,0],r7_sol_anim[0,1],r7_sol_anim[0,2],color="tab:cyan",marker="o",s=100)]
-# head8=[ax.scatter(r8_sol_anim[0,0],r8_sol_anim[0,1],r8_sol_anim[0,2],color="tab:purple",marker="o",s=100)]
-# head9=[ax.scatter(r9_sol_anim[0,0],r9_sol_anim[0,1],r9_sol_anim[0,2],color="tab:olive",marker="o",s=100)]
 
 #Create a function Animate that changes plots every frame (here "i" is the frame number)
 def Animate(i,head1,head2,head3,head4,head5):
@@ -492,37 +474,19 @@ def Animate(i,head1,head2,head3,head4,head5):
     head1[0].remove()
     head2[0].remove()
     head3[0].remove()
-    head4[0].remove()
-    head5[0].remove()
-    # head6[0].remove()
-    # head7[0].remove()
-    # head8[0].remove()
-    # head9[0].remove()
+
 
     #Plot the orbits (every iteration we plot from initial position to the current position)
     trace1=ax.plot(r1_sol_anim[:i,0],r1_sol_anim[:i,1],r1_sol_anim[:i,2],color="darkblue",label="Sun")
     trace2=ax.plot(r2_sol_anim[:i,0],r2_sol_anim[:i,1],r2_sol_anim[:i,2],color="tab:red",label="Earth")
     trace3=ax.plot(r3_sol_anim[:i,0],r3_sol_anim[:i,1],r3_sol_anim[:i,2],color="tab:green",label="Mars")
-    trace4=ax.plot(r4_sol_anim[:i,0],r4_sol_anim[:i,1],r4_sol_anim[:i,2],color="tab:brown",label="Venus")
-    trace5=ax.plot(r5_sol_anim[:i,0],r5_sol_anim[:i,1],r5_sol_anim[:i,2],color="tab:orange",label="Mercury")
-    # trace6=ax.plot(r6_sol_anim[:i,0],r6_sol_anim[:i,1],r6_sol_anim[:i,2],color="tab:gray")
-    # trace7=ax.plot(r7_sol_anim[:i,0],r7_sol_anim[:i,1],r7_sol_anim[:i,2],color="tab:cyan")
-    # trace8=ax.plot(r8_sol_anim[:i,0],r8_sol_anim[:i,1],r8_sol_anim[:i,2],color="tab:purple")
-    # trace9=ax.plot(r9_sol_anim[:i,0],r9_sol_anim[:i,1],r9_sol_anim[:i,2],color="tab:olive")
-
 
     #Plot the current markers
     head1[0]=ax.scatter(r1_sol_anim[i-1,0],r1_sol_anim[i-1,1],r1_sol_anim[i-1,2],color="darkblue",marker="o",s=100,label="Sun")
     head2[0]=ax.scatter(r2_sol_anim[i-1,0],r2_sol_anim[i-1,1],r2_sol_anim[i-1,2],color="tab:red",marker="o",s=100,label="Earth")
     head3[0]=ax.scatter(r3_sol_anim[i-1,0],r3_sol_anim[i-1,1],r3_sol_anim[i-1,2],color="tab:green",marker="o",s=100,label="Mars")
-    head4[0]=ax.scatter(r4_sol_anim[i-1,0],r4_sol_anim[i-1,1],r4_sol_anim[i-1,2],color="tab:brown",marker="o",s=100,label="Venus")
-    head5[0]=ax.scatter(r5_sol_anim[i-1,0],r5_sol_anim[i-1,1],r5_sol_anim[i-1,2],color="tab:orange",marker="o",s=100,label="star")
-    # head6[0]=ax.scatter(r6_sol_anim[i-1,0],r6_sol_anim[i-1,1],r6_sol_anim[i-1,2],color="tab:gray",marker="o",s=100)
-    # head7[0]=ax.scatter(r7_sol_anim[i-1,0],r7_sol_anim[i-1,1],r7_sol_anim[i-1,2],color="tab:cyan",marker="o",s=100)
-    # head8[0]=ax.scatter(r8_sol_anim[i-1,0],r8_sol_anim[i-1,1],r8_sol_anim[i-1,2],color="tab:purple",marker="o",s=100)
-    # head9[0]=ax.scatter(r9_sol_anim[i-1,0],r9_sol_anim[i-1,1],r9_sol_anim[i-1,2],color="tab:olive",marker="o",s=100)
 
-    return trace1,trace2,trace3,trace4,trace5,head1,head2,head3,head4,head5
+    return trace1,trace2,trace3,head1,head2,head3
 
 #Add a few bells and whistles
 ax.set_xlabel("x-coordinate",fontsize=14)
@@ -534,7 +498,7 @@ ax.set_zlim(-2.5e11, 2.5e11)
 ax.set_box_aspect([1,1,1])
 ax.set_title("Visualization of orbits of stars in a N-body system",fontsize=14)
 
-anim=animation.FuncAnimation(fig,Animate, save_count=200, repeat=False,blit=False,fargs=(head1,head2,head3,head4,head5))
+anim=animation.FuncAnimation(fig,Animate, save_count=200, repeat=False,blit=False,fargs=(head1,head2,head3))
 
 
 #Use the FuncAnimation module to make the animation

@@ -23,7 +23,7 @@ import matplotlib as mpl
 mpl.rcParams['animation.ffmpeg_path'] = r'/Users/harry/Desktop/Desktop – Harry’s MacBook Pro/Quick N-Body/ffmpeg'
 
 #Define universal gravitation constant
-G=6.67408e-11 #N-m2/kg2
+G = 1 # G=6.67408e-11 #N-m2/kg2
 
 #Reference quantities
 m_nd=1.989e+30 #kg
@@ -32,18 +32,18 @@ v_nd=30000 #m/s
 t_nd=79.91*365*24*3600*0.51 #s
 
 #Net constants
-K1=G*t_nd*m_nd/(r_nd**2*v_nd)
-K2=v_nd*t_nd/r_nd
+K1 = 1 # K1=G*t_nd*m_nd/(r_nd**2*v_nd)
+K2 = 1 # K2=v_nd*t_nd/r_nd
 
 #Define masses
-m1=1.1 #Alpha Centauri A
-m2=0.907 #Alpha Centauri
-m3=1.0 #Third Star
+m1 = 1 # m1=1.1 #Alpha Centauri A
+m2 = 1 # m2=0.907 #Alpha Centauri
+m3 = 1 # m3=1.0 #Third Star
 
 #Define initial position vectors
-r1=[-0.5,0,0] #m
-r2=[0.5,0,0] #m
-r3=[0,1,0] #m
+r1 = [-0.97000436, 0.24308753]# r1=[-0.5,0,0] #m
+r2 = [0.97000436, -0.24308753]# r2=[0.5,0,0] #m
+r3 = [0,0]# r3=[0,1,0] #m
 
 #Convert pos vectors to arrays
 r1=np.array(r1,dtype="float64")
@@ -54,9 +54,9 @@ r3=np.array(r3,dtype="float64")
 r_com=(m1*r1+m2*r2+m3*r3)/(m1+m2+m3)
 
 #Define initial velocities
-v1=[0.01,0.01,0] #m/s
-v2=[-0.05,0,-0.1] #m/s
-v3=[0,-0.01,0]
+v1 = [0.4662036850, 0.4323657300] # v1=[0.01,0.01,0] #m/s
+v2 = [0.4662036850, 0.4323657300] # v2=[-0.05,0,-0.1] #m/s
+v3 = [-0.93240737, -0.86473146]# v3=[0,-0.01,0]
 
 #Convert velocity vectors to arrays
 v1=np.array(v1,dtype="float64")

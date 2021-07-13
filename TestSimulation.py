@@ -101,7 +101,7 @@ Star3 = Objects('Star3',
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
 
-objects = Planets# [Sun, Mars, Venus, Mercury, Earth] # [Sun, Earth, Mars, Venus, Mercury] # , Jupiter,Saturn,Neptune,Uranus]
+objects = Planets # [Sun, Mars, Venus, Mercury, Earth] # [Sun, Earth, Mars, Venus, Mercury] # , Jupiter,Saturn,Neptune,Uranus]
 solarsystem = TestSolarSystem(objects)
 
 # %% Define constants

@@ -55,7 +55,7 @@ class Objects():
             planets_pos[i,:] = sol[i*3:(i+1)*3]
             planets_vel[i,:] = sol[N*3+(i*3):N*3+(1+i)*3]
 
-        #Unpack all the variables from the array "w"
+        # Unpack all the variables from the array "w"
 
         # Harry's attempt
         G = G
