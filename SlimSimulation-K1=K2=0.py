@@ -340,20 +340,6 @@ import matplotlib as mpl
 import random
 mpl.rcParams['animation.ffmpeg_path'] = r'/Users/harry/Documents/GitHub/N-Body-Simulation-Summer/ffmpeg'
 
-
-def Gen_RandPrtcls(n_particles, n_iterations):
-    x = np.random.normal(size=(n_particles, 3))*5
-
-    # Computing trajectory
-    data = [x]
-    for iteration in range(n_iterations):
-        # data.append(data[-1] + GravAccel(data[-1], m))
-        data.append(data[-1]*1.01)
-    return data
-
-data = Gen_RandPrtcls(n_particles=10, n_iterations=300)
-data = np.array(data)  # (n_iterations, n_particles, 3)
-
 # h = np.full((N*3,iterations),0)
 h = np.empty((iterations, N, 3))
 
@@ -395,11 +381,18 @@ h_particles = [ax.plot(*data[:1, i].T, marker='.', c=colors[i], ls='None')[0]
 
 def update_particles(num):
     for i, h in enumerate(h_particles):
-        h.set_xdata(data[num-5:num, i, 0])
-        h.set_ydata(data[num-5:num, i, 1])
-        h.set_3d_properties(data[num-5:num, i, 2])
+
+        # h_particles[i].remove()
+
+        # trace = [ax.plot(*data[:num, i].T, c=colors[i], ls='None') for i in range(N)]
+
+        # h_particles[i][0] = [ax.plot(*data[:num-1, i].T, marker='.', c=colors[i], ls='None')[0] for i in range(N)]
+
+        h.set_xdata(data[num:num, i, 0])
+        h.set_ydata(data[num:num, i, 1])
+        h.set_3d_properties(data[num:num, i, 2])
+        print(num)
     return h_particles
 
-prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=150,
-                                    interval=20)
+prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=150, interval=20)
 
