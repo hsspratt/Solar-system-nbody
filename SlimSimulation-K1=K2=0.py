@@ -97,7 +97,7 @@ Uranus = Objects('Uranus',
 
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
-objects = [F8_1, F8_2, F8_3]
+objects = [F8_1, F8_2, F8_3, F8_planet]
 """
 print(NGUI.List)
 for planet in NGUI.List:
@@ -200,7 +200,7 @@ r_com_sol = np.full((iterations,N*3),0)
 
 g = np.hstack((rcom_sol, rcom_sol,rcom_sol))
 
-r_com_sol = r_sol - g
+# r_com_sol = r_sol - g
 
 """
 for i in range(N):
@@ -332,51 +332,14 @@ plt.show()
 
 # %%
 
-r_sol_anim=r_sol[::1,:].copy()
-
-head = np.full((iterations,N*3),0)
-
-
-#Set initial marker for planets, that is, blue,red and green circles at the initial positions
-for i in range(N):
-    head[:,i*3]=[ax.scatter(r_sol_anim[0,i*3],r_sol_anim[0,1+i*3],r_sol_anim[0,2+i*3],color=colours[i],marker="o",s=100,label=solarsystem.planets[i].name)]
-
-#Create a function Animate that changes plots every frame (here "i" is the frame number)
-def Animate(i,head):
-    #Remove old markers
-    head[0].remove()
-
-    #Plot the orbits (every iteration we plot from initial position to the current position)
-    for i in range(N):
-        trace=ax.plot(r_sol_anim[:i,0+i*3],r_sol_anim[:i,1+i*3],r_sol_anim[:i,2+i*3],color=colours[i],label=solarsystem.planets[i].name)
-
-
-    #Plot the current markers
-    for i in range(N):
-        head[0]=ax.scatter(r_sol_anim[i-1,0],r_sol_anim[i-1,1],r_sol_anim[i-1,2],color=colours[i],marker="o",s=100,label=solarsystem.planets[i].name)
-
-
-    return trace,head
-
-#Add a few bells and whistles
-ax.set_xlabel("x-coordinate",fontsize=14)
-ax.set_ylabel("y-coordinate",fontsize=14)
-ax.set_zlabel("z-coordinate",fontsize=14)
-# ax.set_xlim(-2.5e11, 2.5e11)
-# ax.set_ylim(-2.5e11, 2.5e11)
-# ax.set_zlim(-2.5e11, 2.5e11)
-ax.set_box_aspect([1,1,1])
-ax.set_title("Visualization of orbits of stars in a N-body system",fontsize=14)
-
-for i in range(N):
-    anim=animation.FuncAnimation(fig,Animate, save_count=200, repeat=False,blit=False,fargs=(head))
-
-# %%
-
 import numpy as np
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
+import matplotlib as mpl
+import random
+mpl.rcParams['animation.ffmpeg_path'] = r'/Users/harry/Documents/GitHub/N-Body-Simulation-Summer/ffmpeg'
+
 
 def Gen_RandPrtcls(n_particles, n_iterations):
     x = np.random.normal(size=(n_particles, 3))*5
@@ -391,23 +354,36 @@ def Gen_RandPrtcls(n_particles, n_iterations):
 data = Gen_RandPrtcls(n_particles=10, n_iterations=300)
 data = np.array(data)  # (n_iterations, n_particles, 3)
 
+# h = np.full((N*3,iterations),0)
+h = np.empty((iterations, N, 3))
+
+for i in range(3):
+    h[:,:,i] = r_sol[:,i::3]
+
+data = h
+data = data
+
 fig = plt.figure()
+# fig = plt.figure(figsize=plt.figaspect(1)*2)
+
 ax = p3.Axes3D(fig)
+# ax.set_box_aspect([1,1,1])
+# ax = plt.gca(projection='3d', proj_type = 'ortho')
 
 # Plot the first position for all particles
-h = ax.plot(*data[0].T, marker='.', linestyle='None')[0]
+#h = ax.plot(*data[0].T, marker='.', linestyle='None')[0]
 # Equivalent to
 # h = ax.plot(data[0, :, 0], data[0, :, 1], data[0, :, 2],
 #             marker='.', linestyle='None')[0]
 
 # Setting the axes properties
-ax.set_xlim3d([-100.0, 100.0])
+ax.set_xlim3d([-1.5, 1.5])
 ax.set_xlabel('X')
 
-ax.set_ylim3d([-100.0, 100.0])
+ax.set_ylim3d([-1, 1])
 ax.set_ylabel('Y')
 
-ax.set_zlim3d([-100.0, 100.0])
+ax.set_zlim3d([-0.5, 0.5])
 ax.set_zlabel('Z')
 ax.set_title('3D Test')
 
@@ -419,11 +395,11 @@ h_particles = [ax.plot(*data[:1, i].T, marker='.', c=colors[i], ls='None')[0]
 
 def update_particles(num):
     for i, h in enumerate(h_particles):
-        h.set_xdata(data[:num, i, 0])
-        h.set_ydata(data[:num, i, 1])
-        h.set_3d_properties(data[:num, i, 2])
+        h.set_xdata(data[num-5:num, i, 0])
+        h.set_ydata(data[num-5:num, i, 1])
+        h.set_3d_properties(data[num-5:num, i, 2])
     return h_particles
 
-prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=301,
-                                    interval=10)
+prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=150,
+                                    interval=20)
 
