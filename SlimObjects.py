@@ -1,5 +1,6 @@
 import numpy as np
-import time
+
+"""Creating the Objects class"""
 
 class Objects():
 
@@ -11,48 +12,57 @@ class Objects():
 
     planets_init = np.full((1, 3), 0)
 
+    """Initialisng all the data for each Object - all data stored under its name"""
+
     def __init__(self, Name, Mass, initPosition, initVelocity, initAcceleration):
 
         self.name = Name
         self.mass = Mass
         self.position = initPosition
         self.velocity = initVelocity
-        self.position_non = initPosition
-        self.velocity_non = initVelocity
+        # self.position_non = initPosition
+        # self.velocity_non = initVelocity
         self.acceleration = initAcceleration
         # self.color = color
         self.init = np.hstack((self.position, self.velocity))
-        self.init_non = np.hstack((self.position_non, self.velocity_non))
-        self.oldinit = np.hstack((self.position, self.velocity))
-        self.solution = [] # np.array([0, 0, 0])
-        self.pos = np.array([0,0,0])
-        self.vel = np.array([0,0,0])
-        self.variables = np.hstack((self.position, self.velocity))
+        # self.init_non = np.hstack((self.position_non, self.velocity_non))
+        # self.oldinit = np.hstack((self.position, self.velocity))
+        # self.solution = [] # np.array([0, 0, 0])
+        # self.pos = np.array([0,0,0])
+        # self.vel = np.array([0,0,0])
+        # self.variables = np.hstack((self.position, self.velocity))
         self.KE = np.full((1,1),0,dtype=float)
         self.PE = np.full((1,1),0,dtype=float)
         self.linear_m = np.full((1,1),0,dtype=float)
         self.angular_m = np.full((1,1),0,dtype=float)
 
-    def CombineArrays(self, Positions, Velocities, Accelerations, Names, Masses):
-        Positions = Positions.append(self.position)
-        Velocities = Velocities.append(self.velocity)
-        Accelerations = Accelerations.append(self.acceleration)
-        Names = Names.append(self.name)
-        Masses = Masses.append(self.mass)
+
+    """Creating a function that solves Newtons Law of gravity to find the acceleration"""
 
 
     def ThreeBodyEquations(t,sol,G,mass,N,K1,K2):
+        """
+        Calculates acceleration on each object due to Newton's Law
+        planets_pos  is an N x 3 matrix of positions
+	    planets_mass is an N x 1 vector of masses
+	    G is Newton's Gravitational constant
+	    dvbydt is N x 3 matrix of accelerations
 
+        """
+        # saves all the planets masses
         planets_mass = mass
 
+        # creates a numpy array for the data to be saved into
         planets_pos = np.full([N,3],0,dtype=float)
         planets_vel = np.full([N,3],0,dtype=float)
+
+        # sci.integrate.solve_ivp() gave the solution planet by planet with the first half
+        # of the array being position and the latter half velocity, this splits the solution
+        # up into its resepective counterparts
 
         for i in range(N):
             planets_pos[i,:] = sol[i*3:(i+1)*3]
             planets_vel[i,:] = sol[N*3+(i*3):N*3+(1+i)*3]
-
-        # Unpack all the variables from the array "w"
 
         # Harry's attempt
         G = G
@@ -63,9 +73,14 @@ class Objects():
         z = planets_pos[:,2:3]
 
         # matrix that stores all pairwise particle separations: r_j - r_i
+        # it should be noted that this matrix way is very fast in contrast to looping
+        # planet by planet finding the respective distances. While not "technically"
+        # mathematically allowed with the laws of matricies the result is very useful
+
         dx = x.T - x
         dy = y.T - y
         dz = z.T - z
+
 
         # matrix that stores 1/r^3 for all particle pairwise particle separations
         inv_r3 = (dx**2 + dy**2 + dz**2)
@@ -76,16 +91,16 @@ class Objects():
         ay = G * (dy * inv_r3) @ planets_mass
         az = G * (dz * inv_r3) @ planets_mass
 
-        # print(dx*inv_r3)
-        # planets_acceleration = np.sqrt(ax**2 + ay**2 + az**2)
-
-        planets_acceleration = np.hstack((ax,ay,az))
-        drbydt = K2*planets_vel.flatten()
-        dvbydt = K1*planets_acceleration.flatten()
+        # pack all the variables components back togeather
+        planets_acceleration = np.hstack((ax,ay,az)) # containing accelersation of all
+        drbydt = K2*planets_vel.flatten()            # solution for derivative of the position
+        dvbydt = K1*planets_acceleration.flatten()   # solution for derivative of the velocity
 
         derivs = np.concatenate((drbydt, dvbydt))
 
         return derivs
+
+    """Creating a function to calculate the Momentum for each Particle"""
 
     def kineticenergy(self):
         kineticenergy = (0.5) * self.mass * self.velocity.dot(self.velocity)

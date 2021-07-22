@@ -5,7 +5,6 @@ import os
 
 ########################################################################
 class n_body_app(object):
-    """"""
 
     #----------------------------------------------------------------------
     def __init__(self, parent):
@@ -14,8 +13,10 @@ class n_body_app(object):
         self.root.title("Main frame")
         self.frame = tk.Frame(parent)
         self.frame.pack()
+        
+        settings = {"G": 6.6743015, "bar": 1, "baz": 1}
 
-        close_btn = tk.Button(self.frame, text="Close Application", command=self.closeApplication)
+        close_btn = tk.Button(self.frame, text="Close Application", command=self.close_application)
         close_btn.pack()
 
         titlefont = font.Font(family="Lucida Grande",size=45)
@@ -48,7 +49,7 @@ class n_body_app(object):
         lb = tk.Listbox(self.root, selectmode = "multiple")
         lb.place(relx=0.25, rely=0.5, anchor="center")
 
-        x =["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2"]
+        x = ["Mercury", "Venus", "Earth", "Mars", "Jupiter","Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", "AC_star","F8_1", "F8_2", "F8_3", "F8_planet"]
 
         for item in range(len(x)):
         	lb.insert(tk.END, x[item])
@@ -61,8 +62,8 @@ class n_body_app(object):
         e.insert(0, "6.6743015")
         e.focus_set()
 
-        G = 24
-        G_button = tk.Button(self.root,text='Change Constants',command=self.changeG(e,G))
+        G = 6.6743015
+        G_button = tk.Button(self.root,text='Change Constants',command=self.change_variable(G,e))
         G_button.place(relx=0.75, rely=0.4, anchor="center")
 
         Executefile_btn = tk.Button(self.root, text="Run rando file", command=self.runfile)
@@ -70,45 +71,12 @@ class n_body_app(object):
 
 
         self.FullScreenApp(parent)
-
-    #----------------------------------------------------------------------
-    def hide(self):
-        """"""
-        self.root.withdraw()
-
-    #----------------------------------------------------------------------
-    def openFrame(self):
-        """"""
-        self.hide()
-        otherFrame = tk.Toplevel()
-        otherFrame.geometry("400x300")
-        otherFrame.title("otherFrame")
-        handler = lambda: self.onCloseOtherFrame(otherFrame)
-        btn = tk.Button(otherFrame, text="Close", command=handler)
-        btn.pack()
         
-        """ -- How to utilise
-        open_btn = tk.Button(self.frame, text="Open Frame",
-                             command=self.openFrame)
-        open_btn.pack()
-        """
-    #----------------------------------------------------------------------
-    def onCloseOtherFrame(self, otherFrame):
-        """"""
-        otherFrame.destroy()
-        self.show()
-
-    #----------------------------------------------------------------------
-    def show(self):
-        """"""
-        self.root.update()
-        self.root.deiconify()
-
     #----------------------------------------------------------------------
 
-    def closeApplication(self):
-        """"""
+    def close_application(self):
         self.root.destroy()
+        exit()
 
     #----------------------------------------------------------------------
     def FullScreenApp(self, master, **kwargs):
@@ -127,6 +95,26 @@ class n_body_app(object):
 
 
     def confirmSelected(self):
+        planets = []
+        cname = lb.curselection()
+        for i in cname:
+            op = lb.get(i)
+            planets.append(op)
+            self.planets = planets
+        for val in planets:
+            print(val)
+        if len(planets) < 2:
+            print("At least two planets need to be selected")
+        if planets == ["AC1", "AC2"]:
+            print("This is the Alpha Centauri binary star system")
+        if planets == ["AC1", "AC2","AC_star"]:
+            print("This is the Alpha Centauri binary star system with a planet")
+        if planets == ["F8_1", "F8_2", "F8_3"]:
+            print("This is the figure of eight solution")
+        return planets
+    
+    """
+    def confirmSelected():
         global planets
         planets = []
         cname = lb.curselection()
@@ -137,29 +125,21 @@ class n_body_app(object):
             print(val)
         if len(planets) < 2:
             print("At least two planets need to be selected")
-
-
+    """
+    
     def runfile(self):
-        os.system('python SlimSimulation-K1=K2=0.py')
+        self.root.destroy()
 
     def set_text(self, text):
         self.e.delete(0,tk.END)
         self.e.insert(0,text)
         return
 
-    def changeG(self,e,G):
-        #global G
-        G = e.get()
-        print("G is changed to:", G)
+    def change_variable(self, variable, value):
+        # global e
+        # global variable
+        variable = self.value.get()
         # text.insert(INSERT, G)
-# GUI
-
-
-#----------------------------------------------------------------------
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.geometry("800x600")
-    app = n_body_app(root)
-    root.mainloop()
-
-
+        
+    def change_value(self, settings, name, value):
+        settings[name] = 2

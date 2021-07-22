@@ -102,11 +102,12 @@ class TestSolarSystem:
         dy = y.T - y
         dz = z.T - z
 
-        # matrix that stores 1/r for all particle pairwise particle separations
+        	# matrix that stores 1/r for all particle pairwise particle separations
         inv_r = np.sqrt(dx**2 + dy**2 + dz**2)
         inv_r[inv_r>0] = 1.0/inv_r[inv_r>0]
 
-        # calculating PE between all objects in matric form
+        	# sum over upper triangle, to count each interaction only once
+        # PE = G * np.sum(np.triu(-(mass*mass.T)*inv_r,1),axis=0)
         PE = G * np.sum(-(planets_mass*planets_mass.T)*inv_r,axis=0)
         total_PE = G * np.sum(np.sum(-(planets_mass*planets_mass.T)*inv_r))
 
@@ -117,6 +118,8 @@ class TestSolarSystem:
         L_linear = np.linalg.norm(linear_momentum, axis=0)
 
         L_angular = np.full((N,3),0, dtype=float)
+        
+        angular_m = []
 
         for i in range(N):
             L_angular[i,:] = np.cross(np.array([r[:,i]]), np.array([linear_momentum[:,i]])).flatten()
@@ -124,6 +127,8 @@ class TestSolarSystem:
 
         total_angular = np.sum(angular_m)
         total_linear = np.sum(L_linear)
+
+        # L = np.sum(np.sum(np.triu(mass * vel * np.sqrt(dx**2 + dy**2 + dz**2),1)))
 
         for planet in self.planets:
             for index in range(N):

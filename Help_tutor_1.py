@@ -17,7 +17,6 @@ import random
 import tkinter as tk
 # import NGUI
 # from SolarGUI import GUIplanets
-import SolarApp
 
 # %% Initialising all the planets, suns and objects that could be used in the simulation
 
@@ -65,27 +64,8 @@ AC_star = Objects('AC_star',
                np.array([0,-0.01,0]),
                np.array([0,0,0]))
 
-
-root = tk.Tk()
-root.title("N Body Simulation")
-root.geometry('400x300')
-app = SolarApp.n_body_app(root)
-root.mainloop()
-
-planets = app.planets
-
-print(planets)
-objects = []
-
-x = [F8_1, F8_2, F8_3, AC1, AC2]
-
-for i in range(len(x)):
-    if str(x[i].name) in planets:
-        objects.append(x[i])
-    
-         
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
-# objects = planets
+objects = [F8_1, F8_2, F8_3]
 # [Sun, Earth, Mars, Venus, Mercury] # , Jupiter,Saturn,Neptune,Uranus]
 solarsystem = TestSolarSystem(objects)
 
@@ -282,188 +262,10 @@ print("Time for calculating enrgy and plotting is:   " , end-start)
 
 
 total_off = ((total-total[0])/total)*100
-total_cor = [i for i in total_off if i >= 1]
+total_cor = [i for i in total if i >= 1]
 
 if len(total_cor) == 0:
     print("This orbit looks stable. The change in error from the beginiing to end is: ", total_off[-1],"%")
 else:
     print("The stablility of the orbit seems to be only valid up till the ", len(total_cor), " time step")
 
-
-# %%
-"""
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import animation, rc
-
-fig, ax = plt.subplots()
-
-line, = ax.plot(r_sol[:,0], r_sol[:,1], "-")
-line1, = ax.plot(r_sol[0,0], r_sol[0,1], "ro")
-line2, = ax.plot(r_sol[0,3], r_sol[0,4], "bo")
-line3, = ax.plot(r_sol[0,6], r_sol[0,7], "go")
-
-def connect(i):
-    start=max((i-5,0))
-    line1.set_data(r_com_sol[start:i,0],r_com_sol[start:i,1])
-    return line1,
-
-def connect1(i):
-    start=max((i-5,0))
-    line2.set_data(r_com_sol[start:i,3],r_com_sol[start:i,4])
-    return line2,
-
-def connect2(i):
-    start=max((i-5,0))
-    line3.set_data(r_com_sol[start:i,6],r_com_sol[start:i,7])
-    return line3,
-
-ax.set_xlim(-2,2)
-ax.set_ylim(-2,2)
-ani = animation.FuncAnimation(fig, connect, np.arange(1, 100), interval=100)
-ani1 = animation.FuncAnimation(fig, connect1, np.arange(1, 100), interval=100)
-ani2 = animation.FuncAnimation(fig, connect2, np.arange(1, 100), interval=100)
-
-plt.show()
-"""
-# %%
-"""
-import numpy as np
-import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.animation as animation
-import matplotlib as mpl
-import random
-mpl.rcParams['animation.ffmpeg_path'] = r'/Users/harry/Documents/GitHub/N-Body-Simulation-Summer/ffmpeg'
-
-# h = np.full((N*3,iterations),0)
-h = np.empty((iterations, N, 3))
-
-for i in range(3):
-    h[:,:,i] = r_sol[:,i::3]
-
-data = h
-
-fig = plt.figure()
-# fig = plt.figure(figsize=plt.figaspect(1)*2)
-
-ax = p3.Axes3D(fig)
-# ax.set_box_aspect([1,1,1])
-# ax = plt.gca(projection='3d', proj_type = 'ortho')
-
-# Plot the first position for all particles
-#h = ax.plot(*data[0].T, marker='.', linestyle='None')[0]
-# Equivalent to
-# h = ax.plot(data[0, :, 0], data[0, :, 1], data[0, :, 2],
-#             marker='.', linestyle='None')[0]
-
-# Setting the axes properties
-ax.set_xlim3d([-1.5, 1.5])
-ax.set_xlabel('X')
-
-ax.set_ylim3d([-1, 1])
-ax.set_ylabel('Y')
-
-ax.set_zlim3d([-0.5, 0.5])
-ax.set_zlabel('Z')
-ax.set_title('3D Test')
-
-colormap = plt.cm.tab20c
-colors = [colormap(i) for i in np.linspace(0, 1, N)]
-h_particles = [ax.plot(*data[:1, i].T, marker='o', c=colors[i], ls='None')[0]
-               for i in range(N)]
-
-h_particles = [ax.plot(*data[0:, i].T, marker='o', c=colors[i], ls='None')[0] for i in range(N)]
-
-
-def update_particles(num):
-
-    for i, h in enumerate(h_particles):
-
-        # h_particles[i].remove()
-
-        # trace = [ax.plot(*data[:num, i].T, maker='-', c=colors[i], ls='None') for i in range(N)]
-
-        # h_particles[i][0] = [ax.plot(*data[:num-1, i].T, marker='.', c=colors[i], ls='None')[0] for i in range(N)]
-
-        h.set_xdata(data[num-5:num, i, 0])
-        h.set_ydata(data[num-5:num, i, 1])
-        h.set_3d_properties(data[num-5:num, i, 2])
-    return h_particles, trace
-
-prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=301, interval=10)
-"""
-
-# %%
-"""
-import numpy as np
-import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.animation as animation
-import matplotlib as mpl
-import subprocess
-
-
-data = np.empty((iterations, N, 3))
-
-for i in range(3):
-    data[:,:,i] = r_sol[:,i::3]
-
-fig = plt.figure()
-
-ax = p3.Axes3D(fig)
-ax.set_xlim3d([-1.5, 1.5])
-ax.set_xlabel('X')
-
-ax.set_ylim3d([-1, 1])
-ax.set_ylabel('Y')
-
-ax.set_zlim3d([-0.5, 0.5])
-ax.set_zlabel('Z')
-ax.set_title('3D Test')
-
-cm = plt.cm.get_cmap('tab10')
-colours = cm.colors
-
-
-h_particles = [ax.plot(*data[:1, i].T, marker='o', c=colours[i], ls='None')[0] for i in range(N)]
-trace = [ax.plot(data[:1,i,0], data[:1,i,1], data[:1,i,2], c=colours[i])[0] for i in range(N)]
-
-def update_particles(num):
-
-    global h_particles
-    global trace
-
-    for p in h_particles:
-            p.remove()
-
-    for t in trace:
-        t.remove()
-
-    trace = [ax.plot(data[:num,i,0], data[:num,i,1], data[:num,i,2], c=colours[i])[0] for i in range(N)]
-
-    h_particles = [ax.plot(*data[num-1:num, i].T, marker='o', c=colours[i], ls='None')[0] for i in range(N)]
-
-    return h_particles, trace
-
-prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=1000, interval=0, blit=False,repeat=False)
-
-# prtcl_ani.save("Failedmp4_1.mp4", dpi=450)
-
-# %%
-
-import matplotlib.pyplot as plt
-
-fig = plt.figure()
-
-plt.xlim(-10,10)
-plt.ylim(-10,10)
-
-#step 1: background blue dot
-plt.plot(0,0,marker='o',color='b')
-
-#step 2: additional black dots
-points_list = [(1,2),(3,4),(5,6)]
-for point in points_list:
-    plt.plot(point[0],point[1],marker='o',color='k')
-"""

@@ -16,6 +16,7 @@ import os
 
 # Definitions
 
+
 a = 50
 
 def confirmSelected():
@@ -29,7 +30,7 @@ def confirmSelected():
         print(val)
     if len(planets) < 2:
         print("At least two planets need to be selected")
-    
+
 # GUI
 
 root = tk.Tk()
@@ -67,7 +68,7 @@ planetslabel.place(relx=0.25, rely=0.3, anchor="center")
 lb = tk.Listbox(root, selectmode = "multiple")
 lb.place(relx=0.25, rely=0.5, anchor="center")
 
-x =["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+x =["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2"]
 
 for item in range(len(x)):
 	lb.insert(tk.END, x[item])
@@ -96,11 +97,14 @@ G_button = tk.Button(root,text='Change Constants',command=changeG)
 G_button.place(relx=0.75, rely=0.4, anchor="center")
 
 def runfile():
-    os.system('python TestSimulation.py')
+    os.system('python SlimSimulation-K1=K2=0.py')
 
 Executefile_btn = tk.Button(root, text="Run rando file", command=runfile)
 Executefile_btn.place(relx=0.5, rely=0.9)
 
+
+
 app = MyApp(root)
 
 root.mainloop()
+
