@@ -5,10 +5,13 @@ A n body simulation of our solar system completed in python
 
 <p align="center"><project-description></p>
   
-  | Left-aligned | Center-aligned | Right-aligned |
-| :----------- | :------------: | ------------: |
-| git status   |   git status   |    git status |
+| N body system | Time Period | Number of Time Periods | Gravitational Constants | Iterations Per Time-Period | ODE Solver |
+| :----------- | :------------: | ------------: | :----------- | :------------: | ------------: |
+| Solar System   |   git status   |    git status |
+| Figure of Eight    |    git diff    |      git diff |
+| Alpha Centauri     |    git diff    |      git diff |
 | git diff     |    git diff    |      git diff |
+
 
 ## Links
 
