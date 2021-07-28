@@ -7,7 +7,7 @@ A n body simulation of our solar system completed in python
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :----------- | :------------: | ------------: | :----------- | :------------: | ------------: |
-| Solar System   |   git status   |    git status |
+| Solar System   |   31536000   |    100 | 6.6743015e-11 | 25 | RK45 |
 | Figure of Eight    |    git diff    |      git diff |
 | Alpha Centauri     |    git diff    |      git diff |
 | git diff     |    git diff    |      git diff |
