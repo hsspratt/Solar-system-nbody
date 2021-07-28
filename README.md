@@ -5,7 +5,7 @@ A n body simulation of our solar system completed in python
 
 <p align="center"><project-description></p>
   
-| N body system | Time Period | Number of Time Periods | Gravitational Constants | Iterations Per Time-Period | ODE Solver |
+| N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :----------- | :------------: | ------------: | :----------- | :------------: | ------------: |
 | Solar System   |   git status   |    git status |
 | Figure of Eight    |    git diff    |      git diff |
