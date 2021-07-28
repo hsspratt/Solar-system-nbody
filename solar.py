@@ -2,7 +2,6 @@ from Objects import Objects
 import numpy as np
 import scipy.constants
 
-G = scipy.constants.G
 planets_init = []
 
 """Creating the SolarSystem class"""
@@ -10,8 +9,6 @@ planets_init = []
 class TestSolarSystem:
 
     planets = []
-
-    G = scipy.constants.G
 
     def __init__(self, planets_to_add):
         self.planets = planets_to_add
@@ -108,7 +105,7 @@ class TestSolarSystem:
 
         # calculating PE between all objects in matric form
         PE = G * np.sum(-(planets_mass*planets_mass.T)*inv_r,axis=0)
-        total_PE = G * np.sum(np.sum(-(planets_mass*planets_mass.T)*inv_r))
+        total_PE = G * np.sum(np.sum(np.triu(-(planets_mass*planets_mass.T)*inv_r,1)))
 
         r = np.vstack((x,y,z))
 

@@ -21,6 +21,8 @@ class n_body_app(object):
         self.iterations = tk.StringVar()
         self.rtol = tk.StringVar()
         self.atol = tk.StringVar()
+        self.K = tk.IntVar()
+
         
         close_btn = tk.Button(self.frame, text="Close Application", command=self.close_application)
         close_btn.pack()
@@ -55,7 +57,7 @@ class n_body_app(object):
         lb_planets = tk.Listbox(self.root, selectmode = "multiple")
         lb_planets.place(relx=0.1665, rely=0.5, anchor="center")
 
-        p = ["Mercury", "Venus", "Earth", "Mars", "Jupiter","Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", "AC_star","F8_1", "F8_2", "F8_3", "F8_planet"]
+        p = ["Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter","Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", "AC_star","F8_1", "F8_2", "F8_3", "F8_planet"]
         
         for item in range(len(p)):
         	lb_planets.insert(tk.END, p[item])
@@ -77,7 +79,9 @@ class n_body_app(object):
 
         tk.Button(self.root, text="Confirm Odesolver",
                   command=self.confirm_integrator).place(relx=0.5, rely=0.67, anchor="center")
-
+        
+        K_button = tk.Radiobutton(self.root, text='Simlify Simulation', variable=self.K, value=1)
+        K_button.place(relx=0.83, rely=0.85, anchor="center")
 
         """
         e = tk.Entry(self.root, width=10, borderwidth=1)
@@ -104,7 +108,7 @@ class n_body_app(object):
 
         G_entry = tk.Entry(self.root, textvariable=self.G)
         G_entry.place(relx=0.80, rely=0.40, anchor="center")
-        G_entry.insert(0, "6.6743015")
+        G_entry.insert(0, "6.6743015e-11")
         G_entry.focus()
         
         # time period
@@ -116,7 +120,7 @@ class n_body_app(object):
 
         time_period_entry = tk.Entry(self.root, textvariable=self.time_period)
         time_period_entry.place(relx=0.80, rely=0.45, anchor="center")
-        time_period_entry.insert(0, "3")
+        time_period_entry.insert(0, "31536000")
         time_period_entry.focus()
         
         # Number of time periods
@@ -128,7 +132,7 @@ class n_body_app(object):
 
         n_time_period_entry = tk.Entry(self.root, textvariable=self.n_time_period)
         n_time_period_entry.place(relx=0.80, rely=0.5, anchor="center")
-        n_time_period_entry.insert(0, "10")
+        n_time_period_entry.insert(0, "100")
         n_time_period_entry.focus()
         
         # Iterations per time period
@@ -140,7 +144,7 @@ class n_body_app(object):
 
         iterations_entry = tk.Entry(self.root, textvariable=self.iterations)
         iterations_entry.place(relx=0.80, rely=0.55, anchor="center")
-        iterations_entry.insert(0, "200")
+        iterations_entry.insert(0, "25")
         iterations_entry.focus()
         
         # rtol
@@ -169,7 +173,7 @@ class n_body_app(object):
           
         # login button
         login_button = tk.Button(self.root, text="Check what values are inputted", command=self.login_clicked)
-        login_button.place(relx=0.8333, rely=0.67, anchor="center")
+        login_button.place(relx=0.8333, rely=0.72, anchor="center")
 
         Executefile_btn = tk.Button(self.root, text="Run simulation", command=self.runfile)
         Executefile_btn.place(relx=0.5, rely=0.9, anchor="center")
@@ -273,7 +277,7 @@ class n_body_app(object):
             title='Values used',
             message=msg
         )
-        
+"""   
 root = tk.Tk()
 root.title("N Body Simulation")
 root.geometry('400x300')
@@ -286,3 +290,4 @@ print(app.n_time_period.get())
 print(app.iterations.get())
 print(app.rtol.get())
 print(app.atol.get())
+"""

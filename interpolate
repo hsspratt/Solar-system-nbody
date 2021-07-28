@@ -1,0 +1,30 @@
+import numpy as np
+from scipy.interpolate import interp1d
+
+# generate some example data
+W = 3
+H = 10
+M = 5
+
+A2 = np.arange(W * M).reshape(W, M)
+print(A2)
+# [[ 0  1  2  3  4]
+#  [ 5  6  7  8  9]
+#  [10 11 12 13 14]]
+
+# the initial column indices for A2
+x = np.arange(M)
+
+# we create a scipy.interpolate.interp1d instance
+itp_A2 = interp1d(x, A2, kind='nearest')
+
+# the output column coordinates for A1
+xi = np.linspace(0, M - 1, H)
+
+# we get the interpolated output by calling the interp1d instance with the
+# output coordinates
+A1 = itp_A2(xi)
+print(A1)
+# [[  0.   0.   1.   1.   2.   2.   3.   3.   4.   4.]
+#  [  5.   5.   6.   6.   7.   7.   8.   8.   9.   9.]
+#  [ 10.  10.  11.  11.  12.  12.  13.  13.  14.  14.]]

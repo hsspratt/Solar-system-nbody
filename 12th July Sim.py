@@ -236,6 +236,8 @@ for col in range(iterations):
 
 total = (np.array([KE])+np.array([PE])).flatten()
 
+print(total[-1]/total[0])
+
 t = three_body_sol['t']
 
 

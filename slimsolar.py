@@ -109,7 +109,7 @@ class TestSolarSystem:
         	# sum over upper triangle, to count each interaction only once
         # PE = G * np.sum(np.triu(-(mass*mass.T)*inv_r,1),axis=0)
         PE = G * np.sum(-(planets_mass*planets_mass.T)*inv_r,axis=0)
-        total_PE = G * np.sum(np.sum(-(planets_mass*planets_mass.T)*inv_r))
+        total_PE = G * np.sum(np.sum(np.triu(-(planets_mass*planets_mass.T)*inv_r,1)))
 
         r = np.vstack((x,y,z))
 
@@ -118,7 +118,7 @@ class TestSolarSystem:
         L_linear = np.linalg.norm(linear_momentum, axis=0)
 
         L_angular = np.full((N,3),0, dtype=float)
-        
+
         angular_m = []
 
         for i in range(N):
