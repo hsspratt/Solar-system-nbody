@@ -4,6 +4,11 @@ A n body simulation of our solar system completed in python
 <h1 align="center"><project-name></h1>
 
 <p align="center"><project-description></p>
+  
+  | Left-aligned | Center-aligned | Right-aligned |
+| :----------- | :------------: | ------------: |
+| git status   |   git status   |    git status |
+| git diff     |    git diff    |      git diff |
 
 ## Links
 
