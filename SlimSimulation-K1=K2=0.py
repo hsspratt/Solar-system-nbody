@@ -1,4 +1,8 @@
 # %%
+import pandas as pd
+import subprocess
+import matplotlib.animation as animation
+import mpl_toolkits.mplot3d.axes3d as p3
 import scipy.integrate
 from matplotlib import cm
 from mpl_toolkits.mplot3d import axes3d
@@ -383,11 +387,6 @@ domain = (t, t_End)
 
 # Non-Dimensionalization constants
 
-m_nd = 1.989e+30  # kg #mass of the sun
-r_nd = 5.326e+12  # m #distance between stars in Alpha Centauri
-v_nd = 30000  # m/s #relative velocity of earth around the sun
-t_nd = 79.91*365*24*3600*0.51  # s #orbital period of Alpha Centauri
-
 K1=1
 K2=1
 
@@ -437,19 +436,9 @@ init_params=np.hstack((planets_pos, planets_vel))
 # atol = float(app.rtol.get())
 
 # ## Run the solve_ivp solver
-"""
-if F8_1 in objects:
-    K1 = G*t_nd*m_nd/(r_nd**2*v_nd)
-    K2 = v_nd*t_nd/r_nd
-    domain = [0,20]  # 20 orbital periods and 500 points
-    max_steps = 0.001
-    three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations, t_span=domain, y0=init_params, args=(G, planets_mass, N, K1, K2), max_step=max_steps)  # rtol=rtol, atol=atol
-else:
-    # t_eval = np.linspace(0, 8, 500)
-    three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2), max_step=max_steps, t_eval = t_eval) # rtol=rtol, atol=atol
-"""
 three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2), max_step=max_steps) # rtol=rtol, atol=atol
-iterations = len(three_body_sol['t']) # Find how many values of t were used t_eval=np.linspace(tStart, t_End, 100000)
+t = three_body_sol['t']
+iterations = len(three_body_sol['t']) # Find how many values of t were used 
 
 # ## Store the position solutions into three distinct arrays
 r_sol = np.full((N*3,iterations),0)
@@ -472,19 +461,7 @@ for i in range(N):
 
 g = np.hstack((rcom_sol, rcom_sol,rcom_sol))
 
-# r_com_sol = r_sol - g
-
-"""
-for i in range(N):
-    r_com_sol[:,i*3:(i+1)*3] = r_sol[:,i*3:(i+1)*3] - rcom_sol
-"""
-
-# [for i in range(N) r_com_sol[:,i*3:(i+1)*3] = r_sol[:,i*3:(i+1)*3] - rearth_sol]
-
-# [x for x in (for i in range(N) r_com_sol[:,i*3:(i+1)*3] = r_sol[:,i*3:(i+1)*3] - rearth_sol)]
-
 colours = ['black','g','b','gold','y','m','c','r','lime']
-# [plt.plot(r_com_sol[:,i*3], r_com_sol[:,1+i*3], color=colours[i], label=solarsystem.planets[i].name) for i in range(N)]; plt.legend()
 
 end=time.time()
 print("Time for intialising data and integrating is: " , end-start)
@@ -511,10 +488,6 @@ for col in range(iterations):
     linear.append(temp_linear)
 
 total = (np.array([KE])+np.array([PE])).flatten()
-
-t = three_body_sol['t']
-
-
 
 plotKE = plt.figure(1)
 for planet in solarsystem.planets:
@@ -590,7 +563,6 @@ end = time.time()
 
 print("Time for calculating enrgy and plotting is:   " , end-start)
 
-
 total_off = ((total-total[0])/total)*100
 total_cor = [i for i in total_off if i >= 1]
 
@@ -599,142 +571,7 @@ if len(total_cor) == 0:
 else:
     print("The stablility of the orbit seems to be only valid up till the ", len(total_cor), " time step")
 
-
 # %%
-"""
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import animation, rc
-
-fig, ax = plt.subplots()
-
-line, = ax.plot(r_sol[:,0], r_sol[:,1], "-")
-line1, = ax.plot(r_sol[0,0], r_sol[0,1], "ro")
-line2, = ax.plot(r_sol[0,3], r_sol[0,4], "bo")
-line3, = ax.plot(r_sol[0,6], r_sol[0,7], "go")
-
-def connect(i):
-    start=max((i-5,0))
-    line1.set_data(r_com_sol[start:i,0],r_com_sol[start:i,1])
-    return line1,
-
-def connect1(i):
-    start=max((i-5,0))
-    line2.set_data(r_com_sol[start:i,3],r_com_sol[start:i,4])
-    return line2,
-
-def connect2(i):
-    start=max((i-5,0))
-    line3.set_data(r_com_sol[start:i,6],r_com_sol[start:i,7])
-    return line3,
-
-ax.set_xlim(-2,2)
-ax.set_ylim(-2,2)
-ani = animation.FuncAnimation(fig, connect, np.arange(1, 100), interval=100)
-ani1 = animation.FuncAnimation(fig, connect1, np.arange(1, 100), interval=100)
-ani2 = animation.FuncAnimation(fig, connect2, np.arange(1, 100), interval=100)
-
-plt.show()
-"""
-# %%
-"""
-import numpy as np
-import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.animation as animation
-import matplotlib as mpl
-import random
-mpl.rcParams['animation.ffmpeg_path'] = r'/Users/harry/Documents/GitHub/N-Body-Simulation-Summer/ffmpeg'
-
-# h = np.full((N*3,iterations),0)
-h = np.empty((iterations, N, 3))
-
-for i in range(3):
-    h[:,:,i] = r_sol[:,i::3]
-
-data = h
-
-fig = plt.figure()
-# fig = plt.figure(figsize=plt.figaspect(1)*2)
-
-ax = p3.Axes3D(fig)
-# ax.set_box_aspect([1,1,1])
-# ax = plt.gca(projection='3d', proj_type = 'ortho')
-
-# Plot the first position for all particles
-#h = ax.plot(*data[0].T, marker='.', linestyle='None')[0]
-# Equivalent to
-# h = ax.plot(data[0, :, 0], data[0, :, 1], data[0, :, 2],
-#             marker='.', linestyle='None')[0]
-
-# Setting the axes properties
-ax.set_xlim3d([-1.5, 1.5])
-ax.set_xlabel('X')
-
-ax.set_ylim3d([-1, 1])
-ax.set_ylabel('Y')
-
-ax.set_zlim3d([-0.5, 0.5])
-ax.set_zlabel('Z')
-ax.set_title('3D Test')
-
-colormap = plt.cm.tab20c
-colors = [colormap(i) for i in np.linspace(0, 1, N)]
-h_particles = [ax.plot(*data[:1, i].T, marker='o', c=colors[i], ls='None')[0]
-               for i in range(N)]
-
-h_particles = [ax.plot(*data[0:, i].T, marker='o', c=colors[i], ls='None')[0] for i in range(N)]
-
-
-def update_particles(num):
-
-    for i, h in enumerate(h_particles):
-
-        # h_particles[i].remove()
-
-        # trace = [ax.plot(*data[:num, i].T, maker='-', c=colors[i], ls='None') for i in range(N)]
-
-        # h_particles[i][0] = [ax.plot(*data[:num-1, i].T, marker='.', c=colors[i], ls='None')[0] for i in range(N)]
-
-        h.set_xdata(data[num-5:num, i, 0])
-        h.set_ydata(data[num-5:num, i, 1])
-        h.set_3d_properties(data[num-5:num, i, 2])
-    return h_particles, trace
-
-prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=301, interval=10)
-"""
-# %%
-"""
-# data
-measured_time = t
-measures = r_com_sol
-
-# Interpolate it to new time points
-linear_interp = [None]*3*N
-
-for i in range(3*N):
-    linear_interp = interp1d(measured_time, measures[:,i])
-    
-# linear_interp = interp1d(measured_time, measures)
-interpolation_time = np.linspace(0, t_End, iterations)
-linear_results = np.empty([iterations, 3*N])
-
-for i in range(3*N):
-    linear_results = linear_interp(interpolation_time)[i]
-    
-# cubic_interp = interp1d(measured_time, measures, kind='cubic')
-# cubic_results = cubic_interp(interpolation_time)
-
-# Plot the data and the interpolation
-plt.figure(figsize=(6, 4))
-plt.plot(measured_time, measures, 'o', ms=6, label='measures')
-plt.plot(interpolation_time, linear_results, label='linear interp')
-plt.plot(interpolation_time, cubic_results, label='cubic interp')
-plt.legend()
-plt.show()
-"""
-# %%
-import pandas as pd
 
 anim_r_com_sol = r_com_sol[0::2,:].copy()
 data_len = anim_r_com_sol.shape[:][0]
@@ -747,23 +584,6 @@ xnew = np.linspace(x.min(), x.max(), 9)
 # apply the interpolation to each column
 f = interp1d(x, anim_r_com_sol, axis=0)
 
-# get final result
-# print(f(xnew))
-
-# data = pd.DataFrame(data=r_com_sol, index=three_body_sol['t'])
-
-# res = s.resample('').interpolate().resample('0.02').asfreq().dropna()
-
-# %%
-
-import numpy as np
-import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.animation as animation
-import matplotlib as mpl
-import subprocess
-
-
 data = np.empty((data_len, N, 3))
 
 for i in range(3):
@@ -772,13 +592,10 @@ for i in range(3):
 fig = plt.figure()
 
 ax = p3.Axes3D(fig)
-# ax.set_xlim3d([-1.5, 1.5])
 ax.set_xlabel('X')
 
-# ax.set_ylim3d([-1, 1])
 ax.set_ylabel('Y')
 
-# ax.set_zlim3d([-0.5, 0.5])
 ax.set_zlabel('Z')
 
 ax.set_title("Animated Orbit ")
@@ -791,7 +608,7 @@ h_particles = [ax.plot(*data[:1, i].T, marker='o', c=colours[i], ls='None')[0] f
 trace = [ax.plot(data[:1,i,0], data[:1,i,1], data[:1,i,2], c=colours[i])[0] for i in range(N)]
 
 def update_particles(num):
-    print(num, " out of ", iterations)
+    print(num, " out of ", len(x))
     global h_particles
     global trace
 
@@ -809,44 +626,4 @@ def update_particles(num):
 
 prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, interval=10, blit=False,repeat=False)
 
-prtcl_ani.save("Failedmp4_2.mp4", dpi=450)
-
-
-# %%
-"""
-import matplotlib.pyplot as plt
-
-fig = plt.figure()
-
-plt.xlim(-10,10)
-plt.ylim(-10,10)
-
-#step 1: background blue dot
-plt.plot(0,0,marker='o',color='b')
-
-#step 2: additional black dots
-points_list = [(1,2),(3,4),(5,6)]
-for point in points_list:
-    plt.plot(point[0],point[1],marker='o',color='k')
-"""
-# %%
-"""
-kind = ['linear', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'previous', 'next']
-fig = plt.figure()
-ax = fig.subplots()
-x = np.linspace(0, 100,10)
-y = 3*x**2 - np.exp(0.1*x)
-x_new = np.linspace(0, 100, 100)
-
-for i in kind:
-    #interpolation step
-    f = interpolate.interp1d(x, y, kind = i)
-      #y array that contains the interpolated data points
-    y_interp = f(x_new)
-    ax.plot(x_new, y_interp, alpha = 0.5, label = i)
-ax.scatter(x,y)
-plt.legend()
-plt.show()
-"""
-# %%
-
+prtcl_ani.save("Orbit_Animation.mp4", dpi=450)

@@ -5,8 +5,6 @@ from tkinter import font
 import os
 from tkinter.messagebox import showinfo
 
-
-########################################################################
 class n_body_app(object):
 
     #----------------------------------------------------------------------
@@ -89,22 +87,6 @@ class n_body_app(object):
         K_button = tk.Radiobutton(self.root, text='Simlify Simulation', variable=self.K, value=1)
         K_button.place(relx=0.83, rely=0.85, anchor="center")
 
-        """
-        e = tk.Entry(self.root, width=10, borderwidth=1)
-        e.place(relx=0.80, rely=0.35, anchor="center")
-        e.insert(0, "6.6743015")
-        e.focus_set()
-        
-        G = 6.6743015
-        G_button = tk.Button(self.root,text='Change Constants',command=self.change_variable(G,e))
-        G_button.place(relx=0.75, rely=0.4, anchor="center")
-        """
-        
-        """
-        # G
-        G_label = tk.Label(self.root, text="G:")
-        G_label.pack(fill='x', expand=True)
-        """
         # G constant
         
         fontStyle = font.Font(family="Lucida Grande", size=12)
@@ -244,20 +226,6 @@ class n_body_app(object):
             print("The defult ODE solver will be used")
         return ODE
     
-    """
-    def confirmSelected():
-        global planets
-        planets = []
-        cname = lb_planets.curselection()
-        for i in cname:
-            op = lb_planets.get(i)
-            planets.append(op)
-        for val in planets:
-            print(val)
-        if len(planets) < 2:
-            print("At least two planets need to be selected")
-    """
-    
     def runfile(self):
         self.root.destroy()
 
@@ -283,19 +251,4 @@ class n_body_app(object):
             title='Values used',
             message=msg
         )
-"""   
-root = tk.Tk()
-root.title("N Body Simulation")
-root.geometry('400x300')
-app = n_body_app(root)
-root.mainloop()
-
-print(app.G.get())
-print(app.time_period.get())
-print(app.n_time_period.get())
-print(app.iterations.get())
-print(app.rtol.get())
-print(app.atol.get())
-"""
-
 # %%
