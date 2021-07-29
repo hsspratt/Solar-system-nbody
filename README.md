@@ -8,9 +8,17 @@ A n body simulation of our solar system completed in python
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
 | Solar System   |   31536000   |    100 | 6.6743015e-11 | 25 | RK45 |
-| Figure of Eight    |    git diff    |      git diff |
-| Alpha Centauri     |    git diff    |      git diff |
-| git diff     |    git diff    |      git diff |
+| Figure of Eight  |    6.32591398    |      10 | 1 | 25 | RK45 |
+| butterfly_I     |    6.2356    |      10 | 1 | 25 | RK45 |
+| butterfly_II     |    7.0039    |      10 | 1 | 25 | RK45 |
+| butterfly_III     |    13.8658    |      10 | 1 | 25 | RK45 |
+| moth_I     |    14.8939    |      10 | 1 | 25 | RK45 |
+| moth_II     |    28.6703    |      10 | 1 | 25 | RK45 |
+| moth_III     |    25.8406    |      10 | 1 | 25 | RK45 |
+| bumblebee    |    63.5345    |      10 | 1 | 25 | RK45 |
+
+  
+  moth_I, moth_II, moth_III, bumblebee
 
 
 ## Links
