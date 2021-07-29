@@ -1,9 +1,9 @@
 # Solar-system-nbody
 A n body simulation of our solar system completed in python
 
-<h1 align="center"><project-name></h1>
+<h1 align="center"><N Body Simulation></h1>
 
-<p align="center"><project-description></p>
+<p align="center"><Here is code written to simulate an n body interaction. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.></p>
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
@@ -18,16 +18,14 @@ A n body simulation of our solar system completed in python
 | bumblebee    |    63.5345    |      10 | 1 | 25 | RK45 |
 
   
-  moth_I, moth_II, moth_III, bumblebee
-
 
 ## Links
 
-- [Repo](https://github.com/Rohit19060/<project-name> "<project-name> Repo")
+- [Repo](https://github.com/hsspratt/Solar-system-nbody "<N Body Simulation> Repo")
 
 - [Live](<Homepage url> "Live View")
 
-- [Bugs](https://github.com/Rohit19060/<project-name>/issues "Issues Page")
+- [Bugs](https://github.com/hsspratt/Solar-system-nbody/issues "Issues Page")
 
 - [API](<API Link> "API")
 
