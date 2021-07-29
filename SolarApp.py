@@ -49,7 +49,7 @@ class n_body_app(object):
         lb = tk.Listbox(self.root, selectmode = "multiple")
         lb.place(relx=0.25, rely=0.5, anchor="center")
 
-        x = ["Mercury", "Venus", "Earth", "Mars", "Jupiter","Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", "AC_star","F8_1", "F8_2", "F8_3", "F8_planet"]
+        x = ["Mercury", "Venus", "Earth", "Mars", "Jupiter","Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", "AC_star","F8_1", "F8_2", "F8_3", "F8_planet","Butterfly_I"]
 
         for item in range(len(x)):
         	lb.insert(tk.END, x[item])

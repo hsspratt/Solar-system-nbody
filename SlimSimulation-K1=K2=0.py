@@ -1,4 +1,5 @@
 # %%
+import scipy.integrate
 from matplotlib import cm
 from mpl_toolkits.mplot3d import axes3d
 from matplotlib import pyplot as plt
@@ -156,6 +157,161 @@ AC_star = Objects('AC_star',
                np.array([0,-0.01,0]),
                np.array([0,0,0]))
 
+Objects_I_pos = [-1, 0, 0]
+Objects_II_pos = [1, 0, 0]
+Objects_III_pos = [0, 0, 0]
+
+
+butterfly_I  = [0.30689, 0.12551, 0, 6.2356] 
+butterfly_II = [0.39295, 0.09758, 0, 7.0039]
+bumblebee = [0.18428, 0.58719, 0, 63.5345]
+moth_I = [0.46444, 0.39606, 0, 14.8939] 
+moth_II = [0.43917, 0.45297, 0, 28.6703] 
+butterfly_III = [0.40592, 0.23016, 0, 13.8658] 
+moth_III = [0.38344, 0.37736, 0, 25.8406] 
+goggles = [0.08330, 0.12789, 0, 10.4668] 
+butterfly_IV = [0.350112, 0.07934, 0, 79.4759] 
+dragonfly = [0.08058, 0.58884, 0, 21.2710] 
+yarn = [0.55906, 0.34919, 55.5018] 
+yin_yang_I_a = [0.51394, 0.30474, 0, 17.3284] 
+yin_yang_I_b = [0.28270, 0.32721, 0, 10.9626] 
+yin_yang_II_a = [0.41682, 0.33033, 0, 55.7898]
+yin_yang_II_b = [0.41734, 0.31310, 0, 54.2076]
+
+
+Butterfly_I_1 = Objects('Butterfly I - Planet 1',
+                        1,
+                        np.array(Objects_I_pos),
+                        np.array([butterfly_I[0], butterfly_I[1], butterfly_I[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_I_2 = Objects('Butterfly I - Planet 2',
+                        1,
+                        np.array(Objects_II_pos),
+                        np.array([butterfly_I[0], butterfly_I[1], butterfly_I[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_I_3 = Objects('Butterfly I - Planet 3',
+                        1,
+                        np.array(Objects_III_pos),
+                        np.array([-2*butterfly_I[0], -2*butterfly_I[1], butterfly_I[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_II_1 = Objects('Butterfly II - Planet 1',
+                        1,
+                        np.array(Objects_I_pos),
+                        np.array([butterfly_II[0], butterfly_II[1], butterfly_II[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_II_2 = Objects('Butterfly II - Planet 2',
+                        1,
+                        np.array(Objects_II_pos),
+                        np.array([butterfly_II[0], butterfly_II[1], butterfly_II[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_II_3 = Objects('Butterfly II - Planet 3',
+                        1,
+                        np.array(Objects_III_pos),
+                        np.array([-2*butterfly_II[0],-2*butterfly_II[1], butterfly_II[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_III_1 = Objects('Butterfly III - Planet 1',
+                        1,
+                        np.array(Objects_I_pos),
+                        np.array([butterfly_III[0], butterfly_III[1], butterfly_III[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_III_2 = Objects('Butterfly III - Planet 2',
+                        1,
+                        np.array(Objects_II_pos),
+                        np.array([butterfly_III[0], butterfly_III[1], butterfly_III[2]]),
+                        np.array([0, 0, 0]))
+
+Butterfly_III_3 = Objects('Butterfly III - Planet 3',
+                        1,
+                        np.array(Objects_III_pos),
+                        np.array([-2*butterfly_III[0],-2*butterfly_III[1], butterfly_III[2]]),
+                        np.array([0, 0, 0]))
+
+bumblebee_1 = Objects('bumblebee I - Planet 1',
+                        1,
+                        np.array(Objects_I_pos),
+                        np.array([bumblebee[0], bumblebee[1], bumblebee[2]]),
+                        np.array([0, 0, 0]))
+
+bumblebee_2 = Objects('bumblebee I - Planet 2',
+                         1,
+                         np.array(Objects_II_pos),
+                         np.array([bumblebee[0], bumblebee[1], bumblebee[2]]),
+                         np.array([0, 0, 0]))
+
+bumblebee_3 = Objects('bumblebee I - Planet 3',
+                        1,
+                        np.array(Objects_III_pos),
+                        np.array([-2*bumblebee[0], -2*bumblebee[1], bumblebee[2]]),
+                        np.array([0, 0, 0]))
+
+moth_I_1 = Objects('moth I - Planet 1',
+                      1,
+                      np.array(Objects_I_pos),
+                      np.array([moth_I[0], moth_I[1], moth_I[2]]),
+                      np.array([0, 0, 0]))
+
+moth_I_2 = Objects('moth I - Planet 2',
+                      1,
+                      np.array(Objects_II_pos),
+                      np.array([moth_I[0], moth_I[1], moth_I[2]]),
+                      np.array([0, 0, 0]))
+
+moth_I_3 = Objects('moth I - Planet 3',
+                      1,
+                      np.array(Objects_III_pos),
+                      np.array([-2*moth_I[0], -2*moth_I[1], moth_I[2]]),
+                      np.array([0, 0, 0]))
+
+moth_II_1 = Objects('moth II - Planet 1',
+                   1,
+                   np.array(Objects_I_pos),
+                   np.array([moth_II[0], moth_II[1], moth_II[2]]),
+                   np.array([0, 0, 0]))
+
+moth_II_2 = Objects('moth II - Planet 2',
+                   1,
+                   np.array(Objects_II_pos),
+                   np.array([moth_II[0], moth_II[1], moth_II[2]]),
+                   np.array([0, 0, 0]))
+
+moth_II_3 = Objects('moth II - Planet 3',
+                   1,
+                   np.array(Objects_III_pos),
+                   np.array([-2*moth_II[0], -2*moth_II[1], moth_II[2]]),
+                   np.array([0, 0, 0]))
+
+moth_III_1 = Objects('moth III - Planet 1',
+                   1,
+                   np.array(Objects_I_pos),
+                   np.array([moth_III[0], moth_III[1], moth_III[2]]),
+                   np.array([0, 0, 0]))
+
+moth_III_2 = Objects('moth III - Planet 2',
+                   1,
+                   np.array(Objects_II_pos),
+                   np.array([moth_III[0], moth_III[1], moth_III[2]]),
+                   np.array([0, 0, 0]))
+
+moth_III_3 = Objects('moth III - Planet 3',
+                   1,
+                   np.array(Objects_III_pos),
+                   np.array([-2*moth_III[0], -2*moth_III[1], moth_III[2]]),
+                   np.array([0, 0, 0]))
+
+Butterfly_I = [Butterfly_I_1, Butterfly_I_2, Butterfly_I_3]
+Butterfly_II = [Butterfly_II_1, Butterfly_II_2, Butterfly_II_3]
+Butterfly_III = [Butterfly_III_1, Butterfly_III_2, Butterfly_III_3]
+bumblebee = [bumblebee_1, bumblebee_2, bumblebee_3]
+moth_I = [moth_I_1, moth_I_2, moth_I_3]
+moth_II = [moth_II_1, moth_II_2, moth_II_3]
+moth_III = [moth_III_1, moth_III_2, moth_III_3]
 
 root = tk.Tk()
 root.title("N Body Simulation")
@@ -163,18 +319,35 @@ root.geometry('400x300')
 app = n_body_app.n_body_app(root)
 root.mainloop()
 
+
 planets = app.planets
 
 print(planets)
 objects = []
 
-x = [F8_1, F8_2, F8_3, AC1, AC2, Sun,  Mercury, Venus,
-     Earth, Mars, Jupiter, Saturn, Uranus, Neptune]
-
-for i in range(len(x)):
-    if str(x[i].name) in planets:
-        objects.append(x[i])
-
+x = [F8_1, F8_2, F8_3, F8_planet, AC1, AC2, AC_star, Sun,  Mercury, Venus,
+     Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee]
+try:
+    for i in range(len(x)):
+        if str(x[i].name) in planets:
+            objects.append(x[i])
+except AttributeError:
+    if planets == ['Butterfly_I']:
+        objects = Butterfly_I
+    if planets == ['Butterfly_II']:
+        objects = Butterfly_III
+    if planets == ['Butterfly_III']:
+        objects = Butterfly_III
+    if planets == ['moth_I']:
+        objects = moth_I
+    if planets == ['moth_II']:
+        objects = moth_II
+    if planets == ['moth_III']:
+        objects = moth_III
+    if planets == ['bumblebee']:
+        objects = bumblebee
+    else:
+        print("Planets could not be initiallised")
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
 # objects = planets
@@ -215,12 +388,8 @@ r_nd = 5.326e+12  # m #distance between stars in Alpha Centauri
 v_nd = 30000  # m/s #relative velocity of earth around the sun
 t_nd = 79.91*365*24*3600*0.51  # s #orbital period of Alpha Centauri
 
-if app.K.get() == 1:
-    K1=G*t_nd*m_nd/(r_nd**2*v_nd)
-    K2=v_nd*t_nd/r_nd
-else:
-    K1=1
-    K2=1
+K1=1
+K2=1
 
 initial = np.full((1, 6), 0, dtype=float)
 mass = np.full((1, 1), 0, dtype=float)
@@ -268,6 +437,17 @@ init_params=np.hstack((planets_pos, planets_vel))
 # atol = float(app.rtol.get())
 
 # ## Run the solve_ivp solver
+"""
+if F8_1 in objects:
+    K1 = G*t_nd*m_nd/(r_nd**2*v_nd)
+    K2 = v_nd*t_nd/r_nd
+    domain = [0,20]  # 20 orbital periods and 500 points
+    max_steps = 0.001
+    three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations, t_span=domain, y0=init_params, args=(G, planets_mass, N, K1, K2), max_step=max_steps)  # rtol=rtol, atol=atol
+else:
+    # t_eval = np.linspace(0, 8, 500)
+    three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2), max_step=max_steps, t_eval = t_eval) # rtol=rtol, atol=atol
+"""
 three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2), max_step=max_steps) # rtol=rtol, atol=atol
 iterations = len(three_body_sol['t']) # Find how many values of t were used t_eval=np.linspace(tStart, t_End, 100000)
 
@@ -375,7 +555,17 @@ for i in range(N):
     plt.plot(r_com_sol[:,i*3], r_com_sol[:,1+i*3], colours[i], label=solarsystem.planets[i].name)
     plt.legend()
 plotOrbits.show()
-plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
+plt.savefig("Orbits System.eps", format = 'eps', dpi=500)
+# plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
+# plotOrbits.clf()
+
+plotEarth = plt.figure(10)
+plt.plot(r_com_sol[:,0], r_com_sol[:,1+0])
+plt.plot(r_com_sol[:,3], r_com_sol[:,1+3])
+plt.legend()
+plotEarth.show()
+plt.savefig("Earth orbit.svg", format = 'svg', dpi=500)
+# plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
 # plotOrbits.clf()
 
 plotLm = plt.figure(5)
@@ -544,11 +734,12 @@ plt.legend()
 plt.show()
 """
 # %%
+import pandas as pd
 
-anim_r_com_sol = r_com_sol[0::1,:].copy()
-data_len = anim_r_com_sol.shape[0]
+anim_r_com_sol = r_com_sol[0::2,:].copy()
+data_len = anim_r_com_sol.shape[:][0]
 
-x = np.array(range(anim_r_com_sol.shape[0]))
+x = np.array(range(anim_r_com_sol.shape[:][0]))
 
 # define new x range, we need 7 equally spaced values
 xnew = np.linspace(x.min(), x.max(), 9)
@@ -557,7 +748,11 @@ xnew = np.linspace(x.min(), x.max(), 9)
 f = interp1d(x, anim_r_com_sol, axis=0)
 
 # get final result
-print(f(xnew))
+# print(f(xnew))
+
+# data = pd.DataFrame(data=r_com_sol, index=three_body_sol['t'])
+
+# res = s.resample('').interpolate().resample('0.02').asfreq().dropna()
 
 # %%
 
@@ -585,7 +780,8 @@ ax.set_ylabel('Y')
 
 # ax.set_zlim3d([-0.5, 0.5])
 ax.set_zlabel('Z')
-ax.set_title('3D Test')
+
+ax.set_title("Animated Orbit ")
 
 cm = plt.cm.get_cmap('tab10')
 colours = cm.colors
@@ -611,9 +807,9 @@ def update_particles(num):
 
     return h_particles, trace
 
-prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, interval=1, blit=False,repeat=False)
+prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, interval=10, blit=False,repeat=False)
 
-prtcl_ani.save("Failedmp4_1.mp4", dpi=450)
+prtcl_ani.save("Failedmp4_2.mp4", dpi=450)
 
 
 # %%

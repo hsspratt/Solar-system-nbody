@@ -1,3 +1,5 @@
+# %%
+
 import tkinter as tk
 from tkinter import font
 import os
@@ -57,7 +59,11 @@ class n_body_app(object):
         lb_planets = tk.Listbox(self.root, selectmode = "multiple")
         lb_planets.place(relx=0.1665, rely=0.5, anchor="center")
 
-        p = ["Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter","Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", "AC_star","F8_1", "F8_2", "F8_3", "F8_planet"]
+        p = ["Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter",
+             "Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", 
+             "AC_star","F8_1", "F8_2", "F8_3", "F8_planet", "Butterfly_I",
+             "Butterfly_II", "Butterfly_III", "moth_I", "moth_II", 
+             "moth_III", "bumblebee"]
         
         for item in range(len(p)):
         	lb_planets.insert(tk.END, p[item])
@@ -291,3 +297,5 @@ print(app.iterations.get())
 print(app.rtol.get())
 print(app.atol.get())
 """
+
+# %%
