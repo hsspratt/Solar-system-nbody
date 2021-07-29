@@ -1,9 +1,9 @@
 # Solar-system-nbody
-A n body simulation of our solar system completed in python
+
 
 <h1 align="center"><N Body Simulation></h1>
 
-<p align="center"><Here is code written to simulate an n body interaction. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.></p>
+<p align="center"><A n body simulation of our solar system completed in python. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.></p>
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
