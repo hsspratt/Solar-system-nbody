@@ -1,5 +1,4 @@
 # %%
-
 import tkinter as tk
 from tkinter import font
 import os
@@ -9,12 +8,15 @@ class n_body_app(object):
 
     #----------------------------------------------------------------------
     def __init__(self, parent):
-        """Constructor"""
+
+        """Constructor for the GUI -- creates the frame"""
         self.root = parent
         self.root.title("Main frame")
         self.frame = tk.Frame(parent)
         self.frame.pack()
-        
+
+
+        """Creates all the variables that the user could change"""
         self.G = tk.StringVar()
         self.time_period = tk.StringVar()
         self.n_time_period = tk.StringVar()
@@ -23,7 +25,7 @@ class n_body_app(object):
         self.atol = tk.StringVar()
         self.K = tk.IntVar()
 
-        
+        """Creates and places all the buttons and text for the GUI"""
         close_btn = tk.Button(self.frame, text="Close Application", command=self.close_application)
         close_btn.pack()
 
@@ -51,44 +53,43 @@ class n_body_app(object):
         text_intro = "Select ODE solver"
         planetslabel = tk.Label(self.root, text=text_intro, font=fontStyle)
         planetslabel.place(relx=0.5, rely=0.3, anchor="center")
-        
+
         global lb_planets
 
         lb_planets = tk.Listbox(self.root, selectmode = "multiple")
         lb_planets.place(relx=0.1665, rely=0.5, anchor="center")
 
+        # All the different combinations avaliable for the simulation
+
         p = ["Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter",
-             "Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2", 
+             "Saturn", "Uranus", "Neptune", "Pluto", "AC1", "AC2",
              "AC_star","F8_1", "F8_2", "F8_3", "F8_planet", "Butterfly_I",
-             "Butterfly_II", "Butterfly_III", "moth_I", "moth_II", 
-             "moth_III", "bumblebee"]
-        
+             "Butterfly_II", "Butterfly_III", "moth_I", "moth_II",
+             "moth_III", "bumblebee", "Another_Sun"]
+
         for item in range(len(p)):
         	lb_planets.insert(tk.END, p[item])
         	lb_planets.itemconfig(item, bg="#ffffff")
 
         tk.Button(self.root, text="Confirm Planets",
                   command=self.confirmSelected).place(relx=0.1665, rely=0.67, anchor="center")
-        
+
         global lb_integrator
-        
+
         lb_integrator = tk.Listbox(self.root, selectmode="multiple")
         lb_integrator.place(relx=0.5, rely=0.5, anchor="center")
 
         integrator = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
- 
+
         for item in range(len(integrator)):
             lb_integrator.insert(tk.END, integrator[item])
             lb_integrator.itemconfig(item, bg="#ffffff")
 
         tk.Button(self.root, text="Confirm Odesolver",
                   command=self.confirm_integrator).place(relx=0.5, rely=0.67, anchor="center")
-        
-        K_button = tk.Radiobutton(self.root, text='Simlify Simulation', variable=self.K, value=1)
-        K_button.place(relx=0.83, rely=0.85, anchor="center")
 
         # G constant
-        
+
         fontStyle = font.Font(family="Lucida Grande", size=12)
         text_intro = "Gravitational Constant (G)"
         G_constant = tk.Label(self.root, text=text_intro, font=fontStyle)
@@ -98,9 +99,9 @@ class n_body_app(object):
         G_entry.place(relx=0.80, rely=0.40, anchor="center")
         G_entry.insert(0, "6.6743015e-11")
         G_entry.focus()
-        
+
         # time period
-        
+
         fontStyle = font.Font(family="Lucida Grande", size=12)
         text_intro = "Time Period (s):"
         time_period_label = tk.Label(self.root, text=text_intro, font=fontStyle)
@@ -110,9 +111,9 @@ class n_body_app(object):
         time_period_entry.place(relx=0.80, rely=0.45, anchor="center")
         time_period_entry.insert(0, "31536000")
         time_period_entry.focus()
-        
+
         # Number of time periods
-        
+
         fontStyle = font.Font(family="Lucida Grande", size=12)
         text_intro = "Number of time periods (n):"
         n_time_period_label = tk.Label(self.root, text=text_intro, font=fontStyle)
@@ -122,9 +123,9 @@ class n_body_app(object):
         n_time_period_entry.place(relx=0.80, rely=0.5, anchor="center")
         n_time_period_entry.insert(0, "100")
         n_time_period_entry.focus()
-        
+
         # Iterations per time period
-        
+
         fontStyle = font.Font(family="Lucida Grande", size=12)
         text_intro = "Iterations per time period (I):"
         iterations_label = tk.Label(self.root, text=text_intro, font=fontStyle)
@@ -134,7 +135,7 @@ class n_body_app(object):
         iterations_entry.place(relx=0.80, rely=0.55, anchor="center")
         iterations_entry.insert(0, "25")
         iterations_entry.focus()
-        
+
         # rtol
 
         fontStyle = font.Font(family="Lucida Grande", size=12)
@@ -146,9 +147,9 @@ class n_body_app(object):
         rtol_entry.place(relx=0.80, rely=0.6, anchor="center")
         rtol_entry.insert(0, "1e-3")
         rtol_entry.focus()
-        
+
         # atol
-        
+
         fontStyle = font.Font(family="Lucida Grande", size=12)
         text_intro = "Absolute tolerance:"
         atol_label = tk.Label(self.root, text=text_intro, font=fontStyle)
@@ -158,7 +159,7 @@ class n_body_app(object):
         atol_entry.place(relx=0.80, rely=0.65, anchor="center")
         atol_entry.insert(0, "1e-6")
         atol_entry.focus()
-          
+
         # login button
         login_button = tk.Button(self.root, text="Check what values are inputted", command=self.login_clicked)
         login_button.place(relx=0.8333, rely=0.72, anchor="center")
@@ -168,7 +169,7 @@ class n_body_app(object):
 
 
         self.FullScreenApp(parent)
-        
+
     #----------------------------------------------------------------------
 
     def close_application(self):
@@ -209,7 +210,7 @@ class n_body_app(object):
         if planets == ["F8_1", "F8_2", "F8_3"]:
             print("This is the figure of eight solution")
         return planets
-    
+
     def confirm_integrator(self):
         ODE = []
         cname = lb_integrator.curselection()
@@ -225,7 +226,7 @@ class n_body_app(object):
             ODE = ["RK45"]
             print("The defult ODE solver will be used")
         return ODE
-    
+
     def runfile(self):
         self.root.destroy()
 
@@ -234,14 +235,6 @@ class n_body_app(object):
         self.e.insert(0,text)
         return
 
-    def change_variable(self, variable, value):
-        # global e
-        # global variable
-        variable = self.value.get()
-        # text.insert(INSERT, G)
-        
-    def change_value(self, settings, name, value):
-        settings[name] = 2
 
     def login_clicked(self):
         """ callback when the login button clicked
@@ -251,4 +244,3 @@ class n_body_app(object):
             title='Values used',
             message=msg
         )
-# %%

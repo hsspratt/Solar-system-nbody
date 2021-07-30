@@ -1,71 +1,30 @@
 # %%
-
 import scipy as sci
-from scipy import optimize
 import numpy as np
-from matplotlib import cm
-from mpl_toolkits.mplot3d import axes3d
 from matplotlib import pyplot as plt
-from scipy.interpolate import interp1d
-from scipy import interpolate
-import numpy as np
-from SlimObjects import Objects
-import copy
-import time
-from slimsolar import TestSolarSystem
-import matplotlib.pyplot as plt
-from matplotlib import animation
-from mpl_toolkits.mplot3d import Axes3D
-from scipy.integrate import solve_ivp
-import scipy as sci
-import time
-import matplotlib as mpl
-import random
-# plt.switch_backend('Qt5Agg')
-# from ExampleGUI import MyApp
-import tkinter as tk
-# import NGUI
-# from SolarGUI import GUIplanets
-import n_body_app
-import copy
-import math
+from scipy import optimize
+# %%
 
-
-import numpy as np
-
-
+# function to find the closest point in an array to match up two arrays
 def find_nearest(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
     return array[idx]
 
+# calculates the effective potential to be plotted on the graph
 def gravitational_potential(mass, positions, xx, yy):
 
+    """Initialises the mass and positions"""
     m1 = mass[0]
     m2 = mass[1]
 
-    r_m1 = positions[0]
-    r_m2 = positions[1]
-
-    G = 1  # G = 6.674*10**(-11)
-    reduced_mass = (mass[0]*mass[1]/sum(mass))
-    distance_between = np.sqrt((r_m1[0] - r_m2[0])**2
-                               + (r_m1[1] - r_m2[1])**2)
-    # distance_between_cor
-    # L = 5e24
-
     m1 = mass[0]/(mass[0]+mass[1])
     m2 = mass[1]/(mass[0]+mass[1])
-    
-
-    # print(m1)
 
     r_m1 = positions[0]
     r_m2 = positions[1]
 
-    r_position = np.sqrt(abs(xx**2+yy**2))
-
-    # PE = G*(m1/(r_position-r_m1) + m2/(r_position-r_m2))
+    G = 1
 
     total_PE = G*(m1/np.sqrt((xx - r_m1[0])**2 + (yy - r_m1[1])**2)
                   + m2/np.sqrt((xx - r_m2[0])**2 + (yy - r_m2[1])**2))
@@ -89,12 +48,8 @@ m = mass[1]/(mass[0]+mass[1])
 positions = np.array([[-1+m, 0], [m, 0]])
 positions_x = np.array([positions[0][0], positions[1][0]])
 distance_between = abs(positions[0]-positions[1])
-# m = np.array([m])
 
-# L1 = [2*(1-(mass[0]/(mass[0]+mass[1])/3)**(1/3)),0]
-# L2 = [2*(1+(mass[0]/(mass[0]+mass[1])/3)**(1/3)), 0]
-# L3 = [2*(1+(mass[0]/(mass[0]+mass[1])*(5/12))), 0]
-
+# The follwing functions calculate the first three Lagrange points
 
 def L1_function(r,m):
     m=m
@@ -128,15 +83,15 @@ def L3_function(r,m):
 
     return r5*r**5 + r4*r**4 + r3*r**3 + r2*r**2 + r1*r + r0
 
-#print sci_solve(function, x0)
-
+# Uses the mesh grid of xx & yy to create a contour graph for the PE
 z = gravitational_potential(mass, positions, xx, yy)
 
-# print(sci.optimize.fsolve(L1_function,-1.25))
-print(sci.optimize.bisect(L1_function, -limit, limit, args=m))
-print(sci.optimize.bisect(L2_function, -limit, limit, args=m))
-print(sci.optimize.bisect(L3_function, -2, 2, args=m))
+# prints the positions of the Lagrange points
+print("L1:",sci.optimize.bisect(L1_function, -limit, limit, args=m))
+print("L2:",sci.optimize.bisect(L2_function, -limit, limit, args=m))
+print("L3:",sci.optimize.bisect(L3_function, -2, 2, args=m))
 
+"""Calculating and plotting the Lagrange Points"""
 L1 = sci.optimize.bisect(L1_function, -limit, limit, args=m)
 L2 = sci.optimize.bisect(L2_function, -limit, limit, args=m)
 L3 = sci.optimize.bisect(L3_function, -limit, limit, args=m)
@@ -183,6 +138,3 @@ ax.set_title('Plot of the Effective Potential for $\mu$ = %.2f' %
              (m,), fontsize=16)
 
 plt.show()
-
-
-# %%
