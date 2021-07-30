@@ -1,11 +1,21 @@
-# Solar-system-nbody
+# Welcome to Solar-system-nbody
 
-https://img.shields.io/github/languages/code-size/hsspratt/Solar-system-nbody
+Solar-system-nbody is a n body simulation written in python. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can work for as many objects as needed, they just have to be initialised first. The code as it is computes the position data for the planets initialised and then procedes to analyse the data by plotting a number of graphs including the 2D orbit, KE, PE and Momentum of the system. The code uses scipy.integrate.solve_ivp which is a nifty integrator which automatically detects the time steps at which to compute the integration. However all important aspects of the integrator can be changed in the GUI such as the time step (max_steps) and the tolerances (r_tol & a_tol). The objective of Solar_system_nbody is to produce an accurate simulation of the solar system, ideally at quick speeds.
+
+## How it works
+
+Firstly, check that you have these Python libraries: TKinter, NumPy, Matplotlib. If you have not installed python, I recommend using the Anaconda installer with Visual Studio Code as an IDE. Although spyder is typically the main IDE, i find that compatability with spyder and tkinter on MacOSX unreliable at times. 
+
+After downloading the code folder the program can be started by running **Simulation (GUI).py** in the main directory. This will launch the GUI from which you will be able to change a number of variables. The GUI will look like the image given below. 
+
+![GUI](/images/logo.png)
+<img width="1440" alt="Screenshot 2021-07-30 at 12 35 36" src="https://user-images.githubusercontent.com/42693405/127648456-35bf2221-8500-4fc5-a0f4-aa54e52c4e1b.png">
 
 
-# N Body Simulation
 
-A n body simulation of our solar system completed in python. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.
+
+
+
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
@@ -25,11 +35,6 @@ A n body simulation of our solar system completed in python. There is a GUI whic
 
 - [Repo](https://github.com/hsspratt/Solar-system-nbody "<N Body Simulation> Repo")
 
-- [Live](<Homepage url> "Live View")
-
-- [Bugs](https://github.com/hsspratt/Solar-system-nbody/issues "Issues Page")
-
-- [API](<API Link> "API")
 
 ## Screenshots
 
