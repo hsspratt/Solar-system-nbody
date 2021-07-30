@@ -1,16 +1,9 @@
 # Solar-system-nbody
 
-.. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
-   :target: https://github.com/sammmlow/ORBITM/blob/master/LICENSE
-   
-.. |orcid| image:: https://img.shields.io/badge/ID-0000--0002--1911--701X-a6ce39.svg
-   :target: https://orcid.org/0000-0002-1911-701X/
-   
-.. |linkedin| image:: https://img.shields.io/badge/LinkedIn-sammmlow-blue.svg
-   :target: https://www.linkedin.com/in/sammmlow
+https://img.shields.io/github/languages/code-size/hsspratt/Solar-system-nbody
 
 
-<h1 align="center"><N Body Simulation> </h1>
+<h1 align="center"> <N Body Simulation> </h1>
 
 <p align="center"><A n body simulation of our solar system completed in python. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.></p>
   
