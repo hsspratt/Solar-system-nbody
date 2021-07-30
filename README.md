@@ -3,9 +3,9 @@
 https://img.shields.io/github/languages/code-size/hsspratt/Solar-system-nbody
 
 
-<h1 align="center"> <N Body Simulation> </h1>
+# <N Body Simulation>
 
-<p align="center"><A n body simulation of our solar system completed in python. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.></p>
+<A n body simulation of our solar system completed in python. There is a GUI which enables the user to add a limited number of configurations, howvever the core code can woek for as many objects as needed, they just have to be initialised first.
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
