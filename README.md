@@ -15,18 +15,18 @@ After downloading the code folder the program can be started by running **Simula
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
 | Solar System   |   31536000   |    100 | 6.6743015e-11 | 25 | RK45 |
-| Figure of Eight  |    6.32591398    |      10 | 1 | 25 | RK45 |
-| butterfly_I     |    6.2356    |      10 | 1 | 25 | RK45 |
-| butterfly_II     |    7.0039    |      10 | 1 | 25 | RK45 |
+| Figure of Eight  |    6.32591398    |      0.5 | 1 | 25 | RK45 |
+| butterfly_I     |    6.235641    |      1 | 1 | 25 | RK45 |
+| butterfly_II     |    7.0039    |      1 | 1 | 25 | RK45 |
 | butterfly_III     |    13.8658    |      10 | 1 | 25 | RK45 |
-| moth_I     |    14.8939    |      10 | 1 | 25 | RK45 |
-| moth_II     |    28.6703    |      10 | 1 | 25 | RK45 |
-| moth_III     |    25.8406    |      10 | 1 | 25 | RK45 |
-| bumblebee    |    63.5345    |      10 | 1 | 25 | RK45 |
-| goggles    |    10.4668    |      10 | 1 | 25 | RK45 |
-| dragonfly    |    21.2710    |      10 | 1 | 25 | RK45 |
-| yarn    |    63.5345    |      10 | 1 | 25 | RK45 |
-| yin_yang_I_a    |    17.3284    |      10 | 1 | 25 | RK45 |
+| moth_I     |    14.8939    |      1 | 1 | 25 | RK45 |
+| moth_II     |    28.6703    |      1 | 1 | 25 | RK45 |
+| moth_III     |    25.8406    |      1 | 1 | 25 | RK45 |
+| bumblebee    |    63.5345    |      1 | 1 | 25 | RK45 |
+| goggles    |    10.4668    |      1 | 1 | 25 | RK45 |
+| dragonfly    |    21.2710    |      1 | 1 | 25 | RK45 |
+| yarn    |    63.5345    |      1 | 1 | 25 | RK45 |
+| yin_yang_I_a    |    4.2517    |      1 | 1 | 25 | RK45 |
 
 
 ## Links
