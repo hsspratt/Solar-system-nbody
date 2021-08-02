@@ -1,4 +1,6 @@
 # %%
+from init_objects import *
+from mpl_toolkits.mplot3d.axes3d import Axes3D
 import pandas as pd
 import subprocess
 import matplotlib.animation as animation
@@ -18,298 +20,12 @@ import matplotlib as mpl
 import tkinter as tk
 import n_body_app
 plt.rc('mathtext', fontset="cm")
+
+
+
 # %% Initialising all the planets, suns and objects that could be used in the simulation
 
 """ Using the objects class to input all the initial variables and initiliase the planets """
-
-au = 149597870.700e3
-v_factor = 1731460
-
-Sun = Objects('Sun',
-              1988500e24,
-              au*np.array([-6.534087946884256E-03,
-                       6.100454846284101E-03, 1.019968145073305E-04]),
-              v_factor*np.array([-2.499218584280511E-03,
-                          2.877287547390077E-03, 4.308752491196167E-05]),
-              np.array([0, 0, 0]))
-
-Another_Sun = Objects('Another_Sun',
-              1988500e24,
-                      2*au*np.array([1.538595512099490E+01,
-                                   1.241875975077764E+01, -1.532033630108008E-01]),
-                      2*v_factor*np.array([-2.499218584280511E-03,
-                                         2.877287547390077E-03, 4.308752491196167E-05]),
-              np.array([0, 0, 0]))
-
-Earth = Objects('Earth',
-                5.97219e24,
-                au*np.array([1.103149414301009E-01,
-                         9.834091037591375E-01, 5.617876135133732E-05]),
-                v_factor*np.array([-1.737759726478284E-02,
-                         1.972610167033268E-03, 8.664696160974217E-07]),
-                np.array([0, 0, 0]))
-
-Moon = Objects('Moon',
-               7.349e22,
-               au*np.array([1.102098327438270E-01,
-                        9.809689058999859E-01, 2.529448125222282E-05]),
-               v_factor*np.array([-1.675883798190850E-02,
-                        1.924205370134019E-03, -5.631205054459148E-05]),
-               np.array([0, 0, 0]))
-
-Jupiter = Objects('Jupiter',
-                  1898.13e24,
-                  au*np.array([2.932487231769548E+00, -
-                           4.163444383137574E+00, -4.833604407653648E-02]),
-                  v_factor*np.array([6.076788230491844E-03,
-                           4.702729516645153E-03, -1.554436340872727E-04]),
-                  np.array([0, 0, 0]))
-
-Mars = Objects('Mars',
-               6.4171e23,
-               au*np.array([8.134621210079180E-01,
-                        1.246863741423589E+00, 5.988005015395813E-03]),
-               v_factor*np.array([-1.115056230684616E-02,
-                        8.900864244780916E-03, 4.602296502333571E-04]),
-               np.array([0, 0, 0]))
-
-Venus = Objects('Venus',
-                48.685e23,
-                au*np.array([-6.617430552711726E-01, -
-                         2.949635370329196E-01, 3.377990088634703E-02]),
-                v_factor*np.array([8.298887450533079E-03, -
-                         1.847842625652145E-02, -7.325856707752017E-04]),
-                np.array([0, 0, 0]))
-
-Mercury = Objects('Mercury',
-                  3.302e23,
-                  au*np.array([-1.327900416813791E-01, -
-                           4.423196833692000E-01, -2.495947572187113E-02]),
-                  v_factor*np.array([2.142560067381590E-02, -
-                           6.223078359939026E-03, -2.473884150860611E-03]),
-                  np.array([0, 0, 0]))
-
-Saturn = Objects('Saturn',
-                 5.6834e26,
-                 au*np.array([5.409527551219896E+00, -
-                          8.387647661909122E+00, -6.952095229728303E-02]),
-                 v_factor*np.array([4.377905875627875E-03,
-                          3.010222250503800E-03, -2.269189986953596E-04]),
-                 np.array([0, 0, 0]))
-
-Neptune = Objects('Neptune',
-                  5.6834e26,
-                  au*np.array([5.409527551219896E+00, -
-                           8.387647661909122E+00, -6.952095229728303E-02]),
-                  v_factor*np.array([4.377905875627875E-03,
-                           3.010222250503800E-03, -2.269189986953596E-04]),
-                  np.array([0, 0, 0]))
-
-Uranus = Objects('Uranus',
-                 86.813e24,
-                 au*np.array([1.538595512099490E+01,
-                          1.241875975077764E+01, -1.532033630108008E-01]),
-                 v_factor*np.array([-2.499218584280511E-03,
-                          2.877287547390077E-03, 4.308752491196167E-05]),
-                 np.array([0, 0, 0]))
-
-F8_1 = Objects('F8_1',
-               1,
-               np.array([-0.97000436, 0.24308753, 0]),
-               np.array([0.4662036850, 0.4323657300, 0]),
-               np.array([0,0,0]))
-
-F8_2 = Objects('F8_2',
-                1,
-                np.array([0.97000436, -0.24308753, 0]),
-                np.array([0.4662036850, 0.4323657300, 0]),
-                np.array([0,0,0]))
-
-F8_3 = Objects('F8_3',
-                1,
-                np.array([0,0,0]),
-                np.array([-0.93240737, -0.86473146, 0]),
-                np.array([0,0,0]))
-
-F8_planet = Objects('F8_planet',
-                  0.001,
-                  np.array([-0.33, --0.3, 0]),
-                  np.array([0,0,0]),
-                  np.array([0,0,0]))
-
-AC1 = Objects('AC1',
-               1.1,
-               np.array([-0.5,0,0]),
-               np.array([0.01,0.01,0]),
-               np.array([0,0,0]))
-
-AC2 = Objects('AC2',
-               0.907,
-               np.array([0.5,0,0]),
-               np.array([-0.05,0,-0.1]),
-               np.array([0,0,0]))
-
-AC_star = Objects('AC_star',
-               1.0,
-               np.array([0,1,0]),
-               np.array([0,-0.01,0]),
-               np.array([0,0,0]))
-
-Objects_I_pos = [-1, 0, 0]
-Objects_II_pos = [1, 0, 0]
-Objects_III_pos = [0, 0, 0]
-
-
-butterfly_I  = [0.30689, 0.12551, 0, 6.2356]
-butterfly_II = [0.39295, 0.09758, 0, 7.0039]
-bumblebee = [0.18428, 0.58719, 0, 63.5345]
-moth_I = [0.46444, 0.39606, 0, 14.8939]
-moth_II = [0.43917, 0.45297, 0, 28.6703]
-butterfly_III = [0.40592, 0.23016, 0, 13.8658]
-moth_III = [0.38344, 0.37736, 0, 25.8406]
-goggles = [0.08330, 0.12789, 0, 10.4668]
-butterfly_IV = [0.350112, 0.07934, 0, 79.4759]
-dragonfly = [0.08058, 0.58884, 0, 21.2710]
-yarn = [0.55906, 0.34919, 55.5018]
-yin_yang_I_a = [0.51394, 0.30474, 0, 17.3284]
-yin_yang_I_b = [0.28270, 0.32721, 0, 10.9626]
-yin_yang_II_a = [0.41682, 0.33033, 0, 55.7898]
-yin_yang_II_b = [0.41734, 0.31310, 0, 54.2076]
-
-
-Butterfly_I_1 = Objects('Butterfly I - Planet 1',
-                        1,
-                        np.array(Objects_I_pos),
-                        np.array([butterfly_I[0], butterfly_I[1], butterfly_I[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_I_2 = Objects('Butterfly I - Planet 2',
-                        1,
-                        np.array(Objects_II_pos),
-                        np.array([butterfly_I[0], butterfly_I[1], butterfly_I[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_I_3 = Objects('Butterfly I - Planet 3',
-                        1,
-                        np.array(Objects_III_pos),
-                        np.array([-2*butterfly_I[0], -2*butterfly_I[1], butterfly_I[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_II_1 = Objects('Butterfly II - Planet 1',
-                        1,
-                        np.array(Objects_I_pos),
-                        np.array([butterfly_II[0], butterfly_II[1], butterfly_II[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_II_2 = Objects('Butterfly II - Planet 2',
-                        1,
-                        np.array(Objects_II_pos),
-                        np.array([butterfly_II[0], butterfly_II[1], butterfly_II[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_II_3 = Objects('Butterfly II - Planet 3',
-                        1,
-                        np.array(Objects_III_pos),
-                        np.array([-2*butterfly_II[0],-2*butterfly_II[1], butterfly_II[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_III_1 = Objects('Butterfly III - Planet 1',
-                        1,
-                        np.array(Objects_I_pos),
-                        np.array([butterfly_III[0], butterfly_III[1], butterfly_III[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_III_2 = Objects('Butterfly III - Planet 2',
-                        1,
-                        np.array(Objects_II_pos),
-                        np.array([butterfly_III[0], butterfly_III[1], butterfly_III[2]]),
-                        np.array([0, 0, 0]))
-
-Butterfly_III_3 = Objects('Butterfly III - Planet 3',
-                        1,
-                        np.array(Objects_III_pos),
-                        np.array([-2*butterfly_III[0],-2*butterfly_III[1], butterfly_III[2]]),
-                        np.array([0, 0, 0]))
-
-bumblebee_1 = Objects('bumblebee I - Planet 1',
-                        1,
-                        np.array(Objects_I_pos),
-                        np.array([bumblebee[0], bumblebee[1], bumblebee[2]]),
-                        np.array([0, 0, 0]))
-
-bumblebee_2 = Objects('bumblebee I - Planet 2',
-                         1,
-                         np.array(Objects_II_pos),
-                         np.array([bumblebee[0], bumblebee[1], bumblebee[2]]),
-                         np.array([0, 0, 0]))
-
-bumblebee_3 = Objects('bumblebee I - Planet 3',
-                        1,
-                        np.array(Objects_III_pos),
-                        np.array([-2*bumblebee[0], -2*bumblebee[1], bumblebee[2]]),
-                        np.array([0, 0, 0]))
-
-moth_I_1 = Objects('moth I - Planet 1',
-                      1,
-                      np.array(Objects_I_pos),
-                      np.array([moth_I[0], moth_I[1], moth_I[2]]),
-                      np.array([0, 0, 0]))
-
-moth_I_2 = Objects('moth I - Planet 2',
-                      1,
-                      np.array(Objects_II_pos),
-                      np.array([moth_I[0], moth_I[1], moth_I[2]]),
-                      np.array([0, 0, 0]))
-
-moth_I_3 = Objects('moth I - Planet 3',
-                      1,
-                      np.array(Objects_III_pos),
-                      np.array([-2*moth_I[0], -2*moth_I[1], moth_I[2]]),
-                      np.array([0, 0, 0]))
-
-moth_II_1 = Objects('moth II - Planet 1',
-                   1,
-                   np.array(Objects_I_pos),
-                   np.array([moth_II[0], moth_II[1], moth_II[2]]),
-                   np.array([0, 0, 0]))
-
-moth_II_2 = Objects('moth II - Planet 2',
-                   1,
-                   np.array(Objects_II_pos),
-                   np.array([moth_II[0], moth_II[1], moth_II[2]]),
-                   np.array([0, 0, 0]))
-
-moth_II_3 = Objects('moth II - Planet 3',
-                   1,
-                   np.array(Objects_III_pos),
-                   np.array([-2*moth_II[0], -2*moth_II[1], moth_II[2]]),
-                   np.array([0, 0, 0]))
-
-moth_III_1 = Objects('moth III - Planet 1',
-                   1,
-                   np.array(Objects_I_pos),
-                   np.array([moth_III[0], moth_III[1], moth_III[2]]),
-                   np.array([0, 0, 0]))
-
-moth_III_2 = Objects('moth III - Planet 2',
-                   1,
-                   np.array(Objects_II_pos),
-                   np.array([moth_III[0], moth_III[1], moth_III[2]]),
-                   np.array([0, 0, 0]))
-
-moth_III_3 = Objects('moth III - Planet 3',
-                   1,
-                   np.array(Objects_III_pos),
-                   np.array([-2*moth_III[0], -2*moth_III[1], moth_III[2]]),
-                   np.array([0, 0, 0]))
-
-Butterfly_I = [Butterfly_I_1, Butterfly_I_2, Butterfly_I_3]
-Butterfly_II = [Butterfly_II_1, Butterfly_II_2, Butterfly_II_3]
-Butterfly_III = [Butterfly_III_1, Butterfly_III_2, Butterfly_III_3]
-bumblebee = [bumblebee_1, bumblebee_2, bumblebee_3]
-moth_I = [moth_I_1, moth_I_2, moth_I_3]
-moth_II = [moth_II_1, moth_II_2, moth_II_3]
-moth_III = [moth_III_1, moth_III_2, moth_III_3]
 
 root = tk.Tk()
 root.title("N Body Simulation")
@@ -323,13 +39,39 @@ planets = app.planets
 print(planets)
 objects = []
 
-x = [F8_1, F8_2, F8_3, F8_planet, AC1, AC2, AC_star, Sun,  Mercury, Venus,
-     Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Another_Sun, Butterfly_I, Butterfly_II,
-     Butterfly_III, moth_I, moth_II, moth_III, bumblebee]
+x = [Sun,  Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Another_Sun, 
+     Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee, 
+     pythag, pythag_I, Solar_System, Figure_8, Alpha_Centauri, goggles, yarn]
+
+thisdict = {
+    'Butterfly_I': Butterfly_I,
+    'Butterfly_II': Butterfly_II,
+    'Butterfly_III': Butterfly_III,
+    'moth_I': moth_I,
+    'moth_II': moth_II,
+    'moth_III': moth_III,
+    'bumblebee': bumblebee,
+    'pythag': pythag,
+    'pythag_I': pythag_I,
+    'Solar_System': Solar_System,
+    'Figure_8': Figure_8,
+    'Alpha_Centauri': Alpha_Centauri,
+    'goggles': goggles,
+    'yarn': yarn
+    }
+
 try:
     for i in range(len(x)):
         if str(x[i].name) in planets:
-            objects.append(x[i])
+            objects.extend(x[i])
+except AttributeError:
+    if len(planets) == 0:
+        objects = thisdict['Solar_System']
+        print("The defult configuration - the solar system - has been initiated")
+    else:
+        objects = thisdict[planets[0]]
+    print(len(objects), " objects have been initialised into the simulation")
+"""
 except AttributeError:
     if planets == ['Butterfly_I']:
         objects = Butterfly_I
@@ -345,8 +87,13 @@ except AttributeError:
         objects = moth_III
     if planets == ['bumblebee']:
         objects = bumblebee
+    if planets == ['pythag']:
+        objects = pythag
+    if planets == ['pythag_I']:
+        objects = pythag_I
     else:
         print("Planets could not be initiallised")
+"""
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
 solarsystem = SolarSystem(objects)
@@ -408,12 +155,16 @@ moment_of_mass = np.array([0,0,0])
 for i in range(N):
     moment_of_mass = moment_of_mass + planets_mass[i]*planets_pos[i]
 r_com=(moment_of_mass)/(sum(planets_mass))
+where_are_NaNs = np.isnan(r_com)
+r_com[where_are_NaNs] = 0
 
 # Finds centre of mass of velocity
 momentum = np.array([0,0,0])
 for i in range(N):
     momentum = momentum + planets_mass[i]*planets_vel[i]
 v_com=(momentum)/(sum(planets_mass))
+where_are_NaNs = np.isnan(v_com)
+v_com[where_are_NaNs] = 0
 
 # Flattens the array as thats the form solve_ivp takes it in
 
@@ -423,11 +174,20 @@ init_params=np.hstack((planets_pos, planets_vel))
 
 # %% Solve the equation for Gravity for the n body system
 
-# rtol = float(app.rtol.get())
-# atol = float(app.rtol.get())
+if len(app.ODE) > 1:
+            print("Only one ODE solver must be selected!")
+if len(app.ODE) == 0:
+    app.ODE = ["RK45"]
+    print("The defult ODE solver will be used as none were selected")
+
+rtol = float(app.rtol.get())
+atol = float(app.rtol.get())
+integrator = app.ODE
+
 
 # ## Run the solve_ivp solver
-three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations,t_span=domain,y0=init_params,args=(G,planets_mass,N,K1,K2), max_step=max_steps) # rtol=rtol, atol=atol
+three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations, t_span=domain, y0=init_params, args=(
+    G, planets_mass, N, K1, K2), max_step=max_steps, rtol=rtol, atol=atol, method=integrator[0])
 t = three_body_sol['t']
 iterations = len(three_body_sol['t']) # Find how many values of t were used
 
@@ -442,6 +202,8 @@ for i in range(N):
     momentum_com += planets_mass[i]*r_sol[:,i*3:(i+1)*3]
 
 rcom_sol = momentum_com/sum(planets_mass)
+where_are_NaNs = np.isnan(rcom_sol)
+rcom_sol[where_are_NaNs] = 0
 
 rearth_sol = r_sol[:,3:6]
 
@@ -464,102 +226,175 @@ start = time.time()
 for planet in solarsystem.planets:
     planet.KE = np.full((1,1),0,dtype=float)
     planet.PE = np.full((1,1),0,dtype=float)
-    planet.linear_m = np.full((1,1),0,dtype=float)
+    planet.linear_m = np.full((1,3),0,dtype=float)
     planet.angular_m = np.full((1,1),0,dtype=float)
 
 KE = []
 PE = []
 angular = []
 linear = []
+linear_x = []
+linear_y = []
+linear_z = []
 
 
 colours = ['black','g','b','gold','y','m','c','r','lime','navy']
 
 for col in range(iterations):
     sol = three_body_sol['y'][:,col]
-    temp_PE, temp_KE, temp_angular, temp_linear = SolarSystem.getEnergy(solarsystem, sol, planets_mass, G, N)
+    temp_PE, temp_KE, temp_angular, temp_linear, temp_linear_x, temp_linear_y, temp_linear_z = SolarSystem.getEnergy(
+        solarsystem, sol, planets_mass, G, N, v_com)
     KE.append(temp_KE)
     PE.append(temp_PE)
     angular.append(temp_angular)
     linear.append(temp_linear)
+    linear_x.append(temp_linear_x)
+    linear_y.append(temp_linear_y)
+    linear_z.append(temp_linear_z)
+    
+KE = np.array([KE])
+PE = np.array([PE])
+angular = np.array([angular])
+linear = np.array([linear])
+linear_x = np.array([linear_x])
+linear_y = np.array([linear_y])
+linear_z = np.array([linear_z])
 
-total = (np.array([KE])+np.array([PE])).flatten()
+total = (KE+PE).flatten()
 
+plotMvsKE = plt.figure(9)
+for planet in solarsystem.planets:
+    i = solarsystem.planets.index(planet)
+    plt.plot(planet.mass, np.average(planet.KE), colours[i],marker='x',label=solarsystem.planets[i].name)
+plt.show()
+plotMvsKE.savefig('Mass_KE.svg', dpi=600, bbox_inches='tight')
+    
 plotKE = plt.figure(1)
 for planet in solarsystem.planets:
     i = solarsystem.planets.index(planet)
-    plt.plot(t, planet.KE[1:], colours[i], label=solarsystem.planets[i].name)
-    plt.xlabel("Kinetic energy of planets in the solar system")
-    plt.ylabel("Kinetic energy (J)")
-    plt.legend()
+    plt.plot(t, planet.KE[1:,0], colours[i], label=solarsystem.planets[i].name, linewidth=0.9)
+plt.title("Kinetic energy of individual planets over $%.2f$ time periods" % (n_time_periods,), fontsize='9')
+plt.xlabel(r"Time ($s$)")
+plt.ylabel(r"Kinetic energy ($J$)")
+plotKE.legend()
 plotKE.show()
-plotKE.savefig('planets_KE.png', bbox_inches='tight')
+plotKE.savefig('planets_KE.svg', dpi=600, bbox_inches='tight')
 
 plotPE = plt.figure(2)
 for planet in solarsystem.planets:
     i = solarsystem.planets.index(planet)
-    plt.plot(t, planet.PE[1:], (colours)[i], label=solarsystem.planets[i].name)
-    plt.xlabel("Potential energy of planets in the solar system")
-    plt.ylabel("Potential energy (J)")
-    plt.legend()
+    plt.plot(t, planet.PE[1:,0], (colours)[i], label=solarsystem.planets[i].name, linewidth=0.9)
+    plt.title("Potential energy of individual planets over $%.2f$ time periods" % (n_time_periods,),fontsize='9')
+    plt.xlabel("Time ($s$)")
+    plt.ylabel("Potential energy ($J$)")
+    plotKE.legend()
     plotKE.show()
 plotPE.show()
-plotPE.savefig('planets_PE.png', bbox_inches='tight')
+plotPE.savefig('planets_PE.svg', bbox_inches='tight')
 
 plotTotal = plt.figure(3)
-plt.plot(t, KE, label="Kinetic energy")
-plt.plot(t, PE, label="Potential energy")
-plt.plot(t, total, label="Total energy")
-plt.xlabel("Total energy of planets in the solar system over time")
-plt.ylabel("Energy (J)")
-plt.legend()
+plt.plot(t, KE.flatten(), label="Kinetic energy",linewidth=0.9)
+plt.plot(t, PE.flatten(), label="Potential energy", linewidth=0.9)
+plt.plot(t, total, label="Total energy", linewidth=0.9)
+plt.title("Comparison of KE, PE and total energy of objects over time",fontsize='9')
+plt.xlabel("Time ($s$)")
+plt.ylabel("Energy ($J$)")
+plotTotal.legend()
 plotTotal.show()
-plotTotal.savefig('Total_Energy_System.png', bbox_inches='tight')
+plotTotal.savefig('Total_Energy_System.svg', bbox_inches='tight', dpi=600)
 
 plotOrbits = plt.figure(4)
 for i in range(N):
-    plt.plot(r_com_sol[:,i*3], r_com_sol[:,1+i*3], (colours)[i], label=solarsystem.planets[i].name)
-    plt.legend()
+    plt.plot(r_com_sol[:,i*3], r_com_sol[:,1+i*3], (colours)[i], label=solarsystem.planets[i].name,linewidth=0.9)
+plt.title("Orbits mapped - ")
+plt.xlabel("$x$ ($m$)")
+plt.ylabel("$y$ ($m$)")
+plotOrbits.legend()
 plotOrbits.show()
-plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
-
+plotOrbits.savefig('Orbits_System.svg', bbox_inches='tight', dpi=600)
+"""
 plotEarth = plt.figure(10)
 plt.plot(r_com_sol[:,0], r_com_sol[:,1+0])
 plt.plot(r_com_sol[:,3], r_com_sol[:,1+3])
 plt.legend()
 plotEarth.show()
 plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
-
+"""
 plotLm = plt.figure(5)
-plt.plot(t, linear)
-plt.xlabel("Total linear momentum of planets in the solar system over time")
-plt.ylabel("")
-plt.legend()
+plt.plot(t, linear.flatten(), linewidth=0.9)
+plt.title("Total linear momentum of objects in the system over time", fontsize='9')
+plt.xlabel("Time ($s$)")
+plt.ylabel("Linear momentum ($kgms^{-2}$)")
+plotLm.legend()
 plotLm.show()
 plotLm.savefig('Linear_Momentum_System.png', bbox_inches='tight')
 
 plotAm = plt.figure(6)
-plt.plot(t, angular)
-plt.xlabel("Total angular momentum of planets in the solar system over time")
-plt.ylabel("")
-plt.legend()
+plt.plot(t, angular.flatten(), linewidth=0.9)
+plt.title("Total angular momentum of objects in the system over time", fontsize='9')
+plt.xlabel("Time ($s$)")
+plt.ylabel("Angular Momentum ($kgm^2s^{-1}$)")
+plotAm.legend()
 plotAm.show()
-plotAm.savefig('Angular_Momentum_System.png', bbox_inches='tight')
+plotAm.savefig('Angular_Momentum_System.svg',dpi=600, bbox_inches='tight')
 
 # threeD_plot = plt.figure(7)
 threeD_plot = plt.figure(figsize=plt.figaspect(1)*2)
 
 # ax = p3.Axes3D(threeD_plot)
 ax = threeD_plot.gca(projection='3d', proj_type = 'ortho')
-line = [ax.plot(r_com_sol[:,i*3], r_com_sol[:,i*3+1], r_com_sol[:,i*3+2], c=(colours)[i])[0] for i in range(N)]
+x_scale = 4
+y_scale = 4
+z_scale = 1
+
+scale = np.diag([x_scale, y_scale, z_scale, 1.0])
+scale = scale*(1.0/scale.max())
+scale[3, 3] = 1.0
+
+
+def short_proj():
+  return np.dot(Axes3D.get_proj(ax), scale)
+
+ax.get_proj = short_proj
+
+ax.view_init(elev=45/2, azim=45)
+#ax.w_xaxis.line.set_lw(0.)
+#ax.set_xticks([])
+ax.dist = 7
+
+line = [ax.plot(r_com_sol[:, i*3], r_com_sol[:, i*3+1], r_com_sol[:,i*3+2], c=(colours)[i], linewidth=0.9)[0] for i in range(N)]
 ax.set_xlabel('')
 ax.set_ylabel('')
 ax.set_zlabel('')
-ax.set_zlim([-3e12,3e12])
+ax.set_zlim([-0.5e12,0.5e12])
 ax.set_title("Static 3D Orbit")
-ax.legend()
+threeD_plot.legend()
 threeD_plot.show()
-threeD_plot.savefig('3D static plot.png', bbox_inches='tight')
+threeD_plot.savefig('3D static plot.svg',dpi=600, bbox_inches='tight')
+plt.clf()
+
+plotLx = plt.figure(7)
+for planet in solarsystem.planets:
+    i = solarsystem.planets.index(planet)
+    plt.plot(t, planet.linear_m[:-1, 0], (colours)[i], label=solarsystem.planets[i].name, linewidth=0.9)
+plt.title("$x$ component of linear momentum over time", fontsize='9')
+plt.xlabel("Time")
+plt.ylabel("Linear momentum ($kgms^{-2}$)")
+plotLx.legend()
+plotLx.show()
+plotLx.show()
+plotLx.savefig('planets_momentum_x.svg',dpi=600, bbox_inches='tight')
+
+plotL_xyz = plt.figure(8)
+plt.plot(t, linear_x.flatten(),linewidth=0.9)
+plt.plot(t, linear_y.flatten(), linewidth=0.9)
+plt.plot(t, linear_z.flatten(), linewidth=0.9)
+plt.xlabel("Components of linear momentum over time", fontsize='9')
+plt.ylabel("Linear momentum ($kgms^{-2}$)")
+plotL_xyz.legend()
+plotL_xyz.show()
+plotL_xyz.savefig('Linear_Momentum_System_components.svg',dpi=600, bbox_inches='tight')
+
 
 end = time.time()
 
@@ -576,7 +411,7 @@ else:
     print("The stablility of the orbit seems to be only valid up till the ", len(total_cor), " time step")
 
 # %%
-
+"""
 cm = plt.cm.get_cmap('tab10')
 colours = cm.colors
 
@@ -597,7 +432,6 @@ for i in range(3):
     data[:,:,i] = anim_r_com_sol[:,i::3]
 
 fig = plt.figure()
-
 ax = p3.Axes3D(fig)
 ax.set_xlabel('X')
 
@@ -637,3 +471,4 @@ prtcl_ani.save("Orbit_Animation.mp4", dpi=450)
 # ['black','g','b','gold','y','m','c','r','lime']
 
 # %%
+"""

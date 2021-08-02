@@ -65,7 +65,7 @@ class SolarSystem:
             totalEnergy = self.totalkinetic() + self.totalpotential()
         return totalEnergy
 
-    def getEnergy(self, sol, planets_mass, G, N):
+    def getEnergy(self, sol, planets_mass, G, N, v_com):
         """
         Get kinetic energy (KE) and potential energy (PE) of simulation
         pos is N x 3 matrix of positions
@@ -81,6 +81,9 @@ class SolarSystem:
         v_z = np.array([sol[(N*3)+2::3]])
 
         v = np.vstack((v_x, v_y, v_z))
+        
+        v_com = np.tile(v_com, [N, 1])
+        v_com = v_com.T
 
         vel = np.array([np.linalg.norm(v, axis=0)]).T
         # print(vel.shape)
@@ -113,7 +116,7 @@ class SolarSystem:
 
         r = np.vstack((x,y,z))
 
-        linear_momentum = planets_mass.flatten() * v
+        linear_momentum = planets_mass.flatten() * (v-v_com)
 
         L_linear = np.linalg.norm(linear_momentum, axis=0)
 
@@ -127,6 +130,9 @@ class SolarSystem:
 
         total_angular = np.sum(angular_m)
         total_linear = np.sum(L_linear)
+        total_linear_x = np.sum(linear_momentum, 1)[0]
+        total_linear_y = np.sum(linear_momentum, 1)[1]
+        total_linear_z = np.sum(linear_momentum, 1)[2]
 
         # L = np.sum(np.sum(np.triu(mass * vel * np.sqrt(dx**2 + dy**2 + dz**2),1)))
 
@@ -135,7 +141,7 @@ class SolarSystem:
                 if index == self.planets.index(planet):
                     planet.KE = np.vstack((planet.KE, KE[index]))
                     planet.PE = np.vstack((planet.PE, PE[index]))
-                    planet.linear_m = np.vstack((planet.linear_m, L_linear[index]))
+                    planet.linear_m = np.vstack((planet.linear_m, linear_momentum[:,index]))
                     planet.angular_m = np.vstack((planet.angular_m, angular_m[index]))
 
-        return total_KE, total_PE, total_angular, total_linear;
+        return total_KE, total_PE, total_angular, total_linear, total_linear_x, total_linear_y, total_linear_z;
