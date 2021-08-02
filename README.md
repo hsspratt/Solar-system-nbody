@@ -23,6 +23,11 @@ After downloading the code folder the program can be started by running **Simula
 | moth_II     |    28.6703    |      10 | 1 | 25 | RK45 |
 | moth_III     |    25.8406    |      10 | 1 | 25 | RK45 |
 | bumblebee    |    63.5345    |      10 | 1 | 25 | RK45 |
+| goggles    |    10.4668    |      10 | 1 | 25 | RK45 |
+| dragonfly    |    21.2710    |      10 | 1 | 25 | RK45 |
+| yarn    |    63.5345    |      10 | 1 | 25 | RK45 |
+| yin_yang_I_a    |    17.3284    |      10 | 1 | 25 | RK45 |
+
 
 ## Links
 
