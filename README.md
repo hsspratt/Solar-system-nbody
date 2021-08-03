@@ -36,6 +36,9 @@ After downloading the code folder the program can be started by running **Simula
 
 ## Screenshots
 
+<img width="1440" alt="Screenshot 2021-08-03 at 01 04 24" src="https://user-images.githubusercontent.com/42693405/127939202-c0c0e964-7b76-4a69-87e1-fdcdcb287dfd.png">
+
+
 ![Home Page](/screenshots/1.png "Home Page")
 
 ![](/screenshots/2.png)
