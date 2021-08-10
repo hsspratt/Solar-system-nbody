@@ -74,8 +74,8 @@ except AttributeError:
     if len(planets) == 0:
         objects = thisdict['Solar_System']
         print("The defult configuration - the solar system - has been initiated")
-    # else:
-    #     objects = thisdict[planets[0]]
+    else:
+        objects = thisdict[planets[0]]
     print(len(objects), " objects have been initialised into the simulation")
     
 if Another_Sun in objects:
