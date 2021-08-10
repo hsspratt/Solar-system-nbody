@@ -43,7 +43,7 @@ y = np.linspace(-limit, limit, 70)
 
 xx, yy = np.meshgrid(x, y)
 
-mass = np.array([1.989e30, 1.989e30/(20)])
+mass = np.array([1.989e30, 1.989e30/(3)])
 m = mass[1]/(mass[0]+mass[1])
 positions = np.array([[-1+m, 0], [m, 0]])
 positions_x = np.array([positions[0][0], positions[1][0]])
@@ -136,5 +136,7 @@ else:
     ax.set_zlabel(r'$z$', fontsize=15)
 ax.set_title('Plot of the Effective Potential for $\mu$ = %.2f' %
              (m,), fontsize=16)
-
+plt.savefig("Lagrange points for \mu = %.2f.svg" %(m,), dpi=600)
 plt.show()
+
+# %%

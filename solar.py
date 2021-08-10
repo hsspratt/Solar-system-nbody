@@ -91,6 +91,8 @@ class SolarSystem:
         KE = 0.5 * planets_mass * vel**2
 
         total_KE = 0.5 * np.sum(np.sum(planets_mass * vel**2))
+                
+        virial_KE = np.average(0.5 * planets_mass * vel**2)
 
         # Potential Energy:
 

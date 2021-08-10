@@ -20,6 +20,7 @@ class Objects():
         self.mass = Mass
         self.position = initPosition
         self.velocity = initVelocity
+        self.currentPosition = []
         # self.position_non = initPosition
         # self.velocity_non = initVelocity
         self.acceleration = initAcceleration

@@ -19,6 +19,7 @@ import scipy as sci
 import matplotlib as mpl
 import tkinter as tk
 import n_body_app
+import os
 plt.rc('mathtext', fontset="cm")
 
 
@@ -40,8 +41,8 @@ print(planets)
 objects = []
 
 x = [Sun,  Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Another_Sun, 
-     Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee, 
-     pythag, pythag_I, Solar_System, Figure_8, Alpha_Centauri, goggles, yarn]
+     Another_Sun_2, Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee, 
+     pythag, pythag_I, Solar_System, Figure_8, Alpha_Centauri, goggles, yarn, yin_yang_I_a]
 
 thisdict = {
     'Butterfly_I': Butterfly_I,
@@ -57,19 +58,23 @@ thisdict = {
     'Figure_8': Figure_8,
     'Alpha_Centauri': Alpha_Centauri,
     'goggles': goggles,
-    'yarn': yarn
+    'yarn': yarn,
+    'yin_yang_I_a': yin_yang_I_a
     }
 
 try:
     for i in range(len(x)):
         if str(x[i].name) in planets:
-            objects.extend(x[i])
+            objects.append(x[i])
 except AttributeError:
+    if len(x) > 0:
+        pass
+    pass
     if len(planets) == 0:
         objects = thisdict['Solar_System']
         print("The defult configuration - the solar system - has been initiated")
-    else:
-        objects = thisdict[planets[0]]
+    # else:
+    #     objects = thisdict[planets[0]]
     print(len(objects), " objects have been initialised into the simulation")
 """
 except AttributeError:
@@ -242,7 +247,7 @@ colours = ['black','g','b','gold','y','m','c','r','lime','navy']
 
 for col in range(iterations):
     sol = three_body_sol['y'][:,col]
-    temp_PE, temp_KE, temp_angular, temp_linear, temp_linear_x, temp_linear_y, temp_linear_z = SolarSystem.getEnergy(
+    temp_KE, temp_PE, temp_angular, temp_linear, temp_linear_x, temp_linear_y, temp_linear_z = SolarSystem.getEnergy(
         solarsystem, sol, planets_mass, G, N, v_com)
     KE.append(temp_KE)
     PE.append(temp_PE)
@@ -262,23 +267,29 @@ linear_z = np.array([linear_z])
 
 total = (KE+PE).flatten()
 
+virial = (2*np.average(KE)+np.average(PE)).flatten()
+"""
 plotMvsKE = plt.figure(9)
 for planet in solarsystem.planets:
     i = solarsystem.planets.index(planet)
     plt.plot(planet.mass, np.average(planet.KE), colours[i],marker='x',label=solarsystem.planets[i].name)
-plt.show()
-plotMvsKE.savefig('Mass_KE.svg', dpi=600, bbox_inches='tight')
-    
+plotMvsKE.show()
+plotMvsKE.savefig('Mass_KE.png', dpi=600, bbox_inches='tight')
+"""    
+
+save_results_to = sys.path[0] + "/Plots Generated/"
+
 plotKE = plt.figure(1)
 for planet in solarsystem.planets:
     i = solarsystem.planets.index(planet)
     plt.plot(t, planet.KE[1:,0], colours[i], label=solarsystem.planets[i].name, linewidth=0.9)
-plt.title("Kinetic energy of individual planets over $%.2f$ time periods" % (n_time_periods,), fontsize='9')
+plt.title("Kinetic energy of individual planets", fontsize='9')
 plt.xlabel(r"Time ($s$)")
 plt.ylabel(r"Kinetic energy ($J$)")
-plotKE.legend()
+plotKE.legend(loc='center right', bbox_to_anchor=(0.90, 0.5))
+#plt.axis('equal')
 plotKE.show()
-plotKE.savefig('planets_KE.svg', dpi=600, bbox_inches='tight')
+plotKE.savefig(save_results_to + 'planets_KE.png', dpi=600, bbox_inches='tight')
 
 plotPE = plt.figure(2)
 for planet in solarsystem.planets:
@@ -290,28 +301,29 @@ for planet in solarsystem.planets:
     plotKE.legend()
     plotKE.show()
 plotPE.show()
-plotPE.savefig('planets_PE.svg', bbox_inches='tight')
+plotPE.savefig(save_results_to + "planets_PE.png", bbox_inches='tight')
 
 plotTotal = plt.figure(3)
 plt.plot(t, KE.flatten(), label="Kinetic energy",linewidth=0.9)
 plt.plot(t, PE.flatten(), label="Potential energy", linewidth=0.9)
 plt.plot(t, total, label="Total energy", linewidth=0.9)
+plt.plot(t, np.full((1, len(t)), virial)[0,:], label="$KE + 2PE = 0$", linewidth=0.9)
 plt.title("Comparison of KE, PE and total energy of objects over time",fontsize='9')
 plt.xlabel("Time ($s$)")
 plt.ylabel("Energy ($J$)")
-plotTotal.legend()
+plotTotal.legend(loc='center right', bbox_to_anchor=(0.90, 0.5))
 plotTotal.show()
-plotTotal.savefig('Total_Energy_System.svg', bbox_inches='tight', dpi=600)
+plotTotal.savefig(save_results_to +'Total_Energy_System.png', bbox_inches='tight', dpi=600)
 
 plotOrbits = plt.figure(4)
 for i in range(N):
     plt.plot(r_com_sol[:,i*3], r_com_sol[:,1+i*3], (colours)[i], label=solarsystem.planets[i].name,linewidth=0.9)
-plt.title("Orbits mapped - ")
+plt.title("Orbits mapped - 2D")
 plt.xlabel("$x$ ($m$)")
 plt.ylabel("$y$ ($m$)")
-plotOrbits.legend()
+plotOrbits.legend(loc='center right', bbox_to_anchor=(0.90, 0.5))
 plotOrbits.show()
-plotOrbits.savefig('Orbits_System.svg', bbox_inches='tight', dpi=600)
+plotOrbits.savefig(save_results_to +'Orbits_System.png', bbox_inches='tight', dpi=600)
 """
 plotEarth = plt.figure(10)
 plt.plot(r_com_sol[:,0], r_com_sol[:,1+0])
@@ -322,25 +334,28 @@ plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
 """
 plotLm = plt.figure(5)
 plt.plot(t, linear.flatten(), linewidth=0.9)
-plt.title("Total linear momentum of objects in the system over time", fontsize='9')
+# plt.title("Total linear momentum of objects in the system over time", fontsize='9')
 plt.xlabel("Time ($s$)")
 plt.ylabel("Linear momentum ($kgms^{-2}$)")
-plotLm.legend()
+#plotLm.legend()
 plotLm.show()
-plotLm.savefig('Linear_Momentum_System.png', bbox_inches='tight')
+plotLm.savefig(save_results_to +'Linear_Momentum_System.png', bbox_inches='tight')
 
 plotAm = plt.figure(6)
-plt.plot(t, angular.flatten(), linewidth=0.9)
-plt.title("Total angular momentum of objects in the system over time", fontsize='9')
+for planet in solarsystem.planets:
+    i = solarsystem.planets.index(planet)
+    plt.plot(t[1:], planet.angular_m[1:-1, 0], (colours)[i],
+             label=solarsystem.planets[i].name, linewidth=0.9)
+plt.plot(t, angular.flatten(), linewidth=0.9, label='Total')
+# plt.title("Total angular momentum of objects in the system over time", fontsize='9')
 plt.xlabel("Time ($s$)")
 plt.ylabel("Angular Momentum ($kgm^2s^{-1}$)")
 plotAm.legend()
 plotAm.show()
-plotAm.savefig('Angular_Momentum_System.svg',dpi=600, bbox_inches='tight')
+plotAm.savefig(save_results_to +'Angular_Momentum_System.png',dpi=600, bbox_inches='tight')
 
 # threeD_plot = plt.figure(7)
 threeD_plot = plt.figure(figsize=plt.figaspect(1)*2)
-
 # ax = p3.Axes3D(threeD_plot)
 ax = threeD_plot.gca(projection='3d', proj_type = 'ortho')
 x_scale = 4
@@ -362,15 +377,15 @@ ax.view_init(elev=45/2, azim=45)
 #ax.set_xticks([])
 ax.dist = 7
 
-line = [ax.plot(r_com_sol[:, i*3], r_com_sol[:, i*3+1], r_com_sol[:,i*3+2], c=(colours)[i], linewidth=0.9)[0] for i in range(N)]
+line = [ax.plot(r_com_sol[:, i*3], r_com_sol[:, i*3+1], r_com_sol[:,i*3+2], c=(colours)[i], label=solarsystem.planets[i].name, linewidth=0.9)[0] for i in range(N)]
 ax.set_xlabel('')
 ax.set_ylabel('')
 ax.set_zlabel('')
 ax.set_zlim([-0.5e12,0.5e12])
 ax.set_title("Static 3D Orbit")
-threeD_plot.legend()
+threeD_plot.legend(loc='center right')
 threeD_plot.show()
-threeD_plot.savefig('3D static plot.svg',dpi=600, bbox_inches='tight')
+threeD_plot.savefig(save_results_to +'3D static plot.png',dpi=600, bbox_inches='tight')
 plt.clf()
 
 plotLx = plt.figure(7)
@@ -380,21 +395,33 @@ for planet in solarsystem.planets:
 plt.title("$x$ component of linear momentum over time", fontsize='9')
 plt.xlabel("Time")
 plt.ylabel("Linear momentum ($kgms^{-2}$)")
-plotLx.legend()
+plotLx.legend(loc='upper left', bbox_to_anchor=(0.12, 0.80))
 plotLx.show()
 plotLx.show()
-plotLx.savefig('planets_momentum_x.svg',dpi=600, bbox_inches='tight')
+plotLx.savefig(save_results_to +'planets_momentum_x.png',dpi=600, bbox_inches='tight')
 
 plotL_xyz = plt.figure(8)
-plt.plot(t, linear_x.flatten(),linewidth=0.9)
-plt.plot(t, linear_y.flatten(), linewidth=0.9)
-plt.plot(t, linear_z.flatten(), linewidth=0.9)
+plt.plot(t, linear_x.flatten(),linewidth=0.9, label='$x$')
+plt.plot(t, linear_y.flatten(), linewidth=0.9, label='$y$')
+plt.plot(t, linear_z.flatten(), linewidth=0.9, label='$z$')
 plt.xlabel("Components of linear momentum over time", fontsize='9')
 plt.ylabel("Linear momentum ($kgms^{-2}$)")
-plotL_xyz.legend()
+plotL_xyz.legend(loc='center left', bbox_to_anchor=(0.15, 0.75))
 plotL_xyz.show()
-plotL_xyz.savefig('Linear_Momentum_System_components.svg',dpi=600, bbox_inches='tight')
+plotL_xyz.savefig(save_results_to +'Linear_Momentum_System_components.png',dpi=600, bbox_inches='tight')
 
+plot_planetsAngular = plt.figure(11)
+for planet in solarsystem.planets:
+    i = solarsystem.planets.index(planet)
+    plt.plot(t[1:], planet.angular_m[1:-1, 0], (colours)[i],
+             label=solarsystem.planets[i].name, linewidth=0.9)
+plt.title("$x$ component of linear momentum over time", fontsize='9')
+plt.xlabel("Time")
+plt.ylabel("Angular momentum ($kgms^{-2}$)")
+plot_planetsAngular.legend(loc='upper left', bbox_to_anchor=(0.12, 0.90))
+plot_planetsAngular.show()
+plot_planetsAngular.savefig(
+    save_results_to + 'planets_momentum_angular.png', dpi=600, bbox_inches='tight')
 
 end = time.time()
 
@@ -415,7 +442,7 @@ else:
 cm = plt.cm.get_cmap('tab10')
 colours = cm.colors
 
-anim_r_com_sol = r_com_sol[0::2,:].copy()
+anim_r_com_sol = r_com_sol[0::200,:].copy()
 data_len = anim_r_com_sol.shape[:][0]
 
 x = np.array(range(anim_r_com_sol.shape[:][0]))
@@ -466,9 +493,21 @@ def update_particles(num):
 
 prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, interval=70, blit=False,repeat=False)
 
-prtcl_ani.save("Orbit_Animation.mp4", dpi=450)
+writergif = animation.PillowWriter(fps=30)
+prtcl_ani.save('filename.gif', writer=writergif)
+#prtcl_ani.save("Orbit_Animation.mp4", dpi=450)
 
 # ['black','g','b','gold','y','m','c','r','lime']
+"""
+"""
+ffor planet in solarsystem.planets:
+    i = solarsystem.planets.index(planet)
+    planet.currentPosition = np.array([r_com_sol[-1, i*3], r_com_sol[-1, i*3+1], r_com_sol[-1,i*3+2]])
+Mercury.currentPosition
+compare = au*np.array([-4.041072102918555E-01, -7.538716216724484E-02, 3.015476880261785E-02])
+print(1- Mercury.currentPosition/compare)
+pos_change = np.sum(Mercury.currentPosition**2)-np.sum(compare**2)
+print((pos_change/np.sum(compare**2)))
+"""
 
 # %%
-"""
