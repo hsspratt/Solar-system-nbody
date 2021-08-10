@@ -8,45 +8,34 @@ Firstly, check that you have these Python libraries: TKinter, NumPy, Matplotlib.
 
 After downloading the code folder the program can be started by running **Simulation (GUI).py** in the main directory. This will launch the GUI from which you will be able to change a number of variables. The GUI will look like the image given below. 
 
-<img width="1440" alt="Screenshot 2021-07-30 at 12 35 36" src="https://user-images.githubusercontent.com/42693405/127648456-35bf2221-8500-4fc5-a0f4-aa54e52c4e1b.png">
+<img width="1440" alt="Screenshot 2021-08-03 at 01 04 24" src="https://user-images.githubusercontent.com/42693405/127939202-c0c0e964-7b76-4a69-87e1-fdcdcb287dfd.png">
 
-1. Choose what configurations to simulate. The planets (and stars) in the solar system such as the Sun, Earth, Venus initialise only one planet. However all the other configurations will iniialise multiple planets. These configuratioins can not be merged as the physics will not work. All the configurations bar the Solar System are simulations, such they are not here physical they don't not have the necessity to have physical values instead they have been non-dimentinalised. The configurations and examples of how they can be configured for the simulation to work are shown below.
+1. Choose what planets / configuration you want to simulate. Either individual planets can be added **or** configurations otherwise the simulation will not operate as expected. The planets you cann add are ones that resuide in our solar system with the addition of pluto (no longer a planet) and an additional star. For the configurations these are mainly made up of know analytical soliutions the initial conditions of which are loisted below. 
+2. The type of ODE integrator used can also be changed. Any questions about the differences can be found [here](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html). 
+3. The final configurations you can make to this simulation in the GUI are constansts such a G, time period, number of time periods, atol, rtol and interations per time period. All these configurations will be passed through and applied to the script giving you quite a lot of contorl over the simulation. 
+
+## Initial conditions which produce sensible orbits
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
 | Solar System   |   31536000   |    100 | 6.6743015e-11 | 25 | RK45 |
-| Figure of Eight  |    6.32591398    |      10 | 1 | 25 | RK45 |
-| butterfly_I     |    6.2356    |      10 | 1 | 25 | RK45 |
-| butterfly_II     |    7.0039    |      10 | 1 | 25 | RK45 |
+| Figure of Eight  |    6.32591398    |      0.5 | 1 | 25 | RK45 |
+| butterfly_I     |    6.235641    |      1 | 1 | 25 | RK45 |
+| butterfly_II     |    7.0039    |      1 | 1 | 25 | RK45 |
 | butterfly_III     |    13.8658    |      10 | 1 | 25 | RK45 |
-| moth_I     |    14.8939    |      10 | 1 | 25 | RK45 |
-| moth_II     |    28.6703    |      10 | 1 | 25 | RK45 |
-| moth_III     |    25.8406    |      10 | 1 | 25 | RK45 |
-| bumblebee    |    63.5345    |      10 | 1 | 25 | RK45 |
+| moth_I     |    14.8939    |      1 | 1 | 25 | RK45 |
+| moth_II     |    28.6703    |      1 | 1 | 25 | RK45 |
+| moth_III     |    25.8406    |      1 | 1 | 25 | RK45 |
+| bumblebee    |    63.5345    |      1 | 1 | 25 | RK45 |
+| goggles    |    10.4668    |      1 | 1 | 25 | RK45 |
+| dragonfly    |    21.2710    |      1 | 1 | 25 | RK45 |
+| yarn    |    63.5345    |      1 | 1 | 25 | RK45 |
+| yin_yang_I_a    |    4.2517    |      1 | 1 | 25 | RK45 |
+
 
 ## Links
 
 - [Repo](https://github.com/hsspratt/Solar-system-nbody "<N Body Simulation> Repo")
-
-
-## Screenshots
-
-![Home Page](/screenshots/1.png "Home Page")
-
-![](/screenshots/2.png)
-
-![](/screenshots/3.png)
-
-## Available Commands
-
-In the project directory, you can run:
-
-### `npm start" : "react-scripts start"`,
-
-The app is built using `create-react-app` so this command Runs the app in Development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser. You also need to run the server file as well to completely run the app. The page will reload if you make edits.
-You will also see any lint errors in the console.
-
-
 
 ## Built With
 
