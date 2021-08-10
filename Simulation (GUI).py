@@ -20,6 +20,7 @@ import matplotlib as mpl
 import tkinter as tk
 import n_body_app
 import os
+import sys
 plt.rc('mathtext', fontset="cm")
 
 
@@ -76,31 +77,13 @@ except AttributeError:
     # else:
     #     objects = thisdict[planets[0]]
     print(len(objects), " objects have been initialised into the simulation")
-"""
-except AttributeError:
-    if planets == ['Butterfly_I']:
-        objects = Butterfly_I
-    if planets == ['Butterfly_II']:
-        objects = Butterfly_III
-    if planets == ['Butterfly_III']:
-        objects = Butterfly_III
-    if planets == ['moth_I']:
-        objects = moth_I
-    if planets == ['moth_II']:
-        objects = moth_II
-    if planets == ['moth_III']:
-        objects = moth_III
-    if planets == ['bumblebee']:
-        objects = bumblebee
-    if planets == ['pythag']:
-        objects = pythag
-    if planets == ['pythag_I']:
-        objects = pythag_I
-    else:
-        print("Planets could not be initiallised")
-"""
+    
+if Another_Sun in objects:
+    objects.remove(Sun)
+    objects.append(Sun_Correction)
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
+
 solarsystem = SolarSystem(objects)
 
 # %% Define constants
@@ -265,17 +248,10 @@ linear_x = np.array([linear_x])
 linear_y = np.array([linear_y])
 linear_z = np.array([linear_z])
 
+"""Defining the energies which are the sum of other to plot"""
 total = (KE+PE).flatten()
 
 virial = (2*np.average(KE)+np.average(PE)).flatten()
-"""
-plotMvsKE = plt.figure(9)
-for planet in solarsystem.planets:
-    i = solarsystem.planets.index(planet)
-    plt.plot(planet.mass, np.average(planet.KE), colours[i],marker='x',label=solarsystem.planets[i].name)
-plotMvsKE.show()
-plotMvsKE.savefig('Mass_KE.png', dpi=600, bbox_inches='tight')
-"""    
 
 save_results_to = sys.path[0] + "/Plots Generated/"
 
@@ -287,7 +263,6 @@ plt.title("Kinetic energy of individual planets", fontsize='9')
 plt.xlabel(r"Time ($s$)")
 plt.ylabel(r"Kinetic energy ($J$)")
 plotKE.legend(loc='center right', bbox_to_anchor=(0.90, 0.5))
-#plt.axis('equal')
 plotKE.show()
 plotKE.savefig(save_results_to + 'planets_KE.png', dpi=600, bbox_inches='tight')
 
@@ -324,14 +299,7 @@ plt.ylabel("$y$ ($m$)")
 plotOrbits.legend(loc='center right', bbox_to_anchor=(0.90, 0.5))
 plotOrbits.show()
 plotOrbits.savefig(save_results_to +'Orbits_System.png', bbox_inches='tight', dpi=600)
-"""
-plotEarth = plt.figure(10)
-plt.plot(r_com_sol[:,0], r_com_sol[:,1+0])
-plt.plot(r_com_sol[:,3], r_com_sol[:,1+3])
-plt.legend()
-plotEarth.show()
-plotOrbits.savefig('Orbits_System.png', bbox_inches='tight')
-"""
+
 plotLm = plt.figure(5)
 plt.plot(t, linear.flatten(), linewidth=0.9)
 # plt.title("Total linear momentum of objects in the system over time", fontsize='9')
@@ -361,22 +329,16 @@ ax = threeD_plot.gca(projection='3d', proj_type = 'ortho')
 x_scale = 4
 y_scale = 4
 z_scale = 1
-
 scale = np.diag([x_scale, y_scale, z_scale, 1.0])
 scale = scale*(1.0/scale.max())
 scale[3, 3] = 1.0
-
 
 def short_proj():
   return np.dot(Axes3D.get_proj(ax), scale)
 
 ax.get_proj = short_proj
-
 ax.view_init(elev=45/2, azim=45)
-#ax.w_xaxis.line.set_lw(0.)
-#ax.set_xticks([])
 ax.dist = 7
-
 line = [ax.plot(r_com_sol[:, i*3], r_com_sol[:, i*3+1], r_com_sol[:,i*3+2], c=(colours)[i], label=solarsystem.planets[i].name, linewidth=0.9)[0] for i in range(N)]
 ax.set_xlabel('')
 ax.set_ylabel('')
@@ -437,8 +399,8 @@ if len(total_cor) == 0:
 else:
     print("The stablility of the orbit seems to be only valid up till the ", len(total_cor), " time step")
 
-# %%
-"""
+# %% If animation wanted uncomment this section
+
 cm = plt.cm.get_cmap('tab10')
 colours = cm.colors
 
@@ -493,21 +455,10 @@ def update_particles(num):
 
 prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, interval=70, blit=False,repeat=False)
 
-writergif = animation.PillowWriter(fps=30)
-prtcl_ani.save('filename.gif', writer=writergif)
-#prtcl_ani.save("Orbit_Animation.mp4", dpi=450)
+# writergif = animation.PillowWriter(fps=30)
+# prtcl_ani.save('filename.gif', writer=writergif)
+prtcl_ani.save("Orbit_Animation.mp4", dpi=450)
 
 # ['black','g','b','gold','y','m','c','r','lime']
-"""
-"""
-ffor planet in solarsystem.planets:
-    i = solarsystem.planets.index(planet)
-    planet.currentPosition = np.array([r_com_sol[-1, i*3], r_com_sol[-1, i*3+1], r_com_sol[-1,i*3+2]])
-Mercury.currentPosition
-compare = au*np.array([-4.041072102918555E-01, -7.538716216724484E-02, 3.015476880261785E-02])
-print(1- Mercury.currentPosition/compare)
-pos_change = np.sum(Mercury.currentPosition**2)-np.sum(compare**2)
-print((pos_change/np.sum(compare**2)))
-"""
 
 # %%
