@@ -43,7 +43,7 @@ objects = []
 
 x = [Sun,  Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Another_Sun, 
      Another_Sun_2, Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee, 
-     pythag, pythag_I, Solar_System, Figure_8, Alpha_Centauri, goggles, yarn, yin_yang_I_a]
+     pythag, pythag_I, Solar_System, Figure_8, Alpha_Centauri, goggles, yarn, yin_yang_I_a, Flower_in_circle]
 
 thisdict = {
     'Butterfly_I': Butterfly_I,
@@ -60,7 +60,8 @@ thisdict = {
     'Alpha_Centauri': Alpha_Centauri,
     'goggles': goggles,
     'yarn': yarn,
-    'yin_yang_I_a': yin_yang_I_a
+    'yin_yang_I_a': yin_yang_I_a,
+    'Flower_in_circle': Flower_in_circle
     }
 
 try:
@@ -74,7 +75,7 @@ except AttributeError:
     if len(planets) == 0:
         objects = thisdict['Solar_System']
         print("The defult configuration - the solar system - has been initiated")
-    else:
+    if len(planets) == 1:
         objects = thisdict[planets[0]]
     print(len(objects), " objects have been initialised into the simulation")
     

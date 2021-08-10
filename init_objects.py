@@ -117,22 +117,38 @@ F8_I_1 = Objects('F8_I_1',
                  np.array([-1, 0, 0]),
                  np.array([0.347111, 0.532728, 0]),
                  np.array([0, 0, 0]))
-
 F8_I_2 = Objects('F8_I_2',
                  1,
                  np.array([1, 0, 0]),
                  np.array([0.347111, 0.532728, 0]),
                  np.array([0, 0, 0]))
-
 F8_I_3 = Objects('F8_I_3',
                  1,
                  np.array([0, 0, 0]),
                  np.array([-2*0.347111, -2*0.532728, 0]),
                  np.array([0, 0, 0]))
 
+Flower_in_circle_1 = Objects('F8_I_1',
+                 1,
+                 np.array([-0.602885898116520, 1.059162128863347-1,0]),
+                 np.array([0.122913546623784,0.747443868604908, 0]),
+                 np.array([0, 0, 0]))
+
+Flower_in_circle_2 = Objects('F8_I_2',
+                 1,
+                 np.array([0.252709795391000, 1.058254872224370-1, 0]),
+                 np.array([-0.019325586404545, 1.369241993562101, 0]),
+                 np.array([0, 0, 0]))
+
+Flower_in_circle_3 = Objects('F8_I_3',
+                 1,
+                 np.array([-0.355389016941814,1.038323764315145-1, 0]),
+                 np.array([-0.103587960218793,- 2.116685862168820, 0]),
+                 np.array([0, 0, 0]))
+
 F8_planet = Objects('F8_planet',
                     0.001,
-                    np.array([-0.33, --0.3, 0]),
+                    np.array([-0.33, -0.3, 0]),
                     np.array([0, 0, 0]),
                     np.array([0, 0, 0]))
 
@@ -455,3 +471,5 @@ yin_yang_I_a = [yin_yang_I_a_1, yin_yang_I_a_2, yin_yang_I_a_3]
 
 pythag = [pythag_1, pythag_2, pythag_3]
 pythag_I = [pythag_I_1, pythag_I_2, pythag_I_3]
+
+Flower_in_circle = [Flower_in_circle_1, Flower_in_circle_2, Flower_in_circle_3]

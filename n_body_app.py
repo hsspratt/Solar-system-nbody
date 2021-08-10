@@ -90,7 +90,7 @@ class n_body_app(object):
 
         p = ["Solar_System", "Figure_8", "Alpha_Centauri","Butterfly_I", "Butterfly_II", "Butterfly_III", "moth_I", "moth_II",
              "moth_III", "bumblebee", "goggles", "dragonfly", "yarn", "yin_yang_I_a", "pythag",
-              "pythag_I"]
+             "pythag_I", "Flower_in_circle"]
 
         for item in range(len(p)):
             lb_configurations.insert(tk.END, p[item])
