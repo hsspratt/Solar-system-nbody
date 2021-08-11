@@ -21,17 +21,8 @@ class Objects():
         self.position = initPosition
         self.velocity = initVelocity
         self.currentPosition = []
-        # self.position_non = initPosition
-        # self.velocity_non = initVelocity
         self.acceleration = initAcceleration
-        # self.color = color
         self.init = np.hstack((self.position, self.velocity))
-        # self.init_non = np.hstack((self.position_non, self.velocity_non))
-        # self.oldinit = np.hstack((self.position, self.velocity))
-        # self.solution = [] # np.array([0, 0, 0])
-        # self.pos = np.array([0,0,0])
-        # self.vel = np.array([0,0,0])
-        # self.variables = np.hstack((self.position, self.velocity))
         self.KE = np.full((1,1),0,dtype=float)
         self.PE = np.full((1,1),0,dtype=float)
         self.linear_m = np.full((1,1),0,dtype=float)
@@ -39,7 +30,6 @@ class Objects():
 
 
     """Creating a function that solves Newtons Law of gravity to find the acceleration"""
-
 
     def ThreeBodyEquations(t,sol,G,mass,N,K1,K2):
         """

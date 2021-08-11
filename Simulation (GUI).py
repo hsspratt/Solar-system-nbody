@@ -383,8 +383,7 @@ plt.xlabel("Time")
 plt.ylabel("Angular momentum ($kgms^{-2}$)")
 plot_planetsAngular.legend(loc='upper left', bbox_to_anchor=(0.12, 0.90))
 plot_planetsAngular.show()
-plot_planetsAngular.savefig(
-    save_results_to + 'planets_momentum_angular.png', dpi=600, bbox_inches='tight')
+plot_planetsAngular.savefig(save_results_to + 'planets_momentum_angular.png', dpi=600, bbox_inches='tight')
 
 end = time.time()
 
@@ -401,11 +400,11 @@ else:
     print("The stablility of the orbit seems to be only valid up till the ", len(total_cor), " time step")
 
 # %% If animation wanted uncomment this section
-
+"""
 cm = plt.cm.get_cmap('tab10')
 colours = cm.colors
 
-anim_r_com_sol = r_com_sol[0::200,:].copy()
+anim_r_com_sol = r_com_sol[0::20,:].copy()
 data_len = anim_r_com_sol.shape[:][0]
 
 x = np.array(range(anim_r_com_sol.shape[:][0]))
@@ -458,8 +457,7 @@ prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, inte
 
 # writergif = animation.PillowWriter(fps=30)
 # prtcl_ani.save('filename.gif', writer=writergif)
-prtcl_ani.save("Orbit_Animation.mp4", dpi=450)
+prtcl_ani.save(save_results_to + "Orbit_Animation.mp4", dpi=450)
 
 # ['black','g','b','gold','y','m','c','r','lime']
-
-# %%
+"""

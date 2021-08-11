@@ -128,19 +128,19 @@ F8_I_3 = Objects('F8_I_3',
                  np.array([-2*0.347111, -2*0.532728, 0]),
                  np.array([0, 0, 0]))
 
-Flower_in_circle_1 = Objects('F8_I_1',
+Flower_in_circle_1 = Objects('Flower_1',
                  1,
                  np.array([-0.602885898116520, 1.059162128863347-1,0]),
                  np.array([0.122913546623784,0.747443868604908, 0]),
                  np.array([0, 0, 0]))
 
-Flower_in_circle_2 = Objects('F8_I_2',
+Flower_in_circle_2 = Objects('Flower_2',
                  1,
                  np.array([0.252709795391000, 1.058254872224370-1, 0]),
                  np.array([-0.019325586404545, 1.369241993562101, 0]),
                  np.array([0, 0, 0]))
 
-Flower_in_circle_3 = Objects('F8_I_3',
+Flower_in_circle_3 = Objects('Flower_3',
                  1,
                  np.array([-0.355389016941814,1.038323764315145-1, 0]),
                  np.array([-0.103587960218793,- 2.116685862168820, 0]),
