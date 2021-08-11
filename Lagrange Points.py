@@ -113,6 +113,8 @@ L3_z = z[np.where(x == L3_x), np.where(x == L3_x)]
 L4_z = z[np.where(y == L4_x), np.where(x == L4_x)]
 L5_z = z[np.where(y == L5_x), np.where(x == L5_x)]
 
+# Plots the results on a 3D contour graph
+
 fig = plt.figure()
 ax = plt.axes(projection='3d')
 ax.contour3D(x, y, -z, 50)

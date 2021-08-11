@@ -71,7 +71,7 @@ class n_body_app(object):
         # All the different combinations avaliable for the simulation
 
         p = ["Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter",
-             "Saturn", "Uranus", "Neptune", "Pluto","Another_Sun", "Another_Sun_2"]
+             "Saturn", "Uranus", "Neptune", "Pluto","Another_Sun"]
 
         for item in range(len(p)):
         	lb_planets.insert(tk.END, p[item])

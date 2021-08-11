@@ -2,7 +2,6 @@ from Objects import Objects
 import numpy as np
 import scipy.constants
 
-G = scipy.constants.G
 planets_init = []
 
 """Creating the SolarSystem class"""
@@ -10,8 +9,6 @@ planets_init = []
 class SolarSystem:
 
     planets = []
-
-    G = scipy.constants.G
 
     def __init__(self, planets_to_add):
         self.planets = planets_to_add
@@ -32,38 +29,73 @@ class SolarSystem:
     """Creating a function that calculates the individual kinetic energy of each Particle and then caculates the total
     kinetic energy of the simulation by summing the individual kinetic energies of each Particle"""
 
-    def totalkinetic(self):
-        totalkineticenergy = 0.
-        for planet in self.planets:
-            totalkineticenergy += planet.kineticenergy()
-        return totalkineticenergy
-
     """Creating a function that calculates the individual potential energy of each Particle and then caculates the total
     potential energy of the simulation by summing the individual potential energies of each Particle"""
 
-    def totalpotential(self):
-        totalpotential = 0.
-        for planet in self.planets:
-            for otherplanet in self.planets:
-                if planet != otherplanet:
-                    distancebetween = otherplanet.position - planet.position
-                    totalpotential += (self.G*planet.mass*otherplanet.mass)/(np.linalg.norm(distancebetween))
-        return totalpotential
-
-    def totalmom(self):
-        totalmom = 0.
-        for planet in self.planets:
-            totalmom += planet.Momentum()
-        return totalmom
-
     """Creating a function that calculates the total energy of the whole simulation by summing the total kinetic energy
     and total potential energy of the whole system"""
+    
+    def ThreeBodyEquations(t, sol, G, mass, N, K1, K2):
+        """
+        Calculates acceleration on each object due to Newton's Law
+        planets_pos  is an N x 3 matrix of positions
+	    planets_mass is an N x 1 vector of masses
+	    G is Newton's Gravitational constant
+	    dvbydt is N x 3 matrix of accelerations
 
-    def TotalEnergy(self):
-        totalEnergy = 0.
-        for planet in self.planets:
-            totalEnergy = self.totalkinetic() + self.totalpotential()
-        return totalEnergy
+        """
+        # saves all the planets masses
+        planets_mass = mass
+
+        # creates a numpy array for the data to be saved into
+        planets_pos = np.full([N, 3], 0, dtype=float)
+        planets_vel = np.full([N, 3], 0, dtype=float)
+
+        # sci.integrate.solve_ivp() gave the solution planet by planet with the first half
+        # of the array being position and the latter half velocity, this splits the solution
+        # up into its resepective counterparts
+
+        for i in range(N):
+            planets_pos[i, :] = sol[i*3:(i+1)*3]
+            planets_vel[i, :] = sol[N*3+(i*3):N*3+(1+i)*3]
+
+        # Harry's attempt
+        G = G
+
+        # positions r = [x,y,z] for all particles
+        x = planets_pos[:, 0:1]
+        y = planets_pos[:, 1:2]
+        z = planets_pos[:, 2:3]
+
+        # matrix that stores all pairwise particle separations: r_j - r_i
+        # it should be noted that this matrix way is very fast in contrast to looping
+        # planet by planet finding the respective distances. While not "technically"
+        # mathematically allowed with the laws of matricies the result is very useful
+
+        dx = x.T - x
+        dy = y.T - y
+        dz = z.T - z
+
+        # matrix that stores 1/r^3 for all particle pairwise particle separations
+        inv_r3 = (dx**2 + dy**2 + dz**2)
+
+        inv_r3[inv_r3 > 0] = inv_r3[inv_r3 > 0]**(-1.5)
+
+        ax = G * (dx * inv_r3) @ planets_mass
+        ay = G * (dy * inv_r3) @ planets_mass
+        az = G * (dz * inv_r3) @ planets_mass
+
+        # pack all the variables components back togeather
+        # containing accelersation of all
+        planets_acceleration = np.hstack((ax, ay, az))
+        # solution for derivative of the position
+        drbydt = K2*planets_vel.flatten()
+        # solution for derivative of the velocity
+        dvbydt = K1*planets_acceleration.flatten()
+
+        derivs = np.concatenate((drbydt, dvbydt))
+
+        return derivs
 
     def getEnergy(self, sol, planets_mass, G, N, v_com):
         """

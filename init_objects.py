@@ -1,6 +1,9 @@
 import numpy as np
 from Objects import Objects
 
+"""This Script initialises all the possible particles in the simulation"""
+"""If used the GUI will import them into the simulation"""
+
 au = 149597870.700e3
 v_factor = 1731460
 

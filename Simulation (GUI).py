@@ -23,11 +23,9 @@ import os
 import sys
 plt.rc('mathtext', fontset="cm")
 
-
-
 # %% Initialising all the planets, suns and objects that could be used in the simulation
 
-""" Using the objects class to input all the initial variables and initiliase the planets """
+"""Code to create and run GUI, from which you can change the configuration of the simulation"""
 
 root = tk.Tk()
 root.title("N Body Simulation")
@@ -84,6 +82,7 @@ if Another_Sun in objects:
     objects.append(Sun_Correction)
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
+""" Using the objects class to input all the initial variables and initiliase the planets """
 
 solarsystem = SolarSystem(objects)
 
@@ -163,6 +162,8 @@ init_params=np.hstack((planets_pos, planets_vel))
 
 # %% Solve the equation for Gravity for the n body system
 
+# ## Get constantys from GUI
+
 if len(app.ODE) > 1:
             print("Only one ODE solver must be selected!")
 if len(app.ODE) == 0:
@@ -173,9 +174,8 @@ rtol = float(app.rtol.get())
 atol = float(app.rtol.get())
 integrator = app.ODE
 
-
 # ## Run the solve_ivp solver
-three_body_sol = sci.integrate.solve_ivp(fun=Objects.ThreeBodyEquations, t_span=domain, y0=init_params, args=(
+three_body_sol = sci.integrate.solve_ivp(fun=SolarSystem.ThreeBodyEquations, t_span=domain, y0=init_params, args=(
     G, planets_mass, N, K1, K2), max_step=max_steps, rtol=rtol, atol=atol, method=integrator[0])
 t = three_body_sol['t']
 iterations = len(three_body_sol['t']) # Find how many values of t were used
@@ -185,6 +185,7 @@ r_sol = np.full((N*3,iterations),0)
 r_sol = three_body_sol['y'][0:N*3,:]
 r_sol = r_sol.T
 
+# ## Chaanges the reference apoint to about that of the COM
 momentum_com = np.full((iterations,3),0, dtype=float)
 
 for i in range(N):
@@ -193,7 +194,6 @@ for i in range(N):
 rcom_sol = momentum_com/sum(planets_mass)
 where_are_NaNs = np.isnan(rcom_sol)
 rcom_sol[where_are_NaNs] = 0
-
 rearth_sol = r_sol[:,3:6]
 
 r_com_sol = np.empty((iterations,N*3))
@@ -202,10 +202,6 @@ for i in range(N):
     r_com_sol[:,i*3:(i+1)*3] = r_sol[:,i*3:(i+1)*3] - rcom_sol
 
 g = np.hstack((rcom_sol, rcom_sol,rcom_sol))
-
-# cm = plt.cm.get_cmap('tab10')
-# colours = cm.colors
-
 
 end=time.time()
 print("Time for intialising data and integrating is: " , end-start)
@@ -303,10 +299,10 @@ plotOrbits.savefig(save_results_to +'Orbits_System.png', bbox_inches='tight', dp
 
 plotLm = plt.figure(5)
 plt.plot(t, linear.flatten(), linewidth=0.9)
-# plt.title("Total linear momentum of objects in the system over time", fontsize='9')
+plt.title("Total linear momentum of objects in the system over time", fontsize='9')
 plt.xlabel("Time ($s$)")
 plt.ylabel("Linear momentum ($kgms^{-2}$)")
-#plotLm.legend()
+plotLm.legend()
 plotLm.show()
 plotLm.savefig(save_results_to +'Linear_Momentum_System.png', bbox_inches='tight')
 
