@@ -249,10 +249,11 @@ class n_body_app(object):
             ODE.append(op)
             self.ODE = ODE
         for val in ODE:
-            print(val)
+            print("The integrator chosen is: ", val)
         return ODE
 
     def runfile(self):
+        print("The N-Body Simulation is now running ...")
         self.root.destroy()
 
     def set_text(self, text):
