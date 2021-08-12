@@ -76,10 +76,6 @@ except AttributeError:
     if len(planets) == 1:
         objects = thisdict[planets[0]]
     print(len(objects), " objects have been initialised into the simulation")
-    
-if Another_Sun in objects:
-    objects.remove(Sun)
-    objects.append(Sun_Correction)
 
 """ Defining the list of planets which will be used in the simulation, only the above objects can be placed in"""
 """ Using the objects class to input all the initial variables and initiliase the planets """
