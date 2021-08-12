@@ -308,7 +308,7 @@ for planet in solarsystem.planets:
     plt.plot(t[1:], planet.angular_m[1:-1, 0], (colours)[i],
              label=solarsystem.planets[i].name, linewidth=0.9)
 plt.plot(t, angular.flatten(), linewidth=0.9, label='Total')
-# plt.title("Total angular momentum of objects in the system over time", fontsize='9')
+plt.title("Total angular momentum of objects in the system over time", fontsize='9')
 plt.xlabel("Time ($s$)")
 plt.ylabel("Angular Momentum ($kgm^2s^{-1}$)")
 plotAm.legend()
