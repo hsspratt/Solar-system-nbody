@@ -39,8 +39,8 @@ planets = app.planets
 print(planets)
 objects = []
 
-x = [Sun,  Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Another_Sun, 
-     Another_Sun_2, Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee, 
+x = [Sun,  Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, External_Planet
+     , Butterfly_I, Butterfly_II, Butterfly_III, moth_I, moth_II, moth_III, bumblebee, 
      pythag, pythag_I, Solar_System, Figure_8, Alpha_Centauri, goggles, yarn, yin_yang_I_a, Flower_in_circle]
 
 thisdict = {
@@ -396,7 +396,7 @@ else:
     print("The stablility of the orbit seems to be only valid up till the ", len(total_cor), " time step")
 
 # %% If animation wanted uncomment this section
-"""
+
 cm = plt.cm.get_cmap('tab10')
 colours = cm.colors
 
@@ -456,4 +456,4 @@ prtcl_ani = animation.FuncAnimation(fig, update_particles, frames=data_len, inte
 prtcl_ani.save(save_results_to + "Orbit_Animation.mp4", dpi=450)
 
 # ['black','g','b','gold','y','m','c','r','lime']
-"""
+
