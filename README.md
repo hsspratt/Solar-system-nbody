@@ -19,7 +19,7 @@ If nothing is passed into the GUI, the defult simulatiuon will run being that of
 
 ## Scripts Explained
 
-There are 6 scripts 
+There are 6 scripts. 
 ## Initial conditions which produce sensible orbits
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
