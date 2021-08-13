@@ -19,24 +19,41 @@ If nothing is passed into the GUI, the defult simulatiuon will run being that of
 
 ## Scripts Explained
 
-There are 6 scripts. 
+There are 6 scripts. Objects.py, init_objects.py, solar.py, n_body_app.py, Simulation (GUI).py
+
+### Objects & init_objects
+
+Contains the class Objects which allows variables such as KE, PE and momenta to be saved to very planet in the system. init_objects uses this class to initialise every planet which could possibly be used in the simulation, this ensure that the user can chose any combination of planets or set configuratioins.
+
+### solar
+
+Contains all the functions used for calculating the new positions and energies. The two important functions, one which computes Newtons Laws to feed into the numerical integrator and the second GetEnergies which finds the energies of every particle at every time period.
+
+### n_body_app
+
+Initilaises the GUI and enables the user to input the desired inital conditions
+
+### Simulation (GUI)
+
+**This is the script that needs to be run.** Once run the GUI will pop up and many steps will be printed in the console telling you whats happening with the script.
+
 ## Initial conditions which produce sensible orbits
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
 | :-----------: | :------------: | :------------: | :-----------: | :------------: | :------------: |
 | Solar System   |   31536000   |    100 | 6.6743015e-11 | 25 | RK45 |
 | Figure of Eight  |    6.32591398    |      0.5 | 1 | 25 | RK45 |
-| butterfly_I     |    6.235641    |      1 | 1 | 25 | RK45 |
-| butterfly_II     |    7.0039    |      1 | 1 | 25 | RK45 |
-| butterfly_III     |    13.8658    |      10 | 1 | 25 | RK45 |
-| moth_I     |    14.8939    |      1 | 1 | 25 | RK45 |
-| moth_II     |    28.6703    |      1 | 1 | 25 | RK45 |
-| moth_III     |    25.8406    |      1 | 1 | 25 | RK45 |
-| bumblebee    |    63.5345    |      1 | 1 | 25 | RK45 |
-| goggles    |    10.4668    |      1 | 1 | 25 | RK45 |
-| dragonfly    |    21.2710    |      1 | 1 | 25 | RK45 |
-| yarn    |    63.5345    |      1 | 1 | 25 | RK45 |
-| yin_yang_I_a    |    4.2517    |      1 | 1 | 25 | RK45 |
+| butterfly_I     |    6.235641    |      1 | 1 | 200 | RK45 |
+| butterfly_II     |    7.0039    |      1 | 1 | 200 | RK45 |
+| butterfly_III     |    13.8658    |      1 | 1 | 200 | RK45 |
+| moth_I     |    14.8939    |      1 | 1 | 200 | RK45 |
+| moth_II     |    28.6703    |      1 | 1 | 200 | RK45 |
+| moth_III     |    25.8406    |      1 | 1 | 200 | RK45 |
+| bumblebee    |    63.5345    |      1 | 1 | 200 | RK45 |
+| goggles    |    10.4668    |      1 | 1 | 200 | RK45 |
+| dragonfly    |    21.2710    |      1 | 1 | 200 | RK45 |
+| yarn    |    32.245    |      1 | 1 | 200 | RK45 |
+| yin_yang_I_a    |    4.2517    |      1 | 1 | 200 | RK45 |
 
 
 ## Links
