@@ -17,7 +17,7 @@ After downloading the code folder the program can be started by running **Simula
 
 If nothing is passed into the GUI, the defult simulatiuon will run being that of the Solar System over a 100 period using RK45 as the ODE integrator.
 
-## Scripts Explained
+## Scripts Explained - N Body Simulation
 
 There are 6 scripts. Objects.py, init_objects.py, solar.py, n_body_app.py, Simulation (GUI).py
 
@@ -37,6 +37,14 @@ Initilaises the GUI and enables the user to input the desired inital conditions
 
 **This is the script that needs to be run.** Once run the GUI will pop up and many steps will be printed in the console telling you whats happening with the script.
 
+## Lagrange Script
+
+- This script calculates and plots the Lagrange points for a two body system. Mu is the relative mass : mu = mass[1]/(mass[0]+mass[1])
+- If mu = 0.5, masses are same size. The value of mu can be changed by just editting the value of mu_ratio at top of script
+
+
+
+
 ## Initial conditions which produce sensible orbits
   
 | N body system | Time Period | Number of Periods | Gravitational Constants | Iterations Per Period | ODE Solver |
@@ -54,6 +62,7 @@ Initilaises the GUI and enables the user to input the desired inital conditions
 | dragonfly    |    21.2710    |      1 | 1 | 200 | RK45 |
 | yarn    |    32.245    |      1 | 1 | 200 | RK45 |
 | yin_yang_I_a    |    4.2517    |      1 | 1 | 200 | RK45 |
+
 
 
 ## Links
