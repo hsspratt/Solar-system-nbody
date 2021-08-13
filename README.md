@@ -21,19 +21,19 @@ If nothing is passed into the GUI, the defult simulatiuon will run being that of
 
 There are 6 scripts. Objects.py, init_objects.py, solar.py, n_body_app.py, Simulation (GUI).py
 
-# Objects & init_objects
+### Objects & init_objects
 
 Contains the class Objects which allows variables such as KE, PE and momenta to be saved to very planet in the system. init_objects uses this class to initialise every planet which could possibly be used in the simulation, this ensure that the user can chose any combination of planets or set configuratioins.
 
-# solar
+### solar
 
 Contains all the functions used for calculating the new positions and energies. The two important functions, one which computes Newtons Laws to feed into the numerical integrator and the second GetEnergies which finds the energies of every particle at every time period.
 
-# n_body_app
+### n_body_app
 
 Initilaises the GUI and enables the user to input the desired inital conditions
 
-# Simulation (GUI)
+### Simulation (GUI)
 
 **This is the script that needs to be run.** Once run the GUI will pop up and many steps will be printed in the console telling you whats happening with the script.
 
