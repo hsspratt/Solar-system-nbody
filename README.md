@@ -45,7 +45,7 @@ Initilaises the GUI and enables the user to input the desired inital conditions
 | Figure of Eight  |    6.32591398    |      0.5 | 1 | 25 | RK45 |
 | butterfly_I     |    6.235641    |      1 | 1 | 200 | RK45 |
 | butterfly_II     |    7.0039    |      1 | 1 | 200 | RK45 |
-| butterfly_III     |    13.8658    |      10 | 1 | 200 | RK45 |
+| butterfly_III     |    13.8658    |      1 | 1 | 200 | RK45 |
 | moth_I     |    14.8939    |      1 | 1 | 200 | RK45 |
 | moth_II     |    28.6703    |      1 | 1 | 200 | RK45 |
 | moth_III     |    25.8406    |      1 | 1 | 200 | RK45 |
