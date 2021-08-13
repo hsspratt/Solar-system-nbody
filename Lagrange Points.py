@@ -140,5 +140,3 @@ ax.set_title('Plot of the Effective Potential for $\mu$ = %.2f' %
              (m,), fontsize=16)
 plt.savefig("Lagrange points for \mu = %.2f.svg" %(m,), dpi=600)
 plt.show()
-
-# %%

@@ -140,24 +140,6 @@ F8_planet = Objects('F8_planet',
                     np.array([0, 0, 0]),
                     np.array([0, 0, 0]))
 
-AC1 = Objects('AC1',
-              1.1,
-              np.array([-0.5, 0, 0]),
-              np.array([0.085, 0.05, -0.1]),
-              np.array([0, 0, 0]))
-
-AC2 = Objects('AC2',
-              0.9,
-              np.array([0.5, 0, 0]),
-              np.array([-0.085, -0.05, -0.1]),
-              np.array([0, 0, 0]))
-
-AC_star = Objects('AC_star',
-                  1.0,
-                  np.array([0, 1, 0]),
-                  np.array([0, -0.01, 0]),
-                  np.array([0, 0, 0]))
-
 Objects_I_pos = [-1, 0, 0]
 Objects_II_pos = [1, 0, 0]
 Objects_III_pos = [0, 0, 0]
@@ -444,7 +426,6 @@ Sun_II = Objects('Test Planet 2',
 
 Solar_System = [Sun, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune]
 Figure_8 = [F8_I_1, F8_I_2, F8_I_3]
-Alpha_Centauri = [AC1,AC2]
 Butterfly_I = [Butterfly_I_1, Butterfly_I_2, Butterfly_I_3]
 Butterfly_II = [Butterfly_II_1, Butterfly_II_2, Butterfly_II_3]
 Butterfly_III = [Butterfly_III_1, Butterfly_III_2, Butterfly_III_3]
@@ -456,8 +437,6 @@ goggles = [goggles_1, goggles_2, goggles_3]
 dragonfly = [dragonfly_1, dragonfly_2, dragonfly_3]
 yarn = [yarn_1, yarn_2, yarn_3]
 yin_yang_I_a = [yin_yang_I_a_1, yin_yang_I_a_2, yin_yang_I_a_3]
-
 pythag = [pythag_1, pythag_2, pythag_3]
 pythag_I = [pythag_I_1, pythag_I_2, pythag_I_3]
-
 Flower_in_circle = [Flower_in_circle_1, Flower_in_circle_2, Flower_in_circle_3]

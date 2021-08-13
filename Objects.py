@@ -9,7 +9,6 @@ class Objects():
     acceleration = np.full((1, 3), 0)
     name = ""
     mass = np.full((1, 1), 0)
-
     planets_init = np.full((1, 3), 0)
 
     """Initialisng all the data for each Object - all data stored under its name"""
@@ -28,9 +27,3 @@ class Objects():
         self.linear_m = np.full((1,1),0,dtype=float)
         self.angular_m = np.full((1,1),0,dtype=float)
 
-
-    """Creating a function that solves Newtons Law of gravity to find the acceleration"""
-
-    """Creating a function to calculate the Momentum for each Particle"""
-
-    """Creating a function to calculate the Momentum for each Particle"""

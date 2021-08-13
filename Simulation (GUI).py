@@ -55,7 +55,6 @@ thisdict = {
     'pythag_I': pythag_I,
     'Solar_System': Solar_System,
     'Figure_8': Figure_8,
-    'Alpha_Centauri': Alpha_Centauri,
     'goggles': goggles,
     'yarn': yarn,
     'yin_yang_I_a': yin_yang_I_a,

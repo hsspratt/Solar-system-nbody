@@ -88,7 +88,7 @@ class n_body_app(object):
 
         # All the different combinations avaliable for the simulation
 
-        p = ["Solar_System", "Figure_8", "Alpha_Centauri","Butterfly_I", "Butterfly_II", "Butterfly_III", "moth_I", "moth_II",
+        p = ["Solar_System", "Figure_8","Butterfly_I", "Butterfly_II", "Butterfly_III", "moth_I", "moth_II",
              "moth_III", "bumblebee", "goggles", "dragonfly", "yarn", "yin_yang_I_a", "pythag",
              "pythag_I", "Flower_in_circle"]
 

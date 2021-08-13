@@ -60,11 +60,9 @@ There are 6 scripts.
 
 **Harry Spratt**
 
-- [Profile](https://github.com/hsspratt "Rohit jain")
+- [Profile](https://github.com/hsspratt "Harry")
 - [Email](mailto:ppyhss@nottingham.ac.uk?subject=Hi "Hi!")
 
 ## 🤝 Support
-
-Contributions, issues, and feature requests are welcome!
 
 Give a ⭐️ if you like this project!

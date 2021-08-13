@@ -25,15 +25,6 @@ class SolarSystem:
         for i in range(len(self.planets)):
             planets_init[i].append(self.planets[i].init)
             return planets_init
-
-    """Creating a function that calculates the individual kinetic energy of each Particle and then caculates the total
-    kinetic energy of the simulation by summing the individual kinetic energies of each Particle"""
-
-    """Creating a function that calculates the individual potential energy of each Particle and then caculates the total
-    potential energy of the simulation by summing the individual potential energies of each Particle"""
-
-    """Creating a function that calculates the total energy of the whole simulation by summing the total kinetic energy
-    and total potential energy of the whole system"""
     
     def ThreeBodyEquations(t, sol, G, mass, N, K1, K2):
         """
@@ -123,7 +114,7 @@ class SolarSystem:
         KE = 0.5 * planets_mass * vel**2
 
         total_KE = 0.5 * np.sum(np.sum(planets_mass * vel**2))
-                
+        
         virial_KE = np.average(0.5 * planets_mass * vel**2)
 
         # Potential Energy:
@@ -168,7 +159,7 @@ class SolarSystem:
         total_linear_y = np.sum(linear_momentum, 1)[1]
         total_linear_z = np.sum(linear_momentum, 1)[2]
 
-        # L = np.sum(np.sum(np.triu(mass * vel * np.sqrt(dx**2 + dy**2 + dz**2),1)))
+        # Calculated energies for everytime period
 
         for planet in self.planets:
             for index in range(N):
