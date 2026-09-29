@@ -131,12 +131,12 @@ ax.legend(loc="lower left")
 
 if top == 1:
     ax.view_init(elev=90., azim=90)
-    ax.w_zaxis.line.set_lw(0.)
+    ax.zaxis.line.set_lw(0.)  # w_zaxis was removed in Matplotlib 3.8
     ax.set_zticks([])
-    ax.dist = 7
+    ax.set_box_aspect(None, zoom=10/7)  # replaces ax.dist = 7 (default dist was 10)
 else:
     ax.set_zlabel(r'$z$', fontsize=15)
-ax.set_title('Plot of the Effective Potential for $\mu$ = %.2f' %
+ax.set_title(r'Plot of the Effective Potential for $\mu$ = %.2f' %
              (m,), fontsize=16)
-plt.savefig("Lagrange points for \mu = %.2f.svg" %(m,), dpi=600)
+plt.savefig("Lagrange points for mu = %.2f.svg" %(m,), dpi=600)
 plt.show()
