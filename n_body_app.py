@@ -24,6 +24,7 @@ class n_body_app(object):
         self.rtol = tk.StringVar()
         self.atol = tk.StringVar()
         self.K = tk.IntVar()
+        self.animate = tk.BooleanVar(value=False)
         self.ODE = []
         self.planets = []
 
@@ -188,6 +189,9 @@ class n_body_app(object):
         # login button
         login_button = tk.Button(self.root, text="Check what values are inputted", command=self.login_clicked)
         login_button.place(relx=0.8333, rely=0.72, anchor="center")
+
+        animate_check = tk.Checkbutton(self.root, text="Render orbit animation (video)", variable=self.animate)
+        animate_check.place(relx=0.5, rely=0.84, anchor="center")
 
         Executefile_btn = tk.Button(self.root, text="Run simulation", command=self.runfile)
         Executefile_btn.place(relx=0.5, rely=0.9, anchor="center")

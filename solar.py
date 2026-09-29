@@ -143,18 +143,17 @@ class SolarSystem:
 
         linear_momentum = planets_mass.flatten() * (v-v_com)
 
-        L_linear = np.linalg.norm(linear_momentum, axis=0)
+        # angular momentum L_i = r_i x p_i of every body (N x 3)
+        L_angular = np.cross(r.T, linear_momentum.T)
 
-        L_angular = np.full((N,3),0, dtype=float)
+        # per-body magnitude |L_i|. This used to add the x, y and z components together,
+        # which is not a physical quantity
+        angular_m = np.linalg.norm(L_angular, axis=1)
 
-        angular_m = []
-
-        for i in range(N):
-            L_angular[i,:] = np.cross(np.array([r[:,i]]), np.array([linear_momentum[:,i]])).flatten()
-            angular_m =  np.sum(L_angular, axis=1)
-
-        total_angular = np.sum(angular_m)
-        total_linear = np.sum(L_linear)
+        # The conserved quantities are the VECTOR sums over all bodies, so take the
+        # magnitude of the sum (a sum of magnitudes is not conserved)
+        total_angular = np.linalg.norm(np.sum(L_angular, axis=0))
+        total_linear = np.linalg.norm(np.sum(linear_momentum, axis=1))
         total_linear_x = np.sum(linear_momentum, 1)[0]
         total_linear_y = np.sum(linear_momentum, 1)[1]
         total_linear_z = np.sum(linear_momentum, 1)[2]
